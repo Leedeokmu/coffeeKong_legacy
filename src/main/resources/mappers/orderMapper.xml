@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.spring.mapper.orderMapper">
+
+<!-- 	<resultMap type="com.service.ProductVO" id="Product"> -->
+<!-- 		<id column="p_id" property="p_id"/> -->
+<!-- 		<result column="p_category" property="p_category"/> -->
+<!-- 		<result column="p_name" property="p_name"/> -->
+<!-- 		<result column="p_content" property="p_content"/> -->
+<!-- 		<result column="p_price" property="p_price"/> -->
+<!-- 		<result column="p_mdate" property="p_mdate"/> -->
+<!-- 		<result column="p_rdate" property="p_rdate"/> -->
+<!-- 		<result column="p_img" property="p_img"/> -->
+<!-- 	</resultMap> -->
+	
+<!-- 	<resultMap type="com.service.OrderVO" id="Order"> -->
+<!-- 		<id column="o_id" property="o_id"/> -->
+<!-- 		<result column="u_email" property="u_email"/> -->
+<!-- 		<result column="p_id" property="p_id"/> -->
+<!-- 		<result column="o_qty" property="o_qty"/> -->
+<!-- 		<result column="o_sz" property="o_sz"/> -->
+<!-- 		<result column="o_type" property="o_type"/> -->
+<!-- 		<result column="o_price" property="o_price"/> -->
+<!-- 		<result column="o_rfname" property="o_rfname"/> -->
+<!-- 		<result column="o_rlname" property="o_rlname"/> -->
+<!-- 		<result column="o_phone" property="o_phone"/> -->
+<!-- 		<result column="o_postcode" property="o_postcode"/>	 -->
+<!-- 		<result column="o_addr" property="o_addr"/> -->
+<!-- 		<result column="o_state" property="o_state"/> -->
+<!-- 		<result column="o_date" property="o_date"/> -->
+<!-- 		<association property="pvo" resultMap="Product"/> -->
+<!-- 	</resultMap> -->
+
+<!-- 	<select id="getOrderList" parameterType="hashmap" resultMap="Order"> -->
+<!-- 		<![CDATA[ -->
+<!-- 				SELECT  -->
+<!-- 					*  -->
+<!-- 				FROM ( -->
+<!-- 				SELECT  -->
+<!-- 					ROWNUM RNUM,o_id,p_id,p_name,p_category,p_img,o_qty,o_sz,o_type,o_price,o_rfname,o_rlname,o_phone,o_postcode,o_addr,o_state -->
+<!-- 				FROM ( -->
+<!-- 				SELECT  -->
+<!-- 					o.o_id,o.p_id,p.p_name,p.p_category,p.p_img,o.o_qty,o.o_sz,o.o_type,o.o_price,o.o_rfname,o.o_rlname,o.o_phone,o.o_postcode,o.o_addr, o.o_state -->
+<!-- 				FROM  -->
+<!-- 					tbl_order o INNER JOIN tbl_prod p -->
+<!-- 				ON -->
+<!-- 					o.p_id = p.p_id  -->
+<!-- 				WHERE  -->
+<!-- 					o.u_email = #{email}  -->
+<!-- 				ORDER BY  -->
+<!-- 					o.o_id)) -->
+<!-- 				WHERE  -->
+<!-- 					RNUM >= #{paging.startRow} and RNUM <= #{paging.endRow} -->
+<!-- 			]]> -->
+<!-- 	</select> -->
+<!-- 	<select id="getAllOrderList" parameterType="com.common.Paging" resultMap="Order"> -->
+<!-- 		<![CDATA[ -->
+<!-- 				SELECT  -->
+<!-- 					*  -->
+<!-- 				FROM ( -->
+<!-- 				SELECT  -->
+<!-- 					ROWNUM RNUM,o_id,u_email,p_id,p_name,p_category,p_img,o_qty,o_sz,o_type,o_price,o_rfname,o_rlname,o_phone,o_postcode,o_addr,o_state -->
+<!-- 				FROM ( -->
+<!-- 				SELECT  -->
+<!-- 					o.o_id,o.u_email,o.p_id,p.p_name,p.p_category,p.p_img,o.o_qty,o.o_sz,o.o_type,o.o_price,o.o_rfname,o.o_rlname,o.o_phone,o.o_postcode,o.o_addr, o.o_state -->
+<!-- 				FROM  -->
+<!-- 					tbl_order o INNER JOIN tbl_prod p -->
+<!-- 				ON -->
+<!-- 					o.p_id = p.p_id -->
+<!-- 				ORDER BY -->
+<!-- 					o.o_id)) -->
+<!-- 				WHERE  -->
+<!-- 					RNUM >= #{startRow} and RNUM <= #{endRow} -->
+<!-- 			]]> -->
+<!-- 	</select> -->
+<!-- 	<select id="getOrderTotalCnt" parameterType="String" resultType="Int"> -->
+<!-- 		SELECT count(*) -->
+<!-- 		FROM tbl_order -->
+<!-- 		WHERE u_email=#{email} -->
+<!-- 	</select> -->
+<!-- 	<select id="getAllOrderTotalCnt" resultType="Int"> -->
+<!-- 		SELECT count(*) -->
+<!-- 		FROM tbl_order -->
+<!-- 	</select> -->
+<!-- 	<select id="getOrderDetail" parameterType="Int" resultMap="Order"> -->
+<!-- 		<![CDATA[ -->
+<!-- 			SELECT  -->
+<!-- 				o.o_id,o.p_id,p.p_name,p.p_category,p.p_img,o.o_qty,o.o_sz,o.o_type,o.o_price,o.o_rfname,o.o_rlname,o.o_phone,o.o_postcode,o.o_addr,o.o_state -->
+<!-- 			FROM  -->
+<!-- 				tbl_order o INNER JOIN tbl_prod p  -->
+<!-- 			ON  -->
+<!-- 				o.p_id = p.p_id -->
+<!-- 			WHERE -->
+<!-- 				o.o_id = #{oid} -->
+<!-- 		]]> -->
+<!-- 	</select> -->
+<!-- 	<select id="insertOrder" parameterType="com.service.OrderVO"> -->
+<!-- 		INSERT INTO -->
+<!-- 			tbl_order -->
+<!-- 		VALUES( -->
+<!-- 			seq_oid.nextval,#{u_email},#{p_id},#{o_qty}, #{o_sz}, #{o_type}, #{o_price}, #{o_rfname}, #{o_rlname}, #{o_phone}, #{o_postcode}, #{o_addr},'ready to delivery', sysdate -->
+<!-- 		) -->
+<!-- 	</select> -->
+<!-- 	<update id="updateOrder" parameterType="com.service.OrderVO"> -->
+<!-- 		UPDATE  -->
+<!-- 			tbl_order -->
+<!-- 		SET -->
+<!-- 			o_rfname=#{o_rfname}, o_rlname=#{o_rlname}, o_phone=#{o_phone}, o_postcode=#{o_postcode}, o_addr=#{o_addr} -->
+<!-- 		WHERE -->
+<!-- 			o_id=#{o_id} -->
+<!-- 	</update> -->
+<!-- 	<delete id="deleteOrder" parameterType="Int"> -->
+<!-- 		Delete FROM -->
+<!-- 			tbl_order -->
+<!-- 		WHERE -->
+<!-- 			o_id=#{oid} -->
+<!-- 	</delete> -->
+	
+</mapper>

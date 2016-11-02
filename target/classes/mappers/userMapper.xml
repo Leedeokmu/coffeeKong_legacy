@@ -1,37 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
-<mapper namespace="org.spring.mapper.UserMapper">
-	<select id="login" resultType="org.spring.domain.UserVO">
-		SELECT 
-			userid, userpw, username
-		FROM
-			tbl_user
-		WHERE
-			userid = #{userid} and userpw = #{userpw}
-	</select>
-	<update id="keepLogin" parameterType="hashmap">
-		UPDATE
-			tbl_user
-		SET
-			sessionkey = #{sessionId}, sessionLimit = #{next}
-		WHERE
-			userid = #{userid}
-	</update>	
-	<select id="checkUserWithSessionKey">
-		<![CDATA[[
-		SELECT
-			*
-		FROM
-			tbl_user
-		WHERE
-			sessionkey = #{value} and sessionLimit > now()
-		]]>	
-	</select>
-
-
-
-
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.spring.mapper.userMapper">
+<!-- 	<resultMap id="UserVO" type="com.service.UserVO"> -->
+<!-- 		<id property="u_email" column="u_email" /> -->
+<!-- 		<result property="u_fname" column="u_fname"/> -->
+<!-- 		<result property="u_lname" column="u_lname"/> -->
+<!-- 		<result property="u_pwd" column="u_pwd"/> -->
+<!-- 		<result property="u_point" column="u_point"/> -->
+<!-- 	</resultMap> -->
+	
+<!-- 	<select id="getAUser" parameterType="hashmap" resultType="String"> -->
+<!-- 		SELECT  -->
+<!-- 			u_email -->
+<!-- 		FROM -->
+<!-- 			tbl_user -->
+<!-- 		WHERE u_email = #{userId} AND u_pwd = #{userPwd} -->
+<!-- 	</select> -->
+<!-- 	<select id="getUserDetail" parameterType="String" resultMap="UserVO"> -->
+<!-- 		SELECT -->
+<!-- 			* -->
+<!-- 		FROM -->
+<!-- 			tbl_user -->
+<!-- 		WHERE  -->
+<!-- 			u_email = #{email} -->
+<!-- 	</select> -->
+<!-- 	<select id="getUserTotalCnt" resultType="int"> -->
+<!-- 		SELECT  -->
+<!-- 			count(*) -->
+<!-- 		FROM -->
+<!-- 			tbl_user -->
+<!-- 	</select> -->
+<!-- 	<select id="getUserList" parameterType="com.common.Paging" resultType="com.service.UserVO"> -->
+<!-- 		<![CDATA[ -->
+<!-- 			SELECT * FROM ( -->
+<!-- 			SELECT ROWNUM RNUM,u_email,u_fname,u_lname,u_pwd,u_point FROM( -->
+<!-- 			SELECT u_email,u_fname,u_lname,u_pwd,u_point FROM tbl_user order by u_email) ) -->
+<!-- 			WHERE RNUM >= #{startRow} and RNUM <= #{endRow} -->
+<!-- 		]]> -->
+<!-- 	</select> -->
+<!-- 	<insert id="insertUser" parameterType="com.service.UserVO"> -->
+<!-- 		INSERT INTO -->
+<!-- 			tbl_user -->
+<!-- 		VALUES( -->
+<!-- 			#{u_email},#{u_fname},#{u_lname},#{u_pwd},0 -->
+<!-- 		) -->
+<!-- 	</insert> -->
+<!-- 	<update id="updateUser" parameterType="com.service.UserVO"> -->
+<!-- 		<![CDATA[ -->
+<!-- 		UPDATE -->
+<!-- 			tbl_user -->
+<!-- 		SET -->
+<!-- 			u_fname=#{u_fname}, u_lname=#{u_lname}, u_pwd=#{u_pwd} -->
+<!-- 		WHERE -->
+<!-- 			u_email=#{u_email} -->
+<!-- 		]]> -->
+<!-- 	</update> -->
+<!-- 	<delete id="deleteUser" parameterType="String"> -->
+<!-- 		DELETE -->
+<!-- 			FROM tbl_user -->
+<!-- 		WHERE -->
+<!-- 			u_email=#{email} -->
+<!-- 	</delete> -->
 </mapper>

@@ -41,8 +41,6 @@
 <!-- 			<beans:ref bean="loginInterceptor"/> -->
 <!-- 		</interceptor> -->
 <!-- 		<interceptor> -->
-<!-- 			<mapping path="/sboard/register"/> -->
-<!-- 			<mapping path="/sboard/modify"/> -->
 <!-- 			<mapping path="/sboard/remove"/> -->
 <!-- 			<beans:ref bean="authInterceptor"/> -->
 <!-- 		</interceptor> -->

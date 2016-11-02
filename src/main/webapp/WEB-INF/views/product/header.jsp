@@ -1,0 +1,168 @@
+	<%@ page language="java" contentType="text/html; charset=UTQwF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+<head>
+<c:set var="basePath" value="${pageContext.request.contextPath}"/>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WELCOME, COFFEE KONG</title>
+<link rel="stylesheet" href="${basePath}/css/style.css"/>
+<link href="${basePath}/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="http://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+<script src="${basePath }/js/script.js"></script>
+</head>
+<c:set var="gId" value="${id}"/>
+<script type="text/javascript">
+	$(".p_list img").hover(function(){
+		var i = $(this).find('.pname'); 
+		i.css("color","#d65728");
+	});
+</script>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-md-7 h_title">
+			<span class="h3"><a href="${basePath }/indexCtrl">COFFEE KONG</a></span>
+		</div>
+		<div class="col-md-5 h_nav">
+			<ul class="list-inline">
+				<li>
+					<div class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						ABOUT<span class="caret"></span></a>			    
+				    	<ul class="dropdown-menu" role="menu">
+						    <li><a href="${basePath }/coffeeKong/index.jsp?content=intro">Introduction</a></li>
+						    <li><a href="${basePath }/coffeeKong/index.jsp?content=location">Location</a></li>
+						    <li><a href="${basePath }/coffeeKong/index.jsp?content=contact">Contact us</a></li>
+				      	</ul>
+				    </div>
+				</li>
+				<li>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						SHOP</a><span class="caret"></span>
+				    <ul class="dropdown-menu" role="menu">
+				    	<li class="dropdown-header"><h4>Coffee</h4></li>
+				    	<li><a href="${basePath}/cateListCtrl?cate=SingleOrigins">Single Origins</a></li>
+						<li><a href="${basePath}/cateListCtrl?cate=Blends">Blends</a></li>
+						<li><a href="${basePath}/cateListCtrl?cate=Decafs">Decafs</a></li>
+						<li><a href="${basePath}/cateListCtrl?cate=Light">Light</a></li>
+						<li><a href="${basePath}/cateListCtrl?cate=Medium">Medium</a></li>
+						<li><a href="${basePath}/cateListCtrl?cate=Dark">Dark</a></li>
+				    	<li class="dropdown-header"><h4>Tools</h4></li>
+				    	<li><a href="${basePath}/cateListCtrl?cate=grinder">Grinder</a></li>
+						<li><a href="${basePath}/cateListCtrl?cate=HomeBrewing">Home Brewing</a></li>
+						<li><a href="${basePath}/cateListCtrl?cate=Cups">Cups</a></li>
+				    </ul>
+				</li>
+				<li><a href="${basePath }/coffeeKong/learn/learn.jsp">LEARN</a></li>
+				<c:catch>
+					<c:choose>
+						<c:when test="${gId != null || gId == ''}">
+							<li>
+								<div class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									${gId }<span class="caret"></span></a>	
+									<ul class="dropdown-menu" role="menu">
+										<li><a href="${basePath }/uUpdateCtrl">EDIT MY PROFILE</a></li>
+										<li><a href="${basePath }/uoListCtrl">MY ORDER</a></li>
+										<li><a href="${basePath }/coffeeKong/index.jsp?content=uresign">RESIGN FROM WEBSITE</a></li>
+										<li><a href="${basePath }/coffeeKong/logout.jsp?id=${gId}">LOGOUT</a></li>
+									</ul>
+								</div>
+							</li>
+						</c:when>
+						<c:otherwise>
+							<li><a href="#loginModal" data-toggle="modal">LOGIN</a></li>
+							<li><a href="#joinModal" data-toggle="modal">JOIN</a></li>
+								<div id="loginModal" class="modal fade" role="dialog">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal">&times;</button>
+												<b><h3 class="modal-title">LOGIN</h3></b>
+											</div>
+											<div class="modal-body">
+												<form action="${basePath}/loginCtrl" method="post" name="login">
+													<div class="form-group">
+														<label for="loginId">EMAIL</label>
+														<input type="email" class="form-control" name="iId" id="loginId">
+													</div>
+													<div class="form-group">
+														<label for="loginPw">PASSWORD</label>
+														<input type="password" class="form-control" name="iPwd" id="loginPw">
+													</div>
+													<div class="">
+														<input type="button" value="LOGIN" class="btn btn-default" onclick="loginCheck()">&nbsp;
+														<input type="reset" class="btn btn-default" value="RESET">
+													</div>	
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div id="joinModal" class="modal fade" role="dialog">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal">&times;</button>
+												<b><h3 class="modal-title">REGISTER</h3></b>
+											</div>
+											<div class="modal-body">
+												<form action="${basePath}/joinCtrl" method="POST">
+													<div>
+														<label for="email">EMAIL</label>
+														<input type="email" name="email" id="email" class="form-control" placeholder="Enter Your EMAIL"/>
+													</div>
+													<div>
+														<label for="fname" >FIRSTNAME</label> 
+														<input type="text" name="fname" id="fname" class="form-control" placeholder="Enter Your FIRSTNAME"/>
+														<label for="lname" >LASTNAME</label> 
+														<input type="text" name="lname" id="lname" class="form-control" placeholder="Enter Your LASTNAME"/>
+													</div>
+													<div>
+														<label for="pwd" >PASSWORD</label> 
+														<input type="password" name="pw" id="pwd" class="form-control" placeholder="Enter Your PASSWORD"/>
+													</div>
+													<div>
+														<label for="pwdconfirm" >CONFIRM</label> 
+														<input type="password" name="pwconfirm" id="pwdconfirm" class="form-control" />
+													</div><br />
+													<div>
+														<input type="submit" class="btn btn-default" value="REGISTER"/>&nbsp;&nbsp;
+														<a href="${basePath }/indexCtrl">Back to Main</a>
+													</div>		
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+						</c:otherwise>
+					</c:choose>
+				</c:catch>
+				
+				<li><a href="${basePath }/cListCtrl">CART : <span class="badge">1</span></a></li>
+			</ul>
+		</div>
+	</div>
+	<hr>
+	<div class="row h_nav h_shop" style="margin-right:5em">
+		<ul class="list-inline">
+			<li><a href="${basePath}/cateListCtrl?cate=SingleOrigins">Single Origins</a></li>
+			<li><a href="${basePath}/cateListCtrl?cate=Blends">Blends</a></li>
+			<li><a href="${basePath}/cateListCtrl?cate=Decafs">Decafs</a></li>
+			<li><a href="${basePath}/cateListCtrl?cate=Light">Light</a></li>
+			<li><a href="${basePath}/cateListCtrl?cate=Medium">Medium</a></li>
+			<li><a href="${basePath}/cateListCtrl?cate=Dark">Dark</a></li>
+			<li><a href="${basePath}/cateListCtrl?cate=grinder">Grinder</a></li>
+			<li><a href="${basePath}/cateListCtrl?cate=HomeBrewing">Home Brewing</a></li>
+			<li><a href="${basePath}/cateListCtrl?cate=Cups">Cups</a></li>
+		</ul>
+	</div>
+</div>
+
+<script src="${basePath}/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+</body>
+</html>

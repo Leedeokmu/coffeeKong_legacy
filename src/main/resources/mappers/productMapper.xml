@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.spring.mapper.productMapper">
+<!-- <insert id="insertProd" parameterType="com.service.ProductVO"> -->
+<!-- 	INSERT INTO -->
+<!-- 		tbl_prod -->
+<!-- 	VALUES( -->
+<!-- 		seq_pid.nextval,#{p_category},#{p_name},#{p_content}, #{p_price}, #{p_mdate}, sysdate, #{p_img} -->
+<!-- 	) -->
+<!-- </insert> -->
+<!-- <select id="getProducts" parameterType="com.common.Paging" resultType="com.service.ProductVO"> -->
+<!-- 	<![CDATA[ -->
+<!-- 		SELECT * FROM ( -->
+<!-- 		SELECT ROWNUM RNUM,p_id,p_category,p_name,p_content,p_price,p_mdate,p_rdate,p_img FROM( -->
+<!-- 		SELECT p_id,p_category,p_name,p_content,p_price,p_mdate,p_rdate,p_img FROM tbl_prod order by p_rdate desc) ) -->
+<!-- 		WHERE RNUM >= #{startRow} and RNUM <= #{endRow} -->
+<!-- 	]]> -->
+<!-- </select> -->
+<!-- <select id="getCategory" parameterType="String" resultType="com.service.ProductVO"> -->
+<!-- 	select -->
+<!-- 		* -->
+<!-- 	from -->
+<!-- 		tbl_prod -->
+<!-- 	where -->
+<!-- 		p_category=#{category} -->
+<!-- </select> -->
+<!-- <select id="getProdDetail" parameterType="String" resultType="com.service.ProductVO"> -->
+<!-- 	select -->
+<!-- 		* -->
+<!-- 	from -->
+<!-- 		tbl_prod -->
+<!-- 	where -->
+<!-- 		p_id=#{pId} -->
+<!-- </select> -->
+<!-- <select id="deleteProduct" parameterType="String"> -->
+<!-- 	delete from -->
+<!-- 		tbl_prod -->
+<!-- 	where -->
+<!-- 	 	p_id=#{pId} -->
+<!-- </select> -->
+<!-- <select id="updateProduct" parameterType="com.service.ProductVO"> -->
+<!-- 	update -->
+<!-- 		tbl_prod  -->
+<!-- 	set -->
+<!-- 		p_category=#{p_category}, p_name=#{p_name},p_content=#{p_content}, p_price=#{p_price}, p_mdate=#{p_mdate}, p_img=#{p_img} -->
+<!-- 	where -->
+<!-- 		p_id=#{p_id} -->
+<!-- </select> -->
+<!-- <select id="getProdTotalCnt" resultType="int"> -->
+<!-- 		SELECT  -->
+<!-- 			count(*) -->
+<!-- 		FROM -->
+<!-- 			tbl_prod -->
+<!-- 	</select> -->
+</mapper>
