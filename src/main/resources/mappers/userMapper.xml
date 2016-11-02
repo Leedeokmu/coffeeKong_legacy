@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.spring.mapper.UserMapper">
+	<select id="login" resultType="org.spring.domain.UserVO">
+		SELECT 
+			userid, userpw, username
+		FROM
+			tbl_user
+		WHERE
+			userid = #{userid} and userpw = #{userpw}
+	</select>
+	<update id="keepLogin" parameterType="hashmap">
+		UPDATE
+			tbl_user
+		SET
+			sessionkey = #{sessionId}, sessionLimit = #{next}
+		WHERE
+			userid = #{userid}
+	</update>	
+	<select id="checkUserWithSessionKey">
+		<![CDATA[[
+		SELECT
+			*
+		FROM
+			tbl_user
+		WHERE
+			sessionkey = #{value} and sessionLimit > now()
+		]]>	
+	</select>
+
+
+
+
+</mapper>
