@@ -86,7 +86,7 @@
 	
 	<!-- footer start -->
 	<div id="footer">
-		<jsp:include page="/coffeeKong/footer.jsp"/>
+		<jsp:include page="../footer.jsp"/>
 	</div>
 	<!-- footer end -->
 <script src="http://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>

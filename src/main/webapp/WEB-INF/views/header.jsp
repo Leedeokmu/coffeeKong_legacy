@@ -9,8 +9,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>WELCOME, COFFEE KONG</title>
-<link rel="stylesheet" href="/resources/css/style.css" />
 <link href="/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/resources/css/style.css" />
+<link rel="stylesheet" href="/resources/css/image.css" />
 <script src="/resources/js/script.js"></script>
 </head>
 <c:set var="gId" value="${id}"/>
@@ -18,7 +19,7 @@
 <div class="container">
 	<div class="row ver_center">
 		<div class="col-md-7 h_title">
-			<span class="h3"><strong><a href="${basePath }/indexCtrl">COFFEE KONG</a></strong></span>
+			<span class="h3"><strong><a href="/index">COFFEE KONG</a></strong></span>
 		</div>
 		<div class="col-md-5 h_nav">
 			<ul class="list-inline">
@@ -27,9 +28,9 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 						ABOUT<span class="caret"></span></a>			    
 				    	<ul class="dropdown-menu" role="menu">
-						    <li><a href="/index?content=intro">Introduction</a></li>
-						    <li><a href="/index?content=location">Location</a></li>
-						    <li><a href="/index?content=contact">Contact us</a></li>
+						    <li><a href="/info/intro">Introduction</a></li>
+						    <li><a href="/info/location">Location</a></li>
+						    <li><a href="/info/contact">Contact us</a></li>
 				      	</ul>
 				    </div>
 				</li>
@@ -38,19 +39,21 @@
 						SHOP</a><span class="caret"></span>
 				    <ul class="dropdown-menu" role="menu">
 				    	<li class="dropdown-header"><h4>Coffee</h4></li>
-				    	<li><a href="${basePath}/cateListCtrl?cate=SingleOrigins">Single Origins</a></li>
-						<li><a href="${basePath}/cateListCtrl?cate=Blends">Blends</a></li>
-						<li><a href="${basePath}/cateListCtrl?cate=Decafs">Decafs</a></li>
-						<li><a href="${basePath}/cateListCtrl?cate=Light">Light</a></li>
-						<li><a href="${basePath}/cateListCtrl?cate=Medium">Medium</a></li>
-						<li><a href="${basePath}/cateListCtrl?cate=Dark">Dark</a></li>
+				    	<li><a href="/product/list/Blends">Blends</a></li>
+						<li><a href="/product/list/Decafs">Decafs</a></li>
+						<li><a href="/product/list/Light">Light</a></li>
+						<li><a href="/product/list/Medium">Medium</a></li>
+						<li><a href="/product/list/Dark">Dark</a></li>
 				    	<li class="dropdown-header"><h4>Tools</h4></li>
-				    	<li><a href="${basePath}/cateListCtrl?cate=grinder">Grinder</a></li>
-						<li><a href="${basePath}/cateListCtrl?cate=HomeBrewing">Home Brewing</a></li>
-						<li><a href="${basePath}/cateListCtrl?cate=Cups">Cups</a></li>
+				    	<li><a href="/product/list/grinder">Grinder</a></li>
+						<li><a href="/product/list/HomeBrewing">Home Brewing</a></li>
+						<li><a href="/product/list/Cups">Cups</a></li>
+				
+				
+						
 				    </ul>
 				</li>
-				<li><a href="/learn/learn">LEARN</a></li>
+				<li><a href="/learn">LEARN</a></li>
 				
 				<c:catch>
 					<c:choose>
@@ -143,6 +146,23 @@
 			</ul>
 		</div>
 	</div>
+	<c:if test="${category != null }">
+		
+		<hr>
+		<div class="row h_nav h_shop" style="margin-right:5em">
+			<ul class="list-inline">
+				<li><a href="/product/list/SingleOrigins">Single Origins</a></li>
+				<li><a href="/product/list/Blends">Blends</a></li>
+				<li><a href="/product/list/Decafs">Decafs</a></li>
+				<li><a href="/product/list/Light">Light</a></li>
+				<li><a href="/product/list/Medium">Medium</a></li>
+				<li><a href="/product/list/Dark">Dark</a></li>
+				<li><a href="/product/list/grinder">Grinder</a></li>
+				<li><a href="/product/list/HomeBrewing">Home Brewing</a></li>
+				<li><a href="/product/list/Cups">Cups</a></li>
+			</ul>
+		</div>
+	</c:if>
 </div>
 <script src="http://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
 <script src="/resources/bootstrap/js/bootstrap.min.js"></script>

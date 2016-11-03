@@ -20,7 +20,8 @@
 <!-- 	Database Information -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
-		<property name="url" value="jdbc:log4jdbc:oracle:thin@localhost:1521:XE"></property>
+		<property name="url" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:XE"></property>
+									
 		<property name="username" value="projectspr"></property>
 		<property name="password" value="oracle"></property>
 	</bean>
@@ -32,15 +33,18 @@
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
 	</bean>
-<!-- 	transaction -->
-<!-- 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> -->
-<!-- 		<property name="dataSource" ref="dataSource"></property> -->
-<!-- 	</bean> -->
-<!-- 	<tx:annotation-driven/> -->
-
-<!-- 	context scanner -->
+	
+	<!-- 	context scanner -->
 	<context:component-scan base-package="org.spring.persistence"></context:component-scan>
 	<context:component-scan base-package="org.spring.service"></context:component-scan>
+
+	<!-- 	transaction -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<tx:annotation-driven/>
+
+
 	
 	
 	<aop:config></aop:config>

@@ -12,30 +12,30 @@
 </head>
 <c:set var="basePath" value="${pageContext.request.contextPath }"/>
 <c:choose>
-	<c:when test="${param.content ==null || param.content == ''}">
-		<c:set var="content" value="/coffeeKong/content.jsp" />
+	<c:when test="${content ==null || param.content == ''}">
+		<c:set var="content" value="/content.jsp" />
 	</c:when>
-	<c:when test="${param.content.equals('plist') }">
-		<c:set var="content" value="/coffeeKong/product/pList.jsp" />
+	<c:when test="${content.equals('list') }">
+		<c:set var="content" value="./pList.jsp" />
 	</c:when>
-	<c:when test="${param.content.equals('pdetail') }">
-		<c:set var="content" value="/coffeeKong/product/pDetail.jsp" />
+	<c:when test="${content.equals('detail') }">
+		<c:set var="content" value="./pDetail.jsp" />
 	</c:when>
-	<c:when test="${param.content.equals('order') }">
-		<c:set var="content" value="/coffeeKong/product/order.jsp" />
+	<c:when test="${content.equals('order') }">
+		<c:set var="content" value="./order.jsp" />
 	</c:when>
-	<c:when test="${param.content.equals('ocompl') }">
-		<c:set var="content" value="/coffeeKong/product/orderComplete.jsp" />
+	<c:when test="${content.equals('ocompl') }">
+		<c:set var="content" value="./orderComplete.jsp" />
 	</c:when>
-	<c:when test="${param.content.equals('preview') }">
-		<c:set var="content" value="/coffeeKong/product/review.jsp" />
+	<c:when test="${content.equals('review') }">
+		<c:set var="content" value="./review.jsp" />
 	</c:when>
 </c:choose>
 <body>
 
 <div id="container">
 <!-- header start-->
-	<div id="header"><jsp:include page="/coffeeKong/product/header.jsp"/></div>
+	<div id="header"><jsp:include page="../header.jsp"/></div>
 <!-- header end-->
 
 <!-- content start -->
@@ -43,7 +43,7 @@
 <!-- content start -->
 
 <!-- footer start -->
-	<div id="footer"><jsp:include page="/coffeeKong/footer.jsp"/></div>
+	<div id="footer"><jsp:include page="../footer.jsp"/></div>
 <!-- footer start -->
 </div>
 </body>

@@ -11,16 +11,16 @@
 <title></title>
 </head>
 <c:choose>
-	<c:when test="${param.brew eq null || param.brew eq ''}">
+	<c:when test="${content eq null || param.brew eq ''}">
 		<c:set var="brew_content" value="./brew_list.jsp" />
 	</c:when>
-	<c:when test="${param.brew.equals('french') }">
+	<c:when test="${content.equals('french') }">
 		<c:set var="brew_content" value="./brew_french.jsp" />
 	</c:when>
-	<c:when test="${param.brew.equals('clever') }">
+	<c:when test="${content.equals('clever') }">
 		<c:set var="brew_content" value="./brew_clever.jsp" />
 	</c:when>
-	<c:when test="${param.brew.equals('chemex') }">
+	<c:when test="${content.equals('chemex') }">
 		<c:set var="brew_content" value="./brew_chemex.jsp" />
 	</c:when>
 	<c:otherwise>

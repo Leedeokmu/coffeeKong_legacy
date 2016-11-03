@@ -11,43 +11,37 @@
 <title>WELCOME TO COFFEE KONG.</title>
 </head>
 <c:choose>
-	<c:when test="${param.content == null || param.content == '' }">
+	<c:when test="${content == null || content == '' }">
 		<c:set var="content" value="./index_init.jsp"/>	
 	</c:when>
-	<c:when test="${param.content.equals('join')}">
-		<c:set var="content" value="./join.jsp"/>
-	</c:when>
-	<c:when test="${param.content.equals('login')}">
-		<c:set var="content" value="./login.jsp"/>
-	</c:when>
-	<c:when test="${param.content.equals('intro')}">
+	<c:when test="${content.equals('intro')}">
 		<c:set var="content" value="./information/intro.jsp"/>
 	</c:when>
-	<c:when test="${param.content.equals('location')}">
+	<c:when test="${content.equals('location')}">
 		<c:set var="content" value="./information/location.jsp"/>
 	</c:when>
-	<c:when test="${param.content.equals('contact')}">
+	<c:when test="${content.equals('contact')}">
 		<c:set var="content" value="./information/contact.jsp"/>
 	</c:when>
-	<c:when test="${param.content.equals('uupdate')}">
+	<c:when test="${content.equals('uupdate')}">
 		<c:set var="content" value="./user/uUpdate.jsp"/>
 	</c:when>
-	<c:when test="${param.content.equals('uucompl')}">
+	<c:when test="${content.equals('uucompl')}">
 		<c:set var="content" value="./user/uUpdateComplete.jsp"/>
 	</c:when>
-	<c:when test="${param.content.equals('uolist')}">
+	<c:when test="${content.equals('uolist')}">
 		<c:set var="content" value="./user/uOrderList.jsp"/>
 	</c:when>
-	<c:when test="${param.content.equals('uodetail')}">
+	<c:when test="${content.equals('uodetail')}">
 		<c:set var="content" value="./user/uOrderDetail.jsp"/>
 	</c:when>
-	<c:when test="${param.content.equals('uresign')}">
+	<c:when test="${content.equals('uresign')}">
 		<c:set var="content" value="./user/uResign.jsp"/>
 	</c:when>
-	<c:when test="${param.content.equals('urcompl')}">
+	<c:when test="${content.equals('urcompl')}">
 		<c:set var="content" value="./user/uResignComplete.jsp"/>
 	</c:when>
-	<c:when test="${param.content.equals('cart')}">
+	<c:when test="${content.equals('cart')}">
 		<c:set var="content" value="./user/cart.jsp"/>
 	</c:when>
 </c:choose>

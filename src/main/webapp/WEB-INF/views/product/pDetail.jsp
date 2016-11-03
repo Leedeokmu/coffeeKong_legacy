@@ -12,25 +12,24 @@
 <title>Insert title here</title>
 <link href="${basePath}/bootstrap-3.3.7-dist/css/my-css.css" rel="stylesheet">
 </head>
-<c:set var="vo" value="${aProduct}"/>
 <c:set var="list" value="${reviews }" />
 <body>
 	<form method="POST" action="${basePath }/cInsertCtrl" name="uForm">
-		<input type="hidden" name="pId" value="${vo.p_id}">
+		<input type="hidden" name="pId" value="${pvo.p_id}">
 		<input type="hidden" name="gId" value="${id}">
 		<input type="hidden" name="pTotal" id="pTotal">
 		<input type="hidden" name="pQty" id="pQty">
 		<div class="container">
 			<br>
 			<div style="margin:2px;float:left;">
-				<img src="${vo.p_img }" width="400" height="400" alt="productIcon"/>	
+				<img src="${pvo.p_img }" width="400" height="400" alt="productIcon"/>	
 			</div>
 			<div style="margin:10px;float:left;margin-left:150px">
 				<div>
-					<h3>Name: ${vo.p_name }</h3>
+					<h3>Name: ${pvo.p_name }</h3>
 				</div>
 				<div>
-					<h3>Price: <b id="price">${vo.p_price}</b></h3>	
+					<h3>Price: <b id="price">${pvo.p_price}</b></h3>	
 				</div>
 				<div>
 					<h3>Quantity:<button type="button" id="minus" onClick="decrease()">-</button> <b class="qty">1</b> <button type="button" id="plus" onClick="increase()">+</button></h3>
@@ -39,7 +38,7 @@
 					<h3>Total price(qty):<b id="total"></b></h3>
 				</div>
 				<c:choose>
-					<c:when test="${vo.p_category eq 'SingleOrigins' || vo.p_category eq 'Blends' ||vo.p_category eq 'Decafs' ||vo.p_category eq 'Light' ||vo.p_category eq 'Medium' ||vo.p_category eq 'Dark' ||vo.p_category eq 'ColdBrew'}">	
+					<c:when test="${pvo.p_category eq 'SingleOrigins' || pvo.p_category eq 'Blends' ||pvo.p_category eq 'Decafs' ||pvo.p_category eq 'Light' ||pvo.p_category eq 'Medium' ||pvo.p_category eq 'Dark' ||pvo.p_category eq 'ColdBrew'}">	
 						<div>
 							<div>
 							Size:
@@ -72,38 +71,38 @@
 				<hr>
 					<h3>Product Info</h3>
 				<hr>
-				<p>${vo.p_content}</p>
+				<p>${pvo.p_content}</p>
 			</div>
 			
 			<div style="clear:both;text-align:center;">
 				<hr>
-					<h3>Review</h3><div style="margin-left:400px;margin-top:-31px"><a href="reviewCtrl?pId=${vo.p_id}">[WRITE]</a></div>
+					<h3>Review</h3><div style="margin-left:400px;margin-top:-31px"><a href="reviewCtrl?pId=${pvo.p_id}">[WRITE]</a></div>
 				<hr>
 				<div>in the recent order<hr></div>
 				<div>
-					<c:forEach var="rVo" items="${list}">
+					<c:forEach var="rvo" items="${list}">
 						<div>
-							<div>${rVo.u_email }</div>
-							<div><span class='star-rating'><span id="${rVo.r_grade }"></span></span></div>
-							<div>${rVo.r_date }&nbsp;&nbsp;&nbsp;${vo.p_name }</div>
-							<div><br>${rVo.r_content }</div>
+							<div>${rvo.u_email }</div>
+							<div><span class='star-rating'><span id="${rvo.r_grade }"></span></span></div>
+							<div>${rvo.r_date }&nbsp;&nbsp;&nbsp;${pvo.p_name }</div>
+							<div><br>${rvo.r_content }</div>
 							<div>
 								<c:choose>
-									<c:when test="${rVo.r_img1 eq 'null'}"></c:when>
+									<c:when test="${rvo.r_img1 eq 'null'}"></c:when>
 									<c:otherwise>
-										<img src="${rVo.r_img1 }" width="100" height="100" alt="reviewIcon"/>	
+										<img src="${rvo.r_img1 }" width="100" height="100" alt="reviewIcon"/>	
 									</c:otherwise>
 								</c:choose>
 								<c:choose>
-									<c:when test="${rVo.r_img2 eq 'null'}"></c:when>
+									<c:when test="${rvo.r_img2 eq 'null'}"></c:when>
 									<c:otherwise>
-										<img src="${rVo.r_img2 }" width="100" height="100" alt="reviewIcon"/>	
+										<img src="${rvo.r_img2 }" width="100" height="100" alt="reviewIcon"/>	
 									</c:otherwise>
 								</c:choose>
 								<c:choose>
-									<c:when test="${rVo.r_img3 eq 'null'}"></c:when>
+									<c:when test="${rvo.r_img3 eq 'null'}"></c:when>
 									<c:otherwise>
-										<img src="${rVo.r_img3 }" width="100" height="100" alt="reviewIcon"/>	
+										<img src="${rvo.r_img3 }" width="100" height="100" alt="reviewIcon"/>	
 									</c:otherwise>
 								</c:choose>
 							</div>
@@ -117,7 +116,7 @@
 	</form>
 </body>
 <script type="text/javascript">
-var p_price="${vo.p_price}";
+var p_price="${pvo.p_price}";
 var qty=1;
 var total=0;
 var type=1;

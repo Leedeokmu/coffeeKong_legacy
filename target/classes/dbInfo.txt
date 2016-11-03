@@ -56,12 +56,9 @@ CREATE TABLE tbl_review(
 	r_id number(5) not null,
 	p_id number(5) not null,
 	u_email varchar2(200 byte),
-	r_grade varchar2(200 byte) not null,
+	r_grade varchar2(200 byte),
 	r_content varchar2(2000 byte),
 	r_date date default sysdate,
-	r_img1 varchar2(2000 byte),
-	r_img2 varchar2(2000 byte),
-	r_img3 varchar2(2000 byte),
 	CONSTRAINT pk_rid PRIMARY KEY(r_id),
 	CONSTRAINT fk_r_pid FOREIGN KEY(p_id) 
 	REFERENCES tbl_prod(p_id),
@@ -76,9 +73,6 @@ CREATE TABLE tbl_review(
 	r_grade varchar2(200 byte) not null,
 	r_content varchar2(2000 byte),
 	r_date date default sysdate,
-	r_img1 varchar2(2000 byte),
-	r_img2 varchar2(2000 byte),
-	r_img3 varchar2(2000 byte),
 	CONSTRAINT pk_rid PRIMARY KEY(r_id),
 	CONSTRAINT fk_r_pid FOREIGN KEY(p_id) 
 	REFERENCES tbl_prod(p_id) ON DELETE CASCADE,
@@ -94,11 +88,7 @@ DROP TABLE tbl_order;
 CREATE TABLE tbl_order(
 	o_id number(5) not null,
 	u_email varchar2(100byte) not null,
-	p_id number(5) not null,
-	o_qty number(5) not null,
-	o_sz varchar2(100 byte),
-	o_type varchar2(100 byte),
-	o_price number(20,5) not null,
+	o_prod varchar2(2000byte) not null, ----- JSON object(CartVO)
 	o_rfname varchar2(100 byte) not null,
 	o_rlname varchar2(100 byte) not null,
 	o_phone varchar2(200 byte) not null,
