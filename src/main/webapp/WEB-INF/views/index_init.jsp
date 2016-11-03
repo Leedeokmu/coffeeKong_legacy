@@ -16,7 +16,7 @@
 <body>
 	<br />
 	<div class="container">
-		<div id="myCarousel" class="carousel slide" data-ride="carousel" style="height:400px !important;">
+		<div id="coffeeCarousel" class="carousel slide" data-ride="carousel" style="height:400px !important;">
 		    <ol class="carousel-indicators">
 		      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
 		      <li data-target="#myCarousel" data-slide-to="1"></li>
@@ -26,24 +26,26 @@
 			<!-- Wrapper for slides -->
 			<div class="carousel-inner" role="listbox">
 				<div class="item active">
-					<img src="${basePath}/coffeeKong/img/coffee-beans.jpg" alt="">
+					<a href="">
+						<img src="/resources/dist/img/coffee-beans.jpg" alt="">
+					</a>
 				</div>
 				<div class="item">
-					<img src="${basePath}/coffeeKong/img/coffee-grind.jpg" alt="">
+					<img src="/resources/dist/img/coffee-grind.jpg" alt="">
 				</div>
 				<div class="item">
-					<img src="${basePath}/coffeeKong/img/coffee-cup.jpg" alt="">
+					<img src="/resources/dist/img/coffee-cup.jpg" alt="">
 				</div>
 				<div class="item">
-					<img src="${basePath}/coffeeKong/img/coffee-ground.jpg" alt="">
+					<img src="/resources/dist/img/coffee-ground.jpg" alt="">
 				</div>
 			</div>
 			<!-- Left and right controls -->
-			<a class="left carousel-control" href="#myCarousel" role="button"
+			<a class="left carousel-control" href="#coffeeCarousel" role="button"
 				data-slide="prev"> <span
 				class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
 				<span class="sr-only">Previous</span>
-			</a> <a class="right carousel-control" href="#myCarousel" role="button"
+			</a> <a class="right carousel-control" href="#coffeeCarousel" role="button"
 				data-slide="next"> <span
 				class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 				<span class="sr-only">Next</span>
@@ -58,9 +60,10 @@
 						<c:set var="check_array" value="${fn:split(checks,',')}" />
 						<div class="col-md-4 text-center">
 							<div>
-								<a href="${basePath }/pDetailCtrl?pId=${currentCookie.value.name}"><img
-									src="${check_array[0] }" width="280" height="280"
-									alt="productIcon" /></a>
+								<a href="${basePath }/pDetailCtrl?pId=${currentCookie.value.name}">
+									<img src="${check_array[0] }" width="280" height="280"
+									alt="prod_pic" />
+								</a>
 							</div>
 							<div>${check_array[1] }</div>
 						</div>

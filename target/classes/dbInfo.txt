@@ -108,7 +108,7 @@ CREATE TABLE tbl_order(
 	o_date date default sysdate,
 	CONSTRAINT pk_oid PRIMARY KEY(o_id),
 	CONSTRAINT fk_o_pid FOREIGN KEY(p_id) 
-	REFERENCES tbl_prod(p_id,
+	REFERENCES tbl_prod(p_id),
 	CONSTRAINT fk_o_uid FOREIGN KEY(u_email) 
 	REFERENCES tbl_user(u_email)
 );

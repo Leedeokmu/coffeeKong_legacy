@@ -19,7 +19,7 @@
 <body>
 	<div class="container">
 		<div class="intro_img">
-			<img src="${basePath }/coffeeKong/img/happy.jpg" class="img-responsive img-rounded" alt="happy" style="border:1px solid #aaaaaa;width:50%;height:50%"/>
+			<img src="/resources/dist/img/happy.jpg" class="img-responsive img-rounded" alt="happy" style="border:1px solid #aaaaaa;width:50%;height:50%"/>
 		</div>
 		<div class="text-center u_title">
 			<h2 class="text-center">WE ARE THE WORLD!</h2>

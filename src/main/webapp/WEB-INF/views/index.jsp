@@ -12,50 +12,50 @@
 </head>
 <c:choose>
 	<c:when test="${param.content == null || param.content == '' }">
-		<c:set var="content" value="/coffeeKong/index_init.jsp"/>	
+		<c:set var="content" value="./index_init.jsp"/>	
 	</c:when>
 	<c:when test="${param.content.equals('join')}">
-		<c:set var="content" value="/coffeeKong/join.jsp"/>
+		<c:set var="content" value="./join.jsp"/>
 	</c:when>
 	<c:when test="${param.content.equals('login')}">
-		<c:set var="content" value="/coffeeKong/login.jsp"/>
+		<c:set var="content" value="./login.jsp"/>
 	</c:when>
 	<c:when test="${param.content.equals('intro')}">
-		<c:set var="content" value="/coffeeKong/information/intro.jsp"/>
+		<c:set var="content" value="./information/intro.jsp"/>
 	</c:when>
 	<c:when test="${param.content.equals('location')}">
-		<c:set var="content" value="/coffeeKong/information/location.jsp"/>
+		<c:set var="content" value="./information/location.jsp"/>
 	</c:when>
 	<c:when test="${param.content.equals('contact')}">
-		<c:set var="content" value="/coffeeKong/information/contact.jsp"/>
+		<c:set var="content" value="./information/contact.jsp"/>
 	</c:when>
 	<c:when test="${param.content.equals('uupdate')}">
-		<c:set var="content" value="/coffeeKong/user/uUpdate.jsp"/>
+		<c:set var="content" value="./user/uUpdate.jsp"/>
 	</c:when>
 	<c:when test="${param.content.equals('uucompl')}">
-		<c:set var="content" value="/coffeeKong/user/uUpdateComplete.jsp"/>
+		<c:set var="content" value="./user/uUpdateComplete.jsp"/>
 	</c:when>
 	<c:when test="${param.content.equals('uolist')}">
-		<c:set var="content" value="/coffeeKong/user/uOrderList.jsp"/>
+		<c:set var="content" value="./user/uOrderList.jsp"/>
 	</c:when>
 	<c:when test="${param.content.equals('uodetail')}">
-		<c:set var="content" value="/coffeeKong/user/uOrderDetail.jsp"/>
+		<c:set var="content" value="./user/uOrderDetail.jsp"/>
 	</c:when>
 	<c:when test="${param.content.equals('uresign')}">
-		<c:set var="content" value="/coffeeKong/user/uResign.jsp"/>
+		<c:set var="content" value="./user/uResign.jsp"/>
 	</c:when>
 	<c:when test="${param.content.equals('urcompl')}">
-		<c:set var="content" value="/coffeeKong/user/uResignComplete.jsp"/>
+		<c:set var="content" value="./user/uResignComplete.jsp"/>
 	</c:when>
 	<c:when test="${param.content.equals('cart')}">
-		<c:set var="content" value="/coffeeKong/user/cart.jsp"/>
+		<c:set var="content" value="./user/cart.jsp"/>
 	</c:when>
 </c:choose>
 <body>
 	<div>
 	<!-- header start-->
 		<div id="header">
-			<jsp:include page="/coffeeKong/header.jsp"/>
+			<jsp:include page="./header.jsp"/>
 		</div>
 	<!-- header end-->
 	<!-- content start -->
@@ -65,7 +65,7 @@
 	<!-- content end -->
 	<!-- footer start -->
 		<div id="footer">
-			<jsp:include page="/coffeeKong/footer.jsp"/>
+			<jsp:include page="./footer.jsp"/>
 		</div>
 	<!-- footer start -->
 	</div>

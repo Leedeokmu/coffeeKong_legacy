@@ -9,9 +9,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>WELCOME, COFFEE KONG</title>
-<link rel="stylesheet" href="${basePath}/css/style.css" />
-<link href="${basePath}/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="${basePath }/js/script.js"></script>
+<link rel="stylesheet" href="/resources/css/style.css" />
+<link href="/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<script src="/resources/js/script.js"></script>
 </head>
 <c:set var="gId" value="${id}"/>
 <body>
@@ -27,9 +27,9 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 						ABOUT<span class="caret"></span></a>			    
 				    	<ul class="dropdown-menu" role="menu">
-						    <li><a href="${basePath }/coffeeKong/index.jsp?content=intro">Introduction</a></li>
-						    <li><a href="${basePath }/coffeeKong/index.jsp?content=location">Location</a></li>
-						    <li><a href="${basePath }/coffeeKong/index.jsp?content=contact">Contact us</a></li>
+						    <li><a href="/index?content=intro">Introduction</a></li>
+						    <li><a href="/index?content=location">Location</a></li>
+						    <li><a href="/index?content=contact">Contact us</a></li>
 				      	</ul>
 				    </div>
 				</li>
@@ -50,7 +50,7 @@
 						<li><a href="${basePath}/cateListCtrl?cate=Cups">Cups</a></li>
 				    </ul>
 				</li>
-				<li><a href="${basePath }/coffeeKong/learn/learn.jsp">LEARN</a></li>
+				<li><a href="/learn/learn">LEARN</a></li>
 				
 				<c:catch>
 					<c:choose>
@@ -62,8 +62,8 @@
 									<ul class="dropdown-menu" role="menu">
 										<li><a href="${basePath }/uUpdateCtrl">EDIT MY PROFILE</a></li>
 										<li><a href="${basePath }/uoListCtrl">MY ORDER</a></li>
-										<li><a href="${basePath }/coffeeKong/index.jsp?content=uresign">RESIGN FROM WEBSITE</a></li>
-										<li><a href="${basePath }/coffeeKong/logout.jsp?id=${gId}">LOGOUT</a></li>
+										<li><a href="./index?content=uresign">RESIGN FROM WEBSITE</a></li>
+										<li><a href="./logout?id=${gId}">LOGOUT</a></li>
 									</ul>
 								</div>
 							</li>
@@ -145,6 +145,6 @@
 	</div>
 </div>
 <script src="http://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
-<script src="${basePath}/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script src="/resources/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

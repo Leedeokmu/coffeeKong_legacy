@@ -12,25 +12,25 @@
 </head>
 <c:choose>
 	<c:when test="${param.brew eq null || param.brew eq ''}">
-		<c:set var="brew_content" value="/coffeeKong/learn/brew_list.jsp" />
+		<c:set var="brew_content" value="./brew_list.jsp" />
 	</c:when>
 	<c:when test="${param.brew.equals('french') }">
-		<c:set var="brew_content" value="/coffeeKong/learn/brew_french.jsp" />
+		<c:set var="brew_content" value="./brew_french.jsp" />
 	</c:when>
 	<c:when test="${param.brew.equals('clever') }">
-		<c:set var="brew_content" value="/coffeeKong/learn/brew_clever.jsp" />
+		<c:set var="brew_content" value="./brew_clever.jsp" />
 	</c:when>
 	<c:when test="${param.brew.equals('chemex') }">
-		<c:set var="brew_content" value="/coffeeKong/learn/brew_chemex.jsp" />
+		<c:set var="brew_content" value="./brew_chemex.jsp" />
 	</c:when>
 	<c:otherwise>
-		<c:set var="brew_content" value="/coffeeKong/learn/brew_list.jsp" />
+		<c:set var="brew_content" value="./brew_list.jsp" />
 	</c:otherwise>
 </c:choose>
 <body>
 	<div>
 		<div id="header">
-			<jsp:include page="/coffeeKong/header.jsp"></jsp:include>
+			<jsp:include page="../header.jsp"></jsp:include>
 		</div>
 
 		<div id="content">
@@ -38,7 +38,7 @@
 		</div>
 
 		<div id="footer">
-			<jsp:include page="/coffeeKong/footer.jsp"></jsp:include>
+			<jsp:include page="../footer.jsp"></jsp:include>
 		</div>
 	</div>
 </body>

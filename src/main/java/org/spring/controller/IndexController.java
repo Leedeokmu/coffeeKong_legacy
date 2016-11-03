@@ -15,17 +15,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * Handles requests for the application home page.
  */
 @Controller
-public class HomeController {
+public class IndexController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
 	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String index(Locale locale, Model model) {
-
+	public String index() {
+		logger.info("index ############################");
 		return "index";
 	}
+	@RequestMapping(value = "/learn/learn", method = RequestMethod.GET)
+	public String learn() {
+		logger.info("learn ############################");
+		return "/learn/learn";
+	}
+	
 	
 }
