@@ -23,6 +23,9 @@
 	<c:when test="${content.equals('contact')}">
 		<c:set var="content" value="./information/contact.jsp"/>
 	</c:when>
+	<c:when test="${content.equals('login')}">
+		<c:set var="content" value="./login.jsp"/>
+	</c:when>
 	<c:when test="${content.equals('uupdate')}">
 		<c:set var="content" value="./user/uUpdate.jsp"/>
 	</c:when>

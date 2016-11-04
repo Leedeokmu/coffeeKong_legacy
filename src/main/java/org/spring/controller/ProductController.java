@@ -38,6 +38,4 @@ public class ProductController {
 		model.addAttribute("content", "detail");
 		return "/product/product";
 	}
-	
-	
 }

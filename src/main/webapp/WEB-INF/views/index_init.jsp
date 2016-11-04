@@ -53,23 +53,8 @@
 		</div>
 		<hr />
 		<div class="row">
-			<c:forEach items="${cookie}" var="currentCookie" begin="0" end="2" step="1">
-				<c:choose>
-					<c:when test="${currentCookie.value.name ne 'JSESSIONID'}">
-						<c:set var="checks" value="${currentCookie.value.value}" />
-						<c:set var="check_array" value="${fn:split(checks,',')}" />
-						<div class="col-md-4 text-center">
-							<div>
-								<a href="${basePath }/pDetailCtrl?pId=${currentCookie.value.name}">
-									<img src="${check_array[0] }" width="280" height="280"
-									alt="prod_pic" />
-								</a>
-							</div>
-							<div>${check_array[1] }</div>
-						</div>
-					</c:when>
-				</c:choose>
-			</c:forEach>
+			
+			
 		</div>
 	</div>
 </body>

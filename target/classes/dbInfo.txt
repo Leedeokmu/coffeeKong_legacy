@@ -19,6 +19,8 @@ CREATE TABLE tbl_user(
 	u_lname varchar2(100 byte) not null,
 	u_pwd varchar2(100 byte) not null,
 	u_point number(10) default 0,
+	sess_id varchar2(50) default 'none',
+	sess_limit timestamp,
 	CONSTRAINT pk_uemail PRIMARY KEY(u_email)
 );
 

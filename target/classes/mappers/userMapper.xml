@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.spring.mapper.userMapper">
+<mapper namespace="org.spring.mapper.UserMapper">
 <!-- 	<resultMap id="UserVO" type="com.service.UserVO"> -->
 <!-- 		<id property="u_email" column="u_email" /> -->
 <!-- 		<result property="u_fname" column="u_fname"/> -->
@@ -9,13 +9,49 @@
 <!-- 		<result property="u_point" column="u_point"/> -->
 <!-- 	</resultMap> -->
 	
-<!-- 	<select id="getAUser" parameterType="hashmap" resultType="String"> -->
-<!-- 		SELECT  -->
-<!-- 			u_email -->
-<!-- 		FROM -->
-<!-- 			tbl_user -->
-<!-- 		WHERE u_email = #{userId} AND u_pwd = #{userPwd} -->
-<!-- 	</select> -->
+	<select id="checkId">
+		SELECT
+			u_email
+		FROM
+			tbl_user
+		WHERE
+			u_email=#{email}
+	</select>
+	
+	<select id="login" parameterType="hashmap" resultType="org.spring.domain.UserVO">
+		SELECT 
+			*
+		FROM
+			tbl_user
+		WHERE u_email = #{email} AND u_pwd = #{pw}
+	</select>
+	<select id="getUserWithSession" parameterType="String" resultType="org.spring.domain.UserVO">
+		<![CDATA[[
+		SELECT
+			*
+		FROM
+			tbl_user
+		WHERE
+			sessionkey = #{key} and sessionLimit > now()
+		]]>	
+	</select>
+	<update id="rmbLogin" parameterType="hashmap">
+		UPDATE
+			tbl_user
+		SET
+			sess_id = #{sess_id}, sess_limit = #{limit}
+		WHERE
+			u_email = #{email}
+	</update>
+	<insert id="register" parameterType="org.spring.domain.UserVO">
+		INSERT INTO
+			tbl_user(u_email,u_fname,u_lname,u_pwd,sess_limit)
+		VALUES(
+			#{u_email},#{u_fname},#{u_lname},#{u_pwd},now()
+		)
+	</insert>
+	
+	
 <!-- 	<select id="getUserDetail" parameterType="String" resultMap="UserVO"> -->
 <!-- 		SELECT -->
 <!-- 			* -->
@@ -38,13 +74,7 @@
 <!-- 			WHERE RNUM >= #{startRow} and RNUM <= #{endRow} -->
 <!-- 		]]> -->
 <!-- 	</select> -->
-<!-- 	<insert id="insertUser" parameterType="com.service.UserVO"> -->
-<!-- 		INSERT INTO -->
-<!-- 			tbl_user -->
-<!-- 		VALUES( -->
-<!-- 			#{u_email},#{u_fname},#{u_lname},#{u_pwd},0 -->
-<!-- 		) -->
-<!-- 	</insert> -->
+	
 <!-- 	<update id="updateUser" parameterType="com.service.UserVO"> -->
 <!-- 		<![CDATA[ -->
 <!-- 		UPDATE -->

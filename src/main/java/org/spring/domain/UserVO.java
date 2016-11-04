@@ -1,11 +1,15 @@
 package org.spring.domain;
 
+import java.util.Date;
+
 public class UserVO {
 	private String u_email;
 	private String u_fname;
 	private String u_lname;
 	private String u_pwd;
 	private int u_point;
+	private String sess_id;
+	private Date sess_limit;
 
 	public String getU_email() {
 		return u_email;
@@ -45,6 +49,22 @@ public class UserVO {
 
 	public void setU_point(int u_point) {
 		this.u_point = u_point;
+	}
+
+	public String getSess_id() {
+		return sess_id;
+	}
+
+	public void setSess_id(String sess_id) {
+		this.sess_id = sess_id;
+	}
+
+	public Date getSess_limit() {
+		return sess_limit;
+	}
+
+	public void setSess_limit(Date sess_limit) {
+		this.sess_limit = sess_limit;
 	}
 
 }

@@ -10,7 +10,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>COFFEE KONG.</title>
 <title>Insert title here</title>
-<link href="${basePath}/bootstrap-3.3.7-dist/css/my-css.css" rel="stylesheet">
 </head>
 <c:set var="list" value="${reviews }" />
 <body>

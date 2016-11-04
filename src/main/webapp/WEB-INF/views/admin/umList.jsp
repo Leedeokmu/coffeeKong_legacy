@@ -36,19 +36,6 @@
 			</div>
 			<hr />
 		</c:forEach>
-		<form action="" name="umpForm">
-			<div>
-				<jsp:include page="/coffeeKong/common/paging.jsp" flush="true">
-					<jsp:param name="firstPageNum" value="${paging.firstPageNum }"/>
-					<jsp:param name="finalPageNum" value="${paging.finalPageNum }"/>
-					<jsp:param name="prevPageNum" value="${paging.prevPageNum }"/>
-					<jsp:param name="nextPageNum" value="${paging.nextPageNum }"/>
-					<jsp:param name="startPageNum" value="${paging.startPageNum }"/>
-					<jsp:param name="endPageNum" value="${paging.endPageNum }"/>
-					<jsp:param name="curPageNum" value="${paging.curPageNum }"/>
-				</jsp:include>	
-			</div>
-		</form>
 	</div>
 </body>
 </html>
