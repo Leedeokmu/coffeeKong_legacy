@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="/resources/css/image.css" />
 <script src="/resources/js/script.js"></script>
 </head>
-<c:set var="gId" value="${id}"/>
+<c:set var="email" value="${loginId}"/>
 <body>
 <div class="container">
 	<div class="row ver_center">
@@ -57,16 +57,16 @@
 				
 				<c:catch>
 					<c:choose>
-						<c:when test="${gId != null || gId == ''}">
+						<c:when test="${email != null || email == ''}">
 							<li>
 								<div class="dropdown">
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-									${gId }<span class="caret"></span></a>	
+									${email }<span class="caret"></span></a>	
 									<ul class="dropdown-menu" role="menu">
 										<li><a href="${basePath }/uUpdateCtrl">EDIT MY PROFILE</a></li>
 										<li><a href="${basePath }/uoListCtrl">MY ORDER</a></li>
 										<li><a href="./index?content=uresign">RESIGN FROM WEBSITE</a></li>
-										<li><a href="./logout?id=${gId}">LOGOUT</a></li>
+										<li><a href="./logout?id=${email}">LOGOUT</a></li>
 									</ul>
 								</div>
 							</li>

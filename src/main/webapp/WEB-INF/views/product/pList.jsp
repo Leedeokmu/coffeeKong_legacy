@@ -22,7 +22,7 @@
 		    		<img src="${vo.p_img }" class="img-responsive thumbnail" style="width:300px;height:300px" alt="Image">
 		    	</a>
 		    	<a href="${vo.p_id}" class="cornerLink">$${vo.p_price }</a>
-		    	<div class="h_nav" style="font-size:125%"><a href="pDetailCtrl?pId=${vo.p_id}">${vo.p_name}</a></div>
+		    	<div class="h_nav" style="font-size:125%"><a href="${vo.p_id}">${vo.p_name}</a></div>
 		    </div>
 		    <br><br><br><br>
     	</div>
@@ -31,7 +31,7 @@
 		<input type="hidden" name="pid" value=""/>
 	</form>
 	<script>
-		$('a').on("click", function(event){
+		$('.imageWrapper').on("click", 'a',function(event){
 			event.preventDefault();
 			
 			var target = $(this).attr("href");
