@@ -15,19 +15,17 @@
 <body>
 	<div class="container">
 	<div class="alert alert-warning">
-		<h2>YOU REALLY RESIGN FROM OUR SITE?</h2>
+		<h2>YOU REALLY RESIGN FROM COFFEEKONG?</h2>
 	</div><br />
 	<div class="hor_center">
-		<form action="${basePath }/uResignCtrl" method="POST">
+		<form action="/user/resign" name="uresign" method="POST">
+			<input type="hidden" name="u_email" value="${login.u_email }"/>
 			<div>
 				<label for="resign_pw">ENTER YOUR PASSWORD</label>
-				<input type="password" class="form-control" name="pw" id="resign_pw"/>
+				<input type="password" class="form-control" name="u_pwd" />
+				
 			</div><br />
-			<c:if test="${param.match.equals('no')}">
-				<div>
-					<span>PASSWORD NOT MATCHED.</span>
-				</div>
-			</c:if>
+			<div class="errmsg" style="min-height:20px"></div>
 			<div class="hor_center">
 				<input type="submit" class="btn btn-warning btn-sm" value="submit"/>
 			</div>

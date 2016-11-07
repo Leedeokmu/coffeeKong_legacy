@@ -13,4 +13,8 @@ public interface UserService {
 	public void rmbLogin(String email, String sess_id, Date limit) throws Exception;
 	public String checkDuplicate(String email) throws Exception;
 	public void register(UserVO uvo) throws Exception;
+	public void update(UserVO uvo) throws Exception;
+	public String checkUserPw(UserVO uvo) throws Exception;
+	public void deleteUser(String email) throws Exception;
+	 
 }

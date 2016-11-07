@@ -43,4 +43,20 @@ public class UserServiceImpl implements UserService {
 		dao.register(uvo);
 	}
 
+	@Override
+	public void update(UserVO uvo) throws Exception {
+		dao.update(uvo);
+	}
+
+	@Override
+	public String checkUserPw(UserVO uvo) throws Exception {
+		return dao.checkUserPw(uvo);
+	}
+
+	@Override
+	public void deleteUser(String email) throws Exception {
+		dao.delete(email);
+		
+	}
+
 }

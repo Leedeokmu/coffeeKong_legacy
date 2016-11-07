@@ -44,12 +44,29 @@ public class UserDAOImpl implements UserDAO{
 
 	@Override
 	public String checkId(String email) throws Exception {
-		return sql.selectOne(namespace+".checkId", email);
+		return sql.selectOne(namespace+".checkEmail", email);
 	}
 
 	@Override
 	public void register(UserVO uvo) throws Exception {
 		sql.insert(namespace+".register", uvo);
+		
+	}
+
+	@Override
+	public void update(UserVO uvo) throws Exception {
+		sql.update(namespace+".update", uvo);
+	}
+
+	@Override
+	public String checkUserPw(UserVO uvo) throws Exception {
+		return sql.selectOne(namespace+".checkUserPw", uvo);
+		
+	}
+
+	@Override
+	public void delete(String email) throws Exception {
+		sql.delete(namespace+".delete",email);
 		
 	}
 }

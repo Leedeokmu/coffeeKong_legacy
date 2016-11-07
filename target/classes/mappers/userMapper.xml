@@ -9,13 +9,21 @@
 <!-- 		<result property="u_point" column="u_point"/> -->
 <!-- 	</resultMap> -->
 	
-	<select id="checkId" resultType="String">
+	<select id="checkEmail" resultType="String">
 		SELECT
 			u_email
 		FROM
 			tbl_user
 		WHERE
 			u_email=#{email}
+	</select>
+	<select id="checkUserPw" parameterType="org.spring.domain.UserVO" resultType="String">
+		SELECT
+			u_email
+		FROM
+			tbl_user
+		WHERE
+			u_email = #{u_email} AND u_pwd = #{u_pwd} 
 	</select>
 	
 	<select id="login" parameterType="hashmap" resultType="org.spring.domain.UserVO">
@@ -25,6 +33,7 @@
 			tbl_user
 		WHERE u_email = #{email} AND u_pwd = #{pw}
 	</select>
+	
 	<select id="getUserWithSession" parameterType="String" resultType="org.spring.domain.UserVO">
 		<![CDATA[[
 		SELECT
@@ -75,20 +84,20 @@
 <!-- 		]]> -->
 <!-- 	</select> -->
 	
-<!-- 	<update id="updateUser" parameterType="com.service.UserVO"> -->
-<!-- 		<![CDATA[ -->
-<!-- 		UPDATE -->
-<!-- 			tbl_user -->
-<!-- 		SET -->
-<!-- 			u_fname=#{u_fname}, u_lname=#{u_lname}, u_pwd=#{u_pwd} -->
-<!-- 		WHERE -->
-<!-- 			u_email=#{u_email} -->
-<!-- 		]]> -->
-<!-- 	</update> -->
-<!-- 	<delete id="deleteUser" parameterType="String"> -->
-<!-- 		DELETE -->
-<!-- 			FROM tbl_user -->
-<!-- 		WHERE -->
-<!-- 			u_email=#{email} -->
-<!-- 	</delete> -->
+	<update id="update" parameterType="org.spring.domain.UserVO">
+		<![CDATA[
+ 		UPDATE
+ 			tbl_user
+ 		SET
+ 			u_fname=#{u_fname}, u_lname=#{u_lname}, u_pwd=#{u_pwd}
+ 		WHERE
+ 			u_email=#{u_email} 
+ 		]]>
+	</update>
+	<delete id="delete" parameterType="String">
+		DELETE
+			FROM tbl_user
+		WHERE
+			u_email=#{email}
+	</delete>
 </mapper>

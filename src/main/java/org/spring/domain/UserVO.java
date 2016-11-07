@@ -79,4 +79,10 @@ public class UserVO {
 		this.sess_limit = sess_limit;
 	}
 
+	@Override
+	public String toString() {
+		return "UserVO [u_email=" + u_email + ", u_fname=" + u_fname + ", u_lname=" + u_lname + ", u_pwd=" + u_pwd
+				+ ", u_point=" + u_point + "]";
+	}
+
 }

@@ -1,18 +1,17 @@
 package org.spring.dto;
 
-import javax.validation.constraints.Size;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class LoginDTO {
 	@NotEmpty
 	@Email
 	private String email;
-	@NotEmpty @Size(min=4, message="too short")
+	@NotEmpty
 	private String pw;
+	@NotNull
 	private boolean useCookie;
 
 	public String getEmail() {
@@ -33,6 +32,7 @@ public class LoginDTO {
 	public void setUseCookie(boolean useCookie) {
 		this.useCookie = useCookie;
 	}
+	
 	@Override
 	public String toString() {
 		return "LoginDTO [email=" + email + ", pw=" + pw + ", useCookie=" + useCookie + "]";

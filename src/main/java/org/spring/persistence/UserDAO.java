@@ -13,5 +13,8 @@ public interface UserDAO {
 	public UserVO getUserWithSessionKey(String key) throws Exception;
 	public String checkId(String email) throws Exception;
 	public void register(UserVO uvo) throws Exception;
+	public void update(UserVO uvo) throws Exception;
+	public String checkUserPw(UserVO uvo) throws Exception;
+	public void delete(String email) throws Exception;
 	
 }

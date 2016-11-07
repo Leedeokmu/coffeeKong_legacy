@@ -63,10 +63,10 @@
 											${login.u_email }<span class="caret"></span>
 										</a>
 										<ul class="dropdown-menu" role="menu">
-											<li><a href="${basePath }/uUpdateCtrl">EDIT MY
+											<li><a href="/user/update">EDIT MY
 													PROFILE</a></li>
-											<li><a href="${basePath }/uoListCtrl">MY ORDER</a></li>
-											<li><a href="./index?content=uresign">RESIGN FROM
+											<li><a href="/user/order">MY ORDER</a></li>
+											<li><a href="/user/resign">RESIGN FROM
 													WEBSITE</a></li>
 											<li><a href="/logout">LOGOUT</a></li>
 										</ul>
@@ -85,6 +85,7 @@
 											</div>
 											<div class="modal-body">
 												<form action="/login" name="login" method="POST" >
+													<input type="hidden" name="useCookie" value="false" />
 													<div class="form-group">
 														<label for="email">EMAIL</label><input type="email"
 															class="form-control" name="email" id="email" />
@@ -94,9 +95,9 @@
 															class="form-control" name="pw"
 															id="pw"/>
 													</div>
-													<div>
+													<div class="form-group">
 														<label for="useCookie">Remember</label>
-														<input type="checkbox" id="useCookie" name="useCookie"/>
+														<input type="checkbox" id="useCookie" name="useCookie" value="true"/>
 													</div>
 													<br />
 													<div class="errmsg"></div>
@@ -160,7 +161,7 @@
 							</c:otherwise>
 						</c:choose>
 					</c:catch>
-					<li><a href="${basePath }/cListCtrl">CART : <span class="badge">1</span></a></li>
+					<li><a href="#">CART : <span class="badge">1</span></a></li>
 				</ul>
 			</div>
 		</div>

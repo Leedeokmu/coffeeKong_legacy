@@ -33,22 +33,21 @@
 				<div class="col-md-2"><span>USER</span></div>	
 		</div>
 		<hr >
-		<c:forEach var="oVo" items="${orderList }">
-			<c:set var="pVo" value="${oVo.pvo }"/>
+		<c:forEach var="ovo" items="${orderList }">
+			<c:set var="pvo" value="${oVo.pvo }"/>
 			<div class="row">
-				<div class="col-md-2"><a href="${basePath }/uoDetailCtrl?oid=${oVo.o_id }" class="btn btn-default"><span>No. ${oVo.o_id }</span></a></div>
-				<div class="col-md-1"><a href="${basePath }/uoDetailCtrl?oid=${oVo.o_id }"><img src="${pVo.p_img }" alt="img" class="img-responsive" style="width:70%;height:50%"/></a></div>
-				<div class="col-md-1"><span>${pVo.p_name }</span></div>
-				<div class="col-md-2"><span>${pVo.p_category }</span></div>
-				<div class="col-md-1"><span>${oVo.o_type }</span></div>
-				<div class="col-md-1"><span>${oVo.o_qty }</span></div>
-				<div class="col-md-1"><span>${oVo.o_sz}</span></div>
-				<div class="col-md-1"><span>${oVo.o_price }</span></div>
-				<div class="col-md-2"><span>${oVo.u_email }</span></div>
+				<div class="col-md-2"><a href="${basePath }/uoDetailCtrl?oid=${ovo.o_id }" class="btn btn-default"><span>No. ${ovo.o_id }</span></a></div>
+				<div class="col-md-1"><a href="${basePath }/uoDetailCtrl?oid=${ovo.o_id }"><img src="${pvo.p_img }" alt="img" class="img-responsive" style="width:70%;height:50%"/></a></div>
+				<div class="col-md-1"><span>${pvo.p_name }</span></div>
+				<div class="col-md-2"><span>${pvo.p_category }</span></div>
+				<div class="col-md-1"><span>${ovo.o_type }</span></div>
+				<div class="col-md-1"><span>${ovo.o_qty }</span></div>
+				<div class="col-md-1"><span>${ovo.o_sz}</span></div>
+				<div class="col-md-1"><span>${ovo.o_price }</span></div>
+				<div class="col-md-2"><span>${ovo.u_email }</span></div>
 			</div>
 			<hr>
 		</c:forEach>
 	</div>
-	
 </body>
 </html>
