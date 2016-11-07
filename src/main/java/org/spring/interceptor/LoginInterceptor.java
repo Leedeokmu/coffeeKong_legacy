@@ -1,5 +1,6 @@
 package org.spring.interceptor;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,12 +23,10 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
 		HttpSession session = request.getSession();
 
-		ModelMap modelMap = modelAndView.getModelMap();
-		UserVO uvo = (UserVO) modelMap.get("uvo");
-
+		UserVO uvo = (UserVO) session.getAttribute("login");
+		
 		if (uvo != null) {
 			logger.info("login success ####################");
-			session.setAttribute("login", uvo);
 
 			if (request.getParameter("useCookie") != null) {
 				Cookie loginCookie = new Cookie("login_id", session.getId());
@@ -35,19 +34,37 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 				loginCookie.setMaxAge(60 * 60 * 24 * 3);
 				response.addCookie(loginCookie);
 			}
-			String dest = (String) session.getAttribute("dest");
-
-			response.sendRedirect(dest != null ? (String) dest : "/index");
+//			String dest = (String) session.getAttribute("dest");
+//			
+//			RequestDispatcher dis = request.getRequestDispatcher(dest != null ? (String) dest : "/index");
+//			dis.forward(request, response);
+//			response.sendRedirect(dest != null ? (String) dest : "/index");
 		}
 	}
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		HttpSession session = request.getSession();
+		saveDest(request);
 		if (session.getAttribute("login") != null) {
 			logger.info("clear login session attr #######################");
 			session.removeAttribute("login");
 		}
 		return true;
+	}
+
+	private void saveDest(HttpServletRequest req) {
+		String uri = req.getRequestURI();
+		String query = req.getQueryString();
+		if (query == null || query.equals("null")) {
+			query = "";
+		} else {
+			query = "?" + query;
+		}
+		if (req.getMethod().equals("GET")) {
+			logger.info("destination ##################" + (uri + query));
+			req.getSession().setAttribute("dest", uri + query);
+		}
 	}
 }

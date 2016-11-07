@@ -9,7 +9,7 @@
 <!-- 		<result property="u_point" column="u_point"/> -->
 <!-- 	</resultMap> -->
 	
-	<select id="checkId">
+	<select id="checkId" resultType="String">
 		SELECT
 			u_email
 		FROM
@@ -32,7 +32,7 @@
 		FROM
 			tbl_user
 		WHERE
-			sessionkey = #{key} and sessionLimit > now()
+			sess_id = #{key} and sess_limit > sysdate
 		]]>	
 	</select>
 	<update id="rmbLogin" parameterType="hashmap">
@@ -47,7 +47,7 @@
 		INSERT INTO
 			tbl_user(u_email,u_fname,u_lname,u_pwd,sess_limit)
 		VALUES(
-			#{u_email},#{u_fname},#{u_lname},#{u_pwd},now()
+			#{u_email},#{u_fname},#{u_lname},#{u_pwd},sysdate
 		)
 	</insert>
 	

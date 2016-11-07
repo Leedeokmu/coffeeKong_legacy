@@ -2,6 +2,8 @@ package org.spring.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.spring.domain.UserVO;
+import org.spring.dto.LoginDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +17,12 @@ public class IndexController {
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(Model model) {
 		logger.info("index ############################");
+		LoginDTO dto = new LoginDTO();
+		UserVO vo = new UserVO();				
+		
 		model.addAttribute("content", "");
+		model.addAttribute("LoginDTO", dto);
+		model.addAttribute("UserVO", vo);
 		return "index";
 	}
 	
