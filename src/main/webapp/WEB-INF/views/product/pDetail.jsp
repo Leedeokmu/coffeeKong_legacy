@@ -20,6 +20,7 @@
 		<input type="hidden" name="p_img" value="${pvo.p_img }">
 		<input type="hidden" name="p_price" value="${pvo.p_price }">
 		<input type="hidden" name="qty" id="pQty">
+		<input type="hidden" name="sub_price">
 		
 		<div class="container">
 			<br>
@@ -76,6 +77,7 @@
 				<p>${pvo.p_content}</p>
 			</div>
 			
+<!-- 			review section			 -->
 			<div style="clear:both;text-align:center;">
 				<hr>
 					<h3>Review</h3><div style="margin-left:400px;margin-top:-31px"><a href="reviewCtrl?pId=${pvo.p_id}">[WRITE]</a></div>
@@ -177,6 +179,7 @@
 	$('#buy').on("click", function(event){
 		
 		$('input[name="qty"]').attr("value",qty);
+		$('input[name="sub_price"]').attr("value",total);
 		
 		var form = $('form[name="tocart"]');
     	var data = form_to_json(form);

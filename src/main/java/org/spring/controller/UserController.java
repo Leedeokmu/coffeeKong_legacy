@@ -3,6 +3,7 @@ package org.spring.controller;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -29,54 +30,56 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/user/*")
 public class UserController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-	
+
 	@Inject
 	private UserService uservice;
 	@Inject
 	private OrderService oservice;
-	
+
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public String updateGET(HttpSession session, Model model) throws Exception {
-		logger.info("User Update############################ session name: " + ((UserVO)session.getAttribute("login")).getU_email());
-		
+		logger.info("User Update############################ session name: "
+				+ ((UserVO) session.getAttribute("login")).getU_email());
+
 		model.addAttribute("content", "uupdate");
 		return "/index";
 	}
-	
+
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String updatePOST(@Valid UserVO uvo, BindingResult result, Model model) throws Exception {
 		logger.info("User Update############################ uvo: " + uvo.toString());
-		
-		if(result.hasErrors()){
+
+		if (result.hasErrors()) {
 			return "/user/update";
 		}
 		uservice.update(uvo);
 		model.addAttribute("content", "uucompl");
-		
+
 		return "/index";
 	}
-	
+
 	@RequestMapping(value = "/resign", method = RequestMethod.GET)
 	public String resignGET(HttpSession session, Model model) throws Exception {
-		logger.info("User Resign############################ session name: " + ((UserVO)session.getAttribute("login")).getU_email());
-		
+		logger.info("User Resign############################ session name: "
+				+ ((UserVO) session.getAttribute("login")).getU_email());
+
 		model.addAttribute("content", "uresign");
 		return "/index";
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/resign", method = RequestMethod.POST)
 	public ResponseEntity<String> resignPOST(@RequestBody UserVO uvo) throws Exception {
 		logger.info("User Resign############################");
-		
+
 		ResponseEntity<String> entity = null;
-		
+
 		try {
 			String email = uservice.checkUserPw(uvo);
-			if(email != null){
+			if (email != null) {
 				uservice.deleteUser(email);
 				entity = new ResponseEntity<String>("Success", HttpStatus.OK);
-			}else{
+			} else {
 				entity = new ResponseEntity<String>("Fail", HttpStatus.OK);
 			}
 		} catch (Exception e) {
@@ -85,72 +88,73 @@ public class UserController {
 		}
 		return entity;
 	}
-	
+
 	@RequestMapping(value = "/urcompl", method = RequestMethod.GET)
 	public String resignCompl(HttpSession session, Model model) throws Exception {
 		logger.info("User Resign Complete############################");
-		
+
 		model.addAttribute("content", "urcompl");
 		return "/index";
 	}
-	
+
 	@RequestMapping(value = "/order", method = RequestMethod.GET)
 	public String orderGET(HttpSession session, Model model) throws Exception {
-		logger.info("User Order############################ session name: " + ((UserVO)session.getAttribute("login")).getU_email());
-		
+		logger.info("User Order############################ session name: "
+				+ ((UserVO) session.getAttribute("login")).getU_email());
+
 		model.addAttribute("content", "uolist");
 		return "/index";
 	}
-	
-	@RequestMapping(value = "/cart", method = RequestMethod.GET)
-	public String cart(HttpSession session, Model model) throws Exception {
-		logger.info("User Order############################ session name: " + ((UserVO)session.getAttribute("login")).getU_email());
-		
-		model.addAttribute("content", "cart");
-		return "/index";
-	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/tocart", method = RequestMethod.POST)
 	public ResponseEntity<String> tocart(@RequestBody CartVO cvo, HttpSession session) throws Exception {
 		logger.info("User cart############################ cvo : " + cvo.toString());
-		
+
 		ResponseEntity<String> entity = null;
-		
+
 		try {
 			List<CartVO> list = (ArrayList<CartVO>) session.getAttribute("cart");
-			
-			if(list != null){
+
+			if (list != null) {
 				logger.debug("session.cart############################");
 				logger.debug("list############################");
-				for(CartVO vo : list){
+				for (CartVO vo : list) {
 					logger.debug(vo.toString());
 				}
-				
-				for(Iterator<CartVO> it = list.iterator() ; it.hasNext() ; )
-				{
+
+				for (Iterator<CartVO> it = list.iterator(); it.hasNext();) {
 					CartVO vo = it.next();
-					if(vo.getP_id() == cvo.getP_id() && vo.getType() == cvo.getType()&&
-							vo.getSz() == cvo.getSz()){
+					if (vo.getP_id() == cvo.getP_id() && vo.getType() == cvo.getType() && vo.getSz() == cvo.getSz()) {
 						it.remove();
 					}
 				}
-			}else{
+			} else {
 				list = new ArrayList<CartVO>();
 			}
-
+			UUID c_num  = UUID.randomUUID();
+			cvo.setC_num(c_num.toString());
+			
 			list.add(cvo);
 			session.setAttribute("cart", list);
-			
-			entity = new ResponseEntity<String>("Success", HttpStatus.OK); 
+
+			entity = new ResponseEntity<String>("Success", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("tocart", e.getStackTrace());
-			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		
+
 		return entity;
 	}
-	
-	
+
+	@RequestMapping(value = "/cart", method = RequestMethod.GET)
+	public String cart(HttpSession session, Model model) throws Exception {
+		logger.info("User Order############################ session name: "
+				+ ((UserVO) session.getAttribute("login")).getU_email());
+
+		model.addAttribute("content", "cart");
+		return "/index";
+	}
+
 }

@@ -1,13 +1,31 @@
 package org.spring.domain;
 
 public class CartVO {
+	private String c_num;
 	private int p_id;
 	private String p_name;
 	private String p_img;
 	private Double p_price;
+	private Double sub_price;
 	private int qty;
 	private String type;
 	private String sz;
+
+	public Double getSub_price() {
+		return sub_price;
+	}
+
+	public void setSub_price(Double sub_price) {
+		this.sub_price = sub_price;
+	}
+
+	public String getC_num() {
+		return c_num;
+	}
+
+	public void setC_num(String c_num) {
+		this.c_num = c_num;
+	}
 
 	public String getP_name() {
 		return p_name;
