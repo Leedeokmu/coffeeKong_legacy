@@ -31,6 +31,8 @@ CREATE TABLE tbl_manager(
 	m_fname varchar2(100 byte) not null,
 	m_lname varchar2(100 byte) not null,
 	m_pwd varchar2(100 byte) not null,
+	sess_id varchar2(50) default 'none',
+	sess_limit timestamp,
 	CONSTRAINT pk_memail PRIMARY KEY(m_email)
 );
 

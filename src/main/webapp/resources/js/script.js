@@ -125,6 +125,21 @@ $(document).ready(function(){
 	    }
 	});
 	
+	$('form[name="mgrlogin"]').validate({
+	    rules: {
+	        email: { required: true, email:true },
+	        pw: { required: true}
+	    },
+	    messages: {
+	        email: { required: "Check Your Email"},
+	        pw: { required: "Check Your Password" }
+	        
+	    },
+	    submitHandler: function(form) {
+			form.submit();
+	    }
+	});
+	
 	$('form[name="uupdate"]').validate({
 	    rules: {
 	        u_fname: { required: true },
@@ -145,12 +160,7 @@ $(document).ready(function(){
 	    	
 	    }
 	});
-	
 
-	
-	
-	
-	
 	$('form[name="uresign"]').submit(function(event){
 		event.preventDefault();
 		

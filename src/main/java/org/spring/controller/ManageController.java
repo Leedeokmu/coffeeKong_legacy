@@ -11,9 +11,10 @@ import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.spring.domain.MgrVO;
 import org.spring.domain.UserVO;
 import org.spring.dto.LoginDTO;
-import org.spring.service.UserService;
+import org.spring.service.MgrService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -27,73 +28,69 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
 @Controller
-public class LoginController {
-	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+@RequestMapping("/manage")
+public class ManageController {
+	private static final Logger logger = LoggerFactory.getLogger(ManageController.class);
 	
 	@Inject
-	private UserService service;
+	private MgrService service;
+	
+	@RequestMapping(value="", method=RequestMethod.GET)
+	public String index(Model model, HttpSession session){
+		logger.info("manage index ##############################");
+		
+		if(session.getAttribute("mgr") == null){
+			model.addAttribute("content", "login");
+			return "/admin/adminPage";
+		}
+		model.addAttribute("content", "");
+		return "/admin/adminPage";
+		
+	}
 	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String loginGET(Model model){
-		logger.info("login ##########################"); 
-	
+		logger.info("manage login##############################");
+		
 		model.addAttribute("content", "login");
-		return "index";
+		return "/admin/adminPage";
 	}
 	
-	@ResponseBody
 	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public ResponseEntity<Object> loginPOST (@Valid @RequestBody LoginDTO dto, BindingResult error, HttpSession session ){ 
-		logger.info("login ########################### dto : " + dto.toString());
-		
-		ResponseEntity<Object> entity = null;
+	public String loginPOST (@Valid LoginDTO dto, BindingResult error, HttpSession session, RedirectAttributes rttr ){ 
+		logger.info("manage login ########################### dto : " + dto.toString());
 		
 		if(error.hasErrors()){
-            entity = new ResponseEntity<Object>("Fail", HttpStatus.OK);
+			rttr.addAttribute("errmsg", "CHECK THE FORM");
+            return "redirect:/admin/login";
 		}else{
 			try {
-				UserVO uvo = service.login(dto);
-				if(uvo == null){
-					entity = new ResponseEntity<Object>("Fail", HttpStatus.OK);
+				MgrVO mvo = service.login(dto);
+				if(mvo == null){
+					rttr.addAttribute("errmsg", "EMAIL & PASSWORD NOT MATCHED");
+					return "redirect:/manage/login";
 				}else{
-					session.setAttribute("login", uvo);
-					if(dto.isUseCookie()){
-						int duration = 60 * 60 * 24 * 7;
-						Date limit = new Date(System.currentTimeMillis() + (duration * 1000));
-						service.rmbLogin(uvo.getU_email(), session.getId(), limit);
-					}
-					entity = new ResponseEntity<Object>("Success", HttpStatus.OK);
+					session.setMaxInactiveInterval(60*60*24);
+					session.setAttribute("mgr", mvo);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-				entity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 			}
 		}
-		logger.info("entity ############ : "+ entity);
-		return entity;
+		return "redirect:/manage";
 	}
 	
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public String logout(HttpServletRequest request,HttpServletResponse response,
 			HttpSession session, RedirectAttributes rttr) throws Exception{ 
-		logger.info("logout #############################");
-		Object status = session.getAttribute("login");
+		logger.info("mgr logout #############################");
+		Object status = session.getAttribute("mgr");
 		if(status != null){
-			UserVO uvo = (UserVO)status;
-			
-			session.removeAttribute("login");
+			session.removeAttribute("mgr");
 			session.invalidate();
-			
-			Cookie cookie = WebUtils.getCookie(request, "login_id");
-			if(cookie != null){
-				cookie.setPath("/");
-				cookie.setMaxAge(0);
-				response.addCookie(cookie);
-				service.rmbLogin(uvo.getU_email(), session.getId(), new Date());
-			}
 		}
+		
 		rttr.addAttribute("content", "");
 		return "redirect:/index";
 	}
-
 }
