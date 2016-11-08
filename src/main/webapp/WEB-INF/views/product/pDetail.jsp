@@ -17,6 +17,7 @@
 	<form method="POST" action="/user/tocart" name="tocart">
 		<input type="hidden" name="p_id" value="${pvo.p_id}">
 		<input type="hidden" name="p_name" value="${pvo.p_name }">
+		<input type="hidden" name="p_category" value="${pvo.p_category}">
 		<input type="hidden" name="p_img" value="${pvo.p_img }">
 		<input type="hidden" name="p_price" value="${pvo.p_price }">
 		<input type="hidden" name="qty" id="pQty">
@@ -182,30 +183,34 @@
 		$('input[name="sub_price"]').attr("value",total);
 		
 		var form = $('form[name="tocart"]');
-    	var data = form_to_json(form);
+		var data = form_to_json(form);
 		
 		$.ajax({
-    		type:'POST',
-    		url: '/user/tocart',
-    		headers : {
-    			"Content-Type" : "application/json",
-    			"X-HTTP-Method-Override" : "POST"
-    		},
-    		dateType: 'json',
-    		data: JSON.stringify(data),
-    		success : function(result){
-    			if(result == "Success"){
-    				$('#isCartModal').modal();
-    			}else if(result == "Fail"){
-    				
-    			}
-    		}
-    		,
-    	 	error: function(request,status,error){
-    	        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-    	    }
-    	});
+			type:'POST',
+			url: '/user/tocart',
+			headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "POST"
+			},
+			dateType: 'json',
+			data: JSON.stringify(data),
+			success : function(result){
+				if(result == "Success"){
+					$('#isCartModal').modal();
+				}else if(result == "Fail"){
+					
+				}
+			}
+			,
+		 	error: function(request,status,error){
+		        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		    }
+		});
 	});
-</script>
+
+	$(document).ready(function(){
+		calPrice();
+	})
+	</script>
 
 </html>

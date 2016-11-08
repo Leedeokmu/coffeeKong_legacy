@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!doctype html>
 <html>
 <head>
@@ -12,8 +13,10 @@
 <body>
 	<div class="a_title text-center"><h2>PRODUCTS IN YOUR CART</h2></div><br />
 	<div class="container a_article">
+	<c:choose>
+		<c:when test="${fn:length(cart) > 0 }">
 		<c:forEach var="cvo" items="${cart}" varStatus="index" begin="0" step="1">
-			<form action="/user/cart/update" role="form" name="tocart<c:out value="${index }"/>">
+			<form action="/user/cart/update" role="form" name="tocart<c:out value="${index.count }"/>" method="post">
 				<input type="hidden" name="c_num" value="${cvo.c_num }"/>
 				<input type="hidden" name="sub_price" />
 				<input type="hidden" name="qty" />
@@ -21,70 +24,86 @@
 				<div class="hor_center">
 					<div class="row">
 						<div class="col-md-5">
-							<img src="${cvo.p_img }" alt="img" class="img-responsive thumbnail" />
+							<img src="${cvo.p_img }" alt="img" style="width:150px;height:150px"/>
 						</div>
-						<div class="col-md-7" style="margin-top:5em">
+						<div class="col-md-7" style="margin-top:2em">
 							<div class="row">
-								<span class="col-md-3">NAME</span>
-								<span class="col-md-9">${cvo.p_name }</span>
+								<span class="col-md-6">NAME</span>
+								<span class="col-md-6">${cvo.p_name }</span>
+							</div>
+							<c:choose>
+								<c:when test="${cvo.p_category eq 'SingleOrigins' || cvo.p_category eq 'Blends' ||cvo.p_category eq 'Decafs' ||cvo.p_category eq 'Light' ||cvo.p_category eq 'Medium' ||cvo.p_category eq 'Dark' ||cvo.p_category eq 'ColdBrew'}">
+								<div class="row">
+									<span class="col-md-6">TYPE</span>
+									<span class="col-md-6">
+										<select name="type" id="type<c:out value="${index.count }"/>">
+											<option value="Whole bean" <c:out value="${cvo.type eq 'Whole bean'? 'selected' : ''}"/>>Whole bean</option>
+											<option value="Drip" <c:out value="${cvo.type eq 'Drip'? 'selected' : ''}"/>>Drip</option>
+											<option value="Espresso" <c:out value="${cvo.type eq 'Espresso'? 'selected' : ''}"/>>Espresso</option>
+										</select>
+									</span>
+								</div>
+								<div class="row">
+									<span class="col-md-6">SIZE</span>
+									<span class="col-md-6">
+										<select name="sz" onChange="defSz(this)" id="sz<c:out value="${index.count }"/>">
+											<option value="0.5kg" <c:out value="${cvo.sz eq '0.5kg'? 'selected' : ''}"/>>0.5kg</option>
+											<option value="1kg" <c:out value="${cvo.sz eq '1kg'? 'selected' : ''}"/>>1kg</option>
+											<option value="1.5kg" <c:out value="${cvo.sz eq '1.5kg'? 'selected' : ''}"/>>1.5kg</option>
+											<option value="2kg" <c:out value="${cvo.sz eq '2kg'? 'selected' : ''}"/>>2kg</option>
+										</select>
+									</span>
+								</div>
+								</c:when>
+							</c:choose>
+							<div class="row">
+								<span class="col-sm-6">QUNETYTY</span>
+								<span class="col-sm-6"><button type="button" id="minus" class="btn btn-default btn-xs" onClick="decrease(this)">-</button>
+									&nbsp;<span id="qty<c:out value="${index.count }"/>">${cvo.qty}</span>&nbsp;
+								<button type="button" class="btn btn-default btn-xs" id="plus" onClick="increase(this)">+</button></span>
 							</div>
 							<div class="row">
-								<span class="col-md-3">TYPE</span>
-								<span class="col-md-9">
-									<select name="type" id="type<c:out value="${index }"/>">
-										<option value="Whole bean" <c:out value="${cart.type eq 'Whole bean'? selected : ''}"/>>Whole bean</option>
-										<option value="Drip" <c:out value="${cart.type eq 'Drip'? selected : ''}"/>>Drip</option>
-										<option value="Espresso" <c:out value="${cart.type eq 'Espresso'? selected : ''}"/>>Espresso</option>
-									</select>
-								</span>
+								<span class="col-md-6">PRICE</span>
+								<span class="col-md-6">$<strong id="price<c:out value="${index.count }"/>">${cvo.p_price }</strong></span>
 							</div>
 							<div class="row">
-								<span class="col-md-3">QUNETYTY</span>
-								<span class="col-md-9"><button type="button" id="minus" class="btn btn-default btn-sm" onClick="decrease(this)">-</button>&nbsp;<span id="qty<c:out value="${index }"/>">${cvo.qty}</span>&nbsp;<button type="button" class="btn btn-default btn-sm" id="plus" onClick="increase(this)">+</button></span>
-							</div>
-							<div class="row">
-								<span class="col-md-3">SIZE</span>
-								<span class="col-md-9">
-									<select name="sz" onChange="defSz(this)" id="sz<c:out value="${index }"/>">
-										<option value="0.5kg" <c:out value="${cart.sz eq '0.5kg'? selected : ''}"/>>0.5kg</option>
-										<option value="1kg" <c:out value="${cart.sz eq '1kg'? selected : ''}"/>>1kg</option>
-										<option value="1.5kg" <c:out value="${cart.sz eq '1.5kg'? selected : ''}"/>>1.5kg</option>
-										<option value="2kg" <c:out value="${cart.sz eq '2kg'? selected : ''}"/>>2kg</option>
-									</select>
-								</span>
-							</div>
-							<div class="row">
-								<span class="col-md-3">PRICE</span>
-								<span class="col-md-9">$<strong id="price<c:out value="${index }"/>">${cvo.p_price }</strong></span>
-							</div>
-							<div class="row">
-								<span class="col-md-3">SUB PRICE</span>
-								<span class="col-md-9">$<strong id="subprice<c:out value="${index }"/>">${cvo.sub_price }</strong></span>
+								<span class="col-md-6">SUB PRICE</span>
+								<span class="col-md-6">$<strong id="subprice<c:out value="${index.count }"/>">${cvo.sub_price }</strong></span>
 							</div>
 						</div>
 					</div>
 				</div>
-				<hr />
 				<div class="hor_center">
-					<input type="submit" value="UPDATE CART" id="btn<c:out value="${index }"/>"/>
+					<input type="submit" value="UPDATE CART" class="btn btn-default btn-sm" id="btn<c:out value="${index.count }"/>"/>
 				</div>
+				
+				<hr />
 			</form>
 		</c:forEach>
 		<div>
 			<a href="/order" class="btn btn-success btn-lg">CHECKOUT</a>
 		</div>
+		</c:when>
+		<c:otherwise>
+			<div class="text-center">
+				<h2>YOUR CART EMPTY</h2><br />
+				click <a href="/product/list/Blends">here</a> to navigate products.
+			</div>
+		</c:otherwise>
+	</c:choose>
 	</div>
 	<script>
-	function calPrice(className){
-		var delim = className.substr(className.length-1);
+	function calPrice(id){
+		var delim = id.substr(id.length-1);
 		var formName = 'tocart'+delim;
+		var form = $('form[name="'+formName+'"]');
 		
-		var price = parseInt($(formName).find('#price'+delim).text());
-		var qty = parseInt($(formName).find('#qty'+delim).text());
-		var type = getSz($(formName).find('#sz'+delim));
+		var price = parseFloat(form.find('#price'+delim).text());
+		var qty = parseInt(form.find('#qty'+delim).text());
+		var sz = getSz(form.find('#sz'+delim));
 		
-		var total = p_price*qty*type;
-		$('#subprice'+qty).text(p_price*qty*type);
+		var total = price*qty*sz;
+		$('#subprice'+delim).text(total);
 	}
 	function increase(obj){
 		var qty = $(obj).siblings('span').text();
@@ -94,37 +113,40 @@
 		}
 		qty++;
 		$(obj).siblings('span').text(qty);
-		calPrice(obj.attr("class"));
+		calPrice($ (obj).siblings('span').attr("id"));
 	}
 	function decrease(obj){
 		var qty = $(obj).siblings('span').text();
 		qty--;
 		if(qty<1) qty=1;
 		$(obj).siblings('span').text(qty);
-		calPrice(obj.sibliings('span').attr("class"));
+		calPrice($(obj).siblings('span').attr("id"));
 	}
 	function getSz(Obj) {
-	    if(Obj.value == "0.5kg"){
-	    	var	type=1;
-	    }else if(Obj.value == "1kg"){
-	    	var type=2;
-	    }else if(Obj.value == "1.5kg"){
-	    	var type=3;
+	    if($(Obj).val() == "0.5kg"){
+	    	var	sz=1;
+	    }else if($(Obj).val() == "1kg"){
+	    	var sz=2;
+	    }else if($(Obj).val() == "1.5kg"){
+	    	var sz=3;
 	    }else{
-	    	var type=4;
+	    	var sz=4;
 	    }
-	    return type;
+	    return sz;
 	}
 	
 	function defSz(selectObj) {
-	    calPrice(selectObj.attr("class"));
+	    calPrice($(selectObj).attr("id"));
 	}
 	
 	$('input[type="submit"]').on("click", function(event){
 		event.preventDefault();
 		
-		var num = $(this).id.substr($(this).id.legnth-1);
-		var form = $('input[name="tocart'+num+'"]');
+		var num = $(this).attr("id").substr($(this).attr("id").length-1);
+		console.log(num);
+		var form = $('form[name="tocart'+num+'"]');
+		console.log(form);
+		
 		var qty = form.find('#qty'+num).text();
 		var subprice = form.find('#subprice'+num).text();
 		

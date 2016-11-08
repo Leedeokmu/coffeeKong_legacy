@@ -4,6 +4,7 @@ public class CartVO {
 	private String c_num;
 	private int p_id;
 	private String p_name;
+	private String p_category;
 	private String p_img;
 	private Double p_price;
 	private Double sub_price;
@@ -37,6 +38,14 @@ public class CartVO {
 
 	public String getP_img() {
 		return p_img;
+	}
+
+	public String getP_category() {
+		return p_category;
+	}
+
+	public void setP_category(String p_category) {
+		this.p_category = p_category;
 	}
 
 	public void setP_img(String p_img) {
@@ -85,7 +94,7 @@ public class CartVO {
 
 	@Override
 	public String toString() {
-		return "CartVO [p_id=" + p_id + ", p_name=" + p_name + ", p_img=" + p_img + ", p_price=" + p_price + ", qty="
-				+ qty + ", type=" + type + ", sz=" + sz + "]";
+		return "CartVO [c_num=" + c_num + ", p_id=" + p_id + ", p_name=" + p_name + ", p_img=" + p_img + ", p_price="
+				+ p_price + ", sub_price=" + sub_price + ", qty=" + qty + ", type=" + type + ", sz=" + sz + "]";
 	}
 }

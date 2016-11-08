@@ -3,6 +3,7 @@ package org.spring.controller;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -147,14 +148,54 @@ public class UserController {
 
 		return entity;
 	}
-
+	
 	@RequestMapping(value = "/cart", method = RequestMethod.GET)
 	public String cart(HttpSession session, Model model) throws Exception {
-		logger.info("User Order############################ session name: "
-				+ ((UserVO) session.getAttribute("login")).getU_email());
+		logger.info("User cart list############################");
 
 		model.addAttribute("content", "cart");
 		return "/index";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/cart/update", method = RequestMethod.POST)
+	public ResponseEntity<String> cartUpdate(@RequestBody CartVO cvo, HttpSession session) throws Exception {
+		logger.info("User cart update############################ cvo : " + cvo.toString());
 
+		ResponseEntity<String> entity = null;
+
+		try {
+			List<CartVO> list = (ArrayList<CartVO>) session.getAttribute("cart");
+
+			if (list != null) {
+				logger.info("list############################");
+				for (CartVO vo : list) {
+					logger.info(vo.toString());
+				}
+				for (ListIterator<CartVO> it = list.listIterator(); it.hasNext();) {
+					
+					CartVO vo = list.get(it.nextIndex());
+					if (vo.getC_num().equals(cvo.getC_num())) {
+						list.get(it.nextIndex()).setQty(cvo.getQty());
+						list.get(it.nextIndex()).setType(cvo.getType());
+						list.get(it.nextIndex()).setSz(cvo.getSz());
+						list.get(it.nextIndex()).setSub_price(cvo.getSub_price());
+						
+						break;
+					}
+					it.next();
+				}
+			}
+			
+			session.setAttribute("cart", list);
+
+			entity = new ResponseEntity<String>("Success", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("tocart", e.getStackTrace());
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
+	}
 }
