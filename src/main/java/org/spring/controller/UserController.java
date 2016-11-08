@@ -1,11 +1,16 @@
 package org.spring.controller;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.spring.domain.CartVO;
 import org.spring.domain.UserVO;
 import org.spring.service.OrderService;
 import org.spring.service.UserService;
@@ -93,13 +98,59 @@ public class UserController {
 	public String orderGET(HttpSession session, Model model) throws Exception {
 		logger.info("User Order############################ session name: " + ((UserVO)session.getAttribute("login")).getU_email());
 		
-
-		
-		
 		model.addAttribute("content", "uolist");
 		return "/index";
 	}
 	
+	@RequestMapping(value = "/cart", method = RequestMethod.GET)
+	public String cart(HttpSession session, Model model) throws Exception {
+		logger.info("User Order############################ session name: " + ((UserVO)session.getAttribute("login")).getU_email());
+		
+		model.addAttribute("content", "cart");
+		return "/index";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/tocart", method = RequestMethod.POST)
+	public ResponseEntity<String> tocart(@RequestBody CartVO cvo, HttpSession session) throws Exception {
+		logger.info("User cart############################ cvo : " + cvo.toString());
+		
+		ResponseEntity<String> entity = null;
+		
+		try {
+			List<CartVO> list = (ArrayList<CartVO>) session.getAttribute("cart");
+			
+			if(list != null){
+				logger.debug("session.cart############################");
+				logger.debug("list############################");
+				for(CartVO vo : list){
+					logger.debug(vo.toString());
+				}
+				
+				for(Iterator<CartVO> it = list.iterator() ; it.hasNext() ; )
+				{
+					CartVO vo = it.next();
+					if(vo.getP_id() == cvo.getP_id() && vo.getType() == cvo.getType()&&
+							vo.getSz() == cvo.getSz()){
+						it.remove();
+					}
+				}
+			}else{
+				list = new ArrayList<CartVO>();
+			}
+
+			list.add(cvo);
+			session.setAttribute("cart", list);
+			
+			entity = new ResponseEntity<String>("Success", HttpStatus.OK); 
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("tocart", e.getStackTrace());
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
+		}
+		
+		return entity;
+	}
 	
 	
 }

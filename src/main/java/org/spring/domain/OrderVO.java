@@ -6,7 +6,6 @@ public class OrderVO {
 	private int o_id;
 	private String u_email;
 	private int p_id;
-	private ProductVO pvo;
 	private int o_qty;
 	private String o_sz;
 	private String o_type;
@@ -18,6 +17,7 @@ public class OrderVO {
 	private String o_addr;
 	private String o_state;
 	private Date o_date;
+	private OrderProdVO[] opvo;
 
 	public Double getO_price() {
 		return o_price;
@@ -123,14 +123,6 @@ public class OrderVO {
 		this.o_date = o_date;
 	}
 
-	public ProductVO getPvo() {
-		return pvo;
-	}
-
-	public void setPvo(ProductVO pvo) {
-		this.pvo = pvo;
-	}
-
 	public String getO_postcode() {
 		return o_postcode;
 	}
@@ -138,4 +130,12 @@ public class OrderVO {
 	public void setO_postcode(String o_postcode) {
 		this.o_postcode = o_postcode;
 	}
+	public OrderProdVO[] getOpvo() {
+		return opvo;
+	}
+
+	public void setOpvo(OrderProdVO[] opvo) {
+		this.opvo = opvo;
+	}
+
 }

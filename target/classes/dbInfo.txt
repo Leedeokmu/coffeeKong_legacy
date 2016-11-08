@@ -92,7 +92,7 @@ DROP TABLE tbl_order;
 CREATE TABLE tbl_order(
 	o_id number(5) not null,
 	u_email varchar2(100byte) not null,
-	o_prod varchar2(2000byte) not null, ----- JSON object(CartVO)
+	o_price number(20,5) not null,
 	o_rfname varchar2(100 byte) not null,
 	o_rlname varchar2(100 byte) not null,
 	o_phone varchar2(200 byte) not null,
@@ -129,6 +129,20 @@ CREATE TABLE tbl_order(
 	REFERENCES tbl_user(u_email) ON DELETE CASCADE
 );
 */
+
+CREATE TABLE tbl_order_prod(
+	o_id number(5) not null,
+	p_id number(5) not null,
+	op_qty number(5) not null,
+	op_sz varchar2(100 byte),
+	op_type varchar2(100 byte),
+	op_price number(20,5) not null,
+	CONSTRAINT fk_op_oid FOREIGN KEY(o_id) 
+	REFERENCES tbl_order(o_id),
+	CONSTRAINT fk_op_pid FOREIGN KEY(p_id) 
+	REFERENCES tbl_prod(p_id)
+)
+
 DROP SEQUENCE seq_oid;
 	
 CREATE SEQUENCE seq_oid START WITH 1 INCREMENT BY 1 NOCACHE;
@@ -283,7 +297,8 @@ We love this mug and we know you will too. ', 7.49, sysdate, 'http://jaesay.doth
 -- order table sample data
 /*
 insert into tbl_order(o_id, u_email, p_id, o_qty, o_sz, o_type, o_price, o_rfname, o_rlname, o_phone, o_postcode ,o_addr, o_state, o_date)
-values (seq_oid.nextval, 'freeefly@naver.com', 1002, 2, '12oz', 'Esopresso', 39.99 , 'DM', 'L', '010-1111-2222', '1234','kangnam', 'ready to deliver', sysdate); 
+values (seq_oid.nextval, 'freeefly@naver.com', 1002, 2, '12oz', 'Esopresso', 39.99 , 'DM', 'L', '010-1111-2222', '1234','kangnam', 'wait on accept', sysdate);
+-- wait on accept -> ready to delivery -> on delivery -> delivery complete 
 */
 
 commit;
