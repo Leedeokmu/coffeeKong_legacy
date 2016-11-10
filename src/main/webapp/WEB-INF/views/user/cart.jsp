@@ -22,11 +22,11 @@
 				<input type="hidden" name="qty" />
 				
 				<div class="hor_center">
-					<div class="row">
-						<div class="col-md-5">
+					<div class="row" style="width:40em">
+						<div class="col-md-5" style="padding:0px">
 							<img src="${cvo.p_img }" alt="img" style="width:150px;height:150px"/>
 						</div>
-						<div class="col-md-7" style="margin-top:2em">
+						<div class="col-md-7" >
 							<div class="row">
 								<span class="col-md-6">NAME</span>
 								<span class="col-md-6">${cvo.p_name }</span>
@@ -68,20 +68,24 @@
 							</div>
 							<div class="row">
 								<span class="col-md-6">SUB PRICE</span>
-								<span class="col-md-6">$<strong id="subprice<c:out value="${index.count }"/>">${cvo.sub_price }</strong></span>
+								<span class="col-md-6">$<strong class="subprice" id="subprice<c:out value="${index.count }"/>">${cvo.sub_price }</strong></span>
 							</div>
+							<div class="row hor_center">
+								<div class="col-md-6"></div>
+								<input type="submit" value="UPDATE CART" class="btn btn-default btn-sm col-md-6" id="btn<c:out value="${index.count }"/>"/>
+							</div>
+							
 						</div>
 					</div>
 				</div>
-				<div class="hor_center">
-					<input type="submit" value="UPDATE CART" class="btn btn-default btn-sm" id="btn<c:out value="${index.count }"/>"/>
-				</div>
+				
 				
 				<hr />
 			</form>
 		</c:forEach>
-		<div>
-			<a href="/order" class="btn btn-success btn-lg">CHECKOUT</a>
+		<div >
+			<div class="hor_right"><h2 id="totalPrice"></h2></div>
+			<div class="hor_center"><a href="/order" class="btn btn-success btn-lg">CHECKOUT</a></div>
 		</div>
 		</c:when>
 		<c:otherwise>
@@ -93,6 +97,17 @@
 	</c:choose>
 	</div>
 	<script>
+	$(document).ready(function(){
+		getTotal();
+	});
+	function getTotal(){
+		var totalPrice = 0;
+		$('.subprice').each(function(){
+			totalPrice += parseFloat($(this).text());
+		})
+			
+		$('#totalPrice').text('Total Price : $'+totalPrice.toFixed(2));	
+	}
 	function calPrice(id){
 		var delim = id.substr(id.length-1);
 		var formName = 'tocart'+delim;
@@ -103,7 +118,8 @@
 		var sz = getSz(form.find('#sz'+delim));
 		
 		var total = price*qty*sz;
-		$('#subprice'+delim).text(total);
+		$('#subprice'+delim).text(total.toFixed(2));
+		getTotal();
 	}
 	function increase(obj){
 		var qty = $(obj).siblings('span').text();
@@ -129,8 +145,10 @@
 	    	var sz=2;
 	    }else if($(Obj).val() == "1.5kg"){
 	    	var sz=3;
+	    }else if($(Obj).val() == "2kg"){
+	    	var sz=4;	
 	    }else{
-	    	var sz=4;
+	    	var sz=1;
 	    }
 	    return sz;
 	}

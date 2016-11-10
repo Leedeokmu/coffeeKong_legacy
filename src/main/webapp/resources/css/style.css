@@ -57,6 +57,10 @@
 	display:flex;
 	justify-content: center;
 }
+.hor_right{
+	display:flex;
+	justify-content: flex-end;
+}
 .l_title,.a_title,.u_title{
 	color:#6b6b6b;
 }

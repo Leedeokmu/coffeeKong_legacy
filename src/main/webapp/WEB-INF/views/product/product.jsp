@@ -20,13 +20,7 @@
 	</c:when>
 	<c:when test="${content.equals('detail') }">
 		<c:set var="content" value="./pDetail.jsp" />
-	</c:when>
-	<c:when test="${content.equals('order') }">
-		<c:set var="content" value="./order.jsp" />
-	</c:when>
-	<c:when test="${content.equals('ocompl') }">
-		<c:set var="content" value="./orderComplete.jsp" />
-	</c:when>
+	</c:when>	
 	<c:when test="${content.equals('review') }">
 		<c:set var="content" value="./review.jsp" />
 	</c:when>

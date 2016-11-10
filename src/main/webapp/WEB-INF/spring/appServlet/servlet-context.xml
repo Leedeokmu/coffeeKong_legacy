@@ -47,7 +47,7 @@
 			<beans:ref bean="loginInterceptor"/>
 		</interceptor>
 		<interceptor>
-			<mapping path="/____"/>
+			<mapping path="/order"/>
 			<beans:ref bean="authInterceptor"/>
 		</interceptor>
 	</interceptors>

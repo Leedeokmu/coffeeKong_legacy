@@ -26,6 +26,15 @@
 	<c:when test="${content.equals('regCompl')}">
 		<c:set var="content" value="./user/regCompl.jsp"/>
 	</c:when>
+	<c:when test="${content.equals('cart')}">
+		<c:set var="content" value="./user/cart.jsp"/>
+	</c:when>
+	<c:when test="${content.equals('order') }">
+		<c:set var="content" value="./user/order.jsp" />
+	</c:when>
+	<c:when test="${content.equals('ocompl') }">
+		<c:set var="content" value="./user/orderComplete.jsp" />
+	</c:when>
 	<c:when test="${content.equals('uupdate')}">
 		<c:set var="content" value="./user/uUpdate.jsp"/>
 	</c:when>
@@ -44,9 +53,7 @@
 	<c:when test="${content.equals('urcompl')}">
 		<c:set var="content" value="./user/uResignComplete.jsp"/>
 	</c:when>
-	<c:when test="${content.equals('cart')}">
-		<c:set var="content" value="./user/cart.jsp"/>
-	</c:when>
+	
 </c:choose>
 <body>
 	<div>

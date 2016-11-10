@@ -10,12 +10,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
 </head>
-<c:set var="pVo" value="${aProduct}" />
-<c:set var="uVo" value="${user}" />
-<%-- <c:set var="total" value="${total}" />
-<c:set var="qty" value="${qty}" />
-<c:set var="type" value="${type}" />
-<c:set var="sz" value="${sz}" /> --%>
 <body>
 <form method="post" action="oSaveCtrl" name="oForm">
 <input type="hidden" name="uEmail" value="${uVo.u_email }"/>
