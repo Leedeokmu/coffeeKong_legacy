@@ -17,12 +17,8 @@ public class IndexController {
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(Model model) {
 		logger.info("index ############################");
-		LoginDTO dto = new LoginDTO();
-		UserVO vo = new UserVO();				
 		
 		model.addAttribute("content", "");
-		model.addAttribute("LoginDTO", dto);
-		model.addAttribute("UserVO", vo);
 		return "index";
 	}
 	

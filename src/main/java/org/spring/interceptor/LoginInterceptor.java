@@ -35,7 +35,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 				response.addCookie(loginCookie);
 			}
 //			String dest = (String) session.getAttribute("dest");
-//			
+			
 //			RequestDispatcher dis = request.getRequestDispatcher(dest != null ? (String) dest : "/index");
 //			dis.forward(request, response);
 //			response.sendRedirect(dest != null ? (String) dest : "/index");
@@ -46,25 +46,10 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		HttpSession session = request.getSession();
-		saveDest(request);
 		if (session.getAttribute("login") != null) {
 			logger.info("clear login session attr #######################");
 			session.removeAttribute("login");
 		}
 		return true;
-	}
-
-	private void saveDest(HttpServletRequest req) {
-		String uri = req.getRequestURI();
-		String query = req.getQueryString();
-		if (query == null || query.equals("null")) {
-			query = "";
-		} else {
-			query = "?" + query;
-		}
-		if (req.getMethod().equals("GET")) {
-			logger.info("destination ##################" + (uri + query));
-			req.getSession().setAttribute("dest", uri + query);
-		}
 	}
 }

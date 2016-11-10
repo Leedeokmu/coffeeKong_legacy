@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.spring.mapper.OrderMapper">
+<mapper namespace="org.spring.mapper.OrderProdMapper">
 
 <!-- 	<resultMap type="com.service.ProductVO" id="Product"> -->
 <!-- 		<id column="p_id" property="p_id"/> -->
@@ -94,13 +94,11 @@
 <!-- 				o.o_id = #{oid} -->
 <!-- 		]]> -->
 <!-- 	</select> -->
-	<insert id="insOrd" parameterType="org.spring.domain.OrderVO">
+	<insert id="insOrdProd" parameterType="com.service.OrderVO">
 		INSERT INTO
 			tbl_order
 		VALUES(
-			seq_oid.nextval,#{u_email}, #{o_price}, #{o_rfname}, 
-			#{o_rlname}, #{o_phone}, #{o_postcode}, #{o_addr},
-			'waiting payment', sysdate
+			seq_oid.nextval,#{u_email},#{p_id},#{o_qty}, #{o_sz}, #{o_type}, #{o_price}, #{o_rfname}, #{o_rlname}, #{o_phone}, #{o_postcode}, #{o_addr},'ready to delivery', sysdate
 		)
 	</insert>
 <!-- 	<update id="updateOrder" parameterType="com.service.OrderVO"> -->

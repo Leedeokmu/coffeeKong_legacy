@@ -54,8 +54,11 @@
 		<hr />
 		<div class="row">
 			
-			
 		</div>
 	</div>
+	<c:if test="${content eq 'login' }">
+		<script>$('#loginModal').modal();</script>
+	</c:if>
+	
 </body>
 </html>

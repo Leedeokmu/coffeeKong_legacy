@@ -183,6 +183,7 @@
 			</div>
 		</c:if>
 	</div>
+	
 	<script src="http://code.jquery.com/jquery-3.1.1.js"
 		integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
 		crossorigin="anonymous"></script>

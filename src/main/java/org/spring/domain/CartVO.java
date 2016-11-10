@@ -94,7 +94,8 @@ public class CartVO {
 
 	@Override
 	public String toString() {
-		return "CartVO [c_num=" + c_num + ", p_id=" + p_id + ", p_name=" + p_name + ", p_img=" + p_img + ", p_price="
-				+ p_price + ", sub_price=" + sub_price + ", qty=" + qty + ", type=" + type + ", sz=" + sz + "]";
+		return "CartVO [c_num=" + c_num + ", p_id=" + p_id + ", p_name=" + p_name + ", p_category=" + p_category
+				+ ", p_img=" + p_img + ", p_price=" + p_price + ", sub_price=" + sub_price + ", qty=" + qty + ", type="
+				+ type + ", sz=" + sz + "]";
 	}
 }

@@ -1,125 +1,148 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
-<c:set var="basePath" value="${pageContext.request.contextPath }"/>
+<c:set var="basePath" value="${pageContext.request.contextPath }" />
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
 </head>
 <body>
-<form method="post" action="oSaveCtrl" name="oForm">
-<input type="hidden" name="uEmail" value="${uVo.u_email }"/>
-<input type="hidden" name="pId" value="${pVo.p_id }"/>
-<input type="hidden" name="qty" value="${qty}"/>
-<input type="hidden" name="sz" value="${sz}"/>
-<input type="hidden" name="type" value="${type}"/>
-<input type="hidden" name="total" value="${total}"/>
-	<div class="container">
-		<div>
-			<h3>Ordered Product Info</h3>
-			<hr>
-			<div style="float: left; margin: 10px">
-				<div>
-					<a href="pDetailCtrl?pId=${pVo.p_id}"><img src="${pVo.p_img }" width="150" height="150" alt="productIcon" /></a>
-				</div>
+	<c:choose>
+	<c:when test="${fn:length(cart) > 0}">
+	<form method="post" action="/order" name="order">
+		<input type="hidden" name="o_price" />
+		<div class="container">
+			<div class="row">
+				<h3 class="u_title text-center">Product Information</h3>
 			</div>
-			<div style="float: left; margin: 10px;margin-top:50px;margin-left:100px;">
-				<div>name</div>
-				<div>
-					<a href="pDetailCtrl?pId=${pVo.p_id}">${pVo.p_name }</a>
-				</div>
-			</div>
-			<div style="float: left; margin: 10px;margin-top:50px;margin-left:50px;">
-				<div>total</div>
-				<div>${total }</div>
-			</div>
-			<div style="float: left; margin: 10px;margin-top:50px;margin-left:50px;">
-				<div>qty</div>
-				<div>${qty }</div>
-			</div>
-			<c:choose>
-			<c:when test="${pVo.p_category eq 'SingleOrigins' || pVo.p_category eq 'Blends' ||pVo.p_category eq 'Decafs' ||pVo.p_category eq 'Light' ||pVo.p_category eq 'Medium' ||pVo.p_category eq 'Dark' ||pVo.p_category eq 'ColdBrew'}">	
-				<div>
-					<div style="float: left; margin: 10px;margin-top:50px;margin-left:50px;">
-						<div>type</div>
-						<div>${type }</div>
+			<c:forEach var="cvo" items="${cart}" varStatus="index" step="1">
+				<div class="hor_center u_article" style="margin-top: 1em">
+					<div class="row " style="width: 40em">
+						<div class="col-md-4 hor_center">
+							<img src="${cvo.p_img }" width="150" height="150" alt="product" />
+						</div>
+						<div class="col-md-8 text-center">
+							<div class="row">
+								<div class="col-md-4">
+									<span><b>name</b></span>
+								</div>
+								<div class="col-md-8">
+									<span>${cvo.p_name }</span>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">
+									<span><b>subprice</b></span>
+								</div>
+								<div class="col-md-8">
+									<span class="subprice">${cvo.sub_price }</span>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">
+									<span><b>quentity</b></span>
+								</div>
+								<div class="col-md-8">
+									<span>${cvo.qty }</span>
+								</div>
+							</div>
+							<c:choose>
+								<c:when
+									test="${cvo.p_category eq 'SingleOrigins' || cvo.p_category eq 'Blends' ||cvo.p_category eq 'Decafs' ||cvo.p_category eq 'Light' ||cvo.p_category eq 'Medium' ||cvo.p_category eq 'Dark' ||cvo.p_category eq 'ColdBrew'}">
+									<div class="row">
+										<div class="col-md-4">
+											<span><b>type</b></span>
+										</div>
+										<div class="col-md-8">
+											<span>${cvo.type }</span>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-4">
+											<span><b>size</b></span>
+										</div>
+										<div class="col-md-8">
+											<span>${cvo.sz }</span>
+										</div>
+									</div>
+								</c:when>
+							</c:choose>
+						</div>
 					</div>
-					<div style="float: left; margin: 10px;margin-top:50px;margin-left:50px;">
-						<div>size</div>
-						<div>${sz }</div>
-					</div>
 				</div>
-			</c:when>
-			</c:choose>
-		<div style="clear:both;">
+				<hr />
+			</c:forEach>
+			<div class="row">
+				<div class="hor_right">
+					<h3 id="totalPrice"></h3>
+				</div>
+			</div>
+			<hr />
+			<div class="row text-center">
+				<h3>Receiver Information</h3>
+			</div>
+			<div class="row form-horizontal">
+				<label class="control-label col-md-2">receiver</label>
+				<div class="col-md-5"> 
+					<input class="form-control" type="text" name="o_rfname" placeholder="YOUR FIRST NAME" />
+				</div>
+				<div class="col-md-5">
+					<input class="form-control" type="text" name="o_rlname" placeholder="YOUR LAST NAME" />
+				</div>
+			</div>
+			<div class="row form-horizontal">
+				<label class="control-label col-md-2">postcode</label>
+				<div class="col-md-10">
+					<input class="form-control" type="text" name="o_postcode" placeholder="ENTER YOUR POSTCODE"/>
+				</div>
+			</div>
+			<div class="row form-horizontal">
+				<label class="control-label col-md-2">address</label>
+				<div class="col-md-10">
+					<textarea class="form-control" name="o_addr" cols="30" rows="2"></textarea>
+				</div>
+			</div>
+			<div class="row form-horizontal">
+				<label class="control-label col-md-2">phone</label>
+				<div class="col-md-10">
+					<input class="form-control" type="text" name="o_phone" value="1111111111" placeholder="ENTER YOUR PHONE NUMBER"/>
+				</div>
+			</div>
 			<hr>
-			<h3>Ordered Product Info</h3>
-			<hr>
-			<div>
-				<div style="float:left;width:80px;">orderer</div>
-				<div style="float:left;">${uVo.u_fname} ${uVo.u_lname}</div>
-			</div>
-			<div style="clear:both;">
-				<div style="float:left;;width:80px;">email</div>
-				<div style="float:left;">${uVo.u_email }</div>
-			</div>
-		</div>
-		<div style="clear:both;">
-			<hr>
-			<h3>Receiver Info</h3>
-			<hr>
-			<div>
-				<div style="float:left;width:80px;">receiver</div>
-				<div style="float:left;"><input type="text" name="rLname" placeholder="last name"/><input type="text" name="rFname" placeholder="first name"/></div>
-			</div>
-			<div style="clear:both;">
-				<div style="float:left;;width:80px;">post code</div>
-				<div style="float:left;"><input type="text" name="rPost" maxlength="100" size="100"/></div>
-			</div>
-			<div style="clear:both;">
-				<div style="float:left;;width:80px;">address</div>
-				<div style="float:left;"><input type="text" name="rAddr" maxlength="100" size="100"/></div>
-			</div>
-			<div style="clear:both;">
-				<div style="float:left;;width:80px;">phone</div>
-				<div style="float:left;">
-					<select id="phone1" name="phone1">
-					    <option value="011">011</option>
-					    <option value="016">016</option>
-					    <option value="017">017</option>
-					    <option value="019">019</option>
-					    <option value="010" selected>010</option>
-					</select>
-					<input type="number" id="phone2" name="phone2" size="4" onkeypress="onlyNumber();" />
-					<input type="number" id="phone3" name="phone3" size="4" onkeypress="onlyNumber();" />
+			<div class="row">
+				<div class="hor_center">
+					<input type="submit" name="sendOrder" class="btn btn-success btn-lg" value="ORDER"/>
 				</div>
 			</div>
 		</div>
-		<div style="clear:both;">
-			<hr>
-				<p><button type="button" onclick="order()">ORDER</button></p>
-			<hr>
+	</form>
+	</c:when>
+	<c:otherwise>
+		<div class="container">
+			<div class="text-center">
+				<h2>YOUR CART EMPTY</h2><br />
+				click <a href="/product/list/Blends">here</a> to navigate products.
+			</div>
 		</div>
-	</div>
-</form>
+	</c:otherwise>
+	</c:choose>
+	
+	<script>
+		$(document).ready(function(){
+			var totalPrice = 0;
+			$('.subprice').each(function(){
+				totalPrice += parseFloat($(this).text());
+			})
+			$('#totalPrice').text('Total Price : $'+totalPrice.toFixed(2));
+			$('input[name="o_price"]').attr('value', totalPrice);
+			
+			
+		})	
+	</script>
 </body>
-<script type="text/javascript">
-function order(){
-     if (document.getElementById("phone2").value.length != 4) {
-         alert("you must enter 4 digits in the phone blanks");
-         oForm.mobile2.focus();
-         return false;
-     }
-     if (document.getElementById("phone3").value.length != 4) {
-         alert("you must enter 4 digits in the phone blanks");
-         oForm.mobile3.focus();
-         return false;
-     }
-	oForm.submit();
-}
-</script>
 </html>

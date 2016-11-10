@@ -62,7 +62,7 @@ public class LoginController {
 						Date limit = new Date(System.currentTimeMillis() + (duration * 1000));
 						service.rmbLogin(uvo.getU_email(), session.getId(), limit);
 					}
-					entity = new ResponseEntity<Object>("Success", HttpStatus.OK);
+					entity = new ResponseEntity<Object>(session.getAttribute("dest"), HttpStatus.OK);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

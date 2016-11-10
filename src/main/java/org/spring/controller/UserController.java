@@ -118,15 +118,15 @@ public class UserController {
 			List<CartVO> list = (ArrayList<CartVO>) session.getAttribute("cart");
 
 			if (list != null) {
-				logger.debug("session.cart############################");
-				logger.debug("list############################");
+				logger.info("session.cart############################");
+				logger.info("list############################");
 				for (CartVO vo : list) {
-					logger.debug(vo.toString());
+					logger.info(vo.toString());
 				}
 
 				for (Iterator<CartVO> it = list.iterator(); it.hasNext();) {
 					CartVO vo = it.next();
-					if (vo.getP_id() == cvo.getP_id() && vo.getType() == cvo.getType() && vo.getSz() == cvo.getSz()) {
+					if (vo.getP_id() == cvo.getP_id() && vo.getType().equals(cvo.getType()) && vo.getSz().equals(cvo.getSz())) {
 						it.remove();
 					}
 				}

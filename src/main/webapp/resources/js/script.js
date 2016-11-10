@@ -82,11 +82,12 @@ $(document).ready(function(){
 	    		dateType: 'json',
 	    		data: JSON.stringify(form_to_json(form)),
 	    		success : function(result){
-	    			if(result == "Success"){
-	    				window.location.reload();
-	    			}else if(result == "Fail"){
+	    			if(result == "Fail"){
 	    				$('#loginModal').show();
 	    				$('.errmsg').html('<span>EMAIL & PASSWORD NOT CORRECT</span>').fadeIn('slow').fadeOut('slow');
+	    			}else{
+		    			var dest = (result != null ? result : "/index");
+		    			window.location.replace(dest);
 	    			}
 	    		}
 	    		,
@@ -155,12 +156,36 @@ $(document).ready(function(){
 	    },
 	    submitHandler: function (form) {
 	    	form.submit();
-	    },
-	    success: function (e) {
-	    	
 	    }
 	});
-
+	
+	jQuery.validator.addMethod("phone", function(phone_number, element) {
+	    phone_number = phone_number.replace(/\s+/g, "");
+	    return this.optional(element) || phone_number.length > 9 && 
+	    phone_number.match(/[0-9]{10}/);
+	}, "Please specify a valid phone number");
+	
+	$('form[name="order"]').validate({
+	    rules: {
+	    	o_rfname: { required: true },
+	    	o_rlname: { required: true },
+	    	o_postcode: { required: true},
+	    	o_addr: { required: true},
+	    	o_phone: {required: true, phone:true, minlength:10, maxlength:10}
+	    },
+	    messages: {
+	    	o_rfname:{ required:"REQUIRED" },
+	    	o_rlname:{ required:"REQUIRED" },
+	    	o_postcode: { required: "REQUIRED" },
+	    	o_addr : { required: "REQUIRED" },
+	    	o_phone: { required:"REQUIRED", phone: "NUMBER EXCLUDE '-' OR SPACE" }
+	    },
+	    submitHandler: function (form, event) {
+	    	form.submit();
+	    }
+	});
+	
+	
 	$('form[name="uresign"]').submit(function(event){
 		event.preventDefault();
 		
@@ -189,6 +214,8 @@ $(document).ready(function(){
     	    }
     	});
 	});
+	
+	
 });
 
 
