@@ -83,10 +83,10 @@ $(document).ready(function(){
 	    		data: JSON.stringify(form_to_json(form)),
 	    		success : function(result){
 	    			if(result == "Fail"){
-	    				$('#loginModal').show();
+	    				$('#loginModal').modal();
 	    				$('.errmsg').html('<span>EMAIL & PASSWORD NOT CORRECT</span>').fadeIn('slow').fadeOut('slow');
 	    			}else{
-		    			var dest = (result != null ? result : "/index");
+		    			var dest = (result != null ? result : '/index');
 		    			window.location.replace(dest);
 	    			}
 	    		}

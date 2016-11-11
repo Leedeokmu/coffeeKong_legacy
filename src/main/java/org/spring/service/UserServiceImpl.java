@@ -10,6 +10,7 @@ import org.spring.domain.UserVO;
 import org.spring.dto.LoginDTO;
 import org.spring.persistence.UserDAO;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -17,7 +18,7 @@ public class UserServiceImpl implements UserService {
 
 	@Inject
 	private UserDAO dao;
-
+	
 	@Override
 	public UserVO login(LoginDTO dto) throws Exception {
 		return dao.login(dto);

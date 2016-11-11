@@ -17,7 +17,7 @@
 	session.invalidate();
 %>
 <body>
-<% 	response.sendRedirect("../index.html"); %>
+<% 	response.sendRedirect("/index"); %>
 
 <script src="http://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
 <script src="${basePath}/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>

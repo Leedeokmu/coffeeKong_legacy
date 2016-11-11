@@ -1,7 +1,7 @@
 package org.spring.domain;
 
-import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class OrderVO {
 	private int o_id;
@@ -14,7 +14,7 @@ public class OrderVO {
 	private String o_addr;
 	private String o_state;
 	private Date o_date;
-	private OrderProdVO[] opvo;
+	private List<OrderProdVO> opvo;
 
 	public String getO_rfname() {
 		return o_rfname;
@@ -88,14 +88,6 @@ public class OrderVO {
 		this.o_postcode = o_postcode;
 	}
 
-	public OrderProdVO[] getOpvo() {
-		return opvo;
-	}
-
-	public void setOpvo(OrderProdVO[] opvo) {
-		this.opvo = opvo;
-	}
-
 	public Double getO_price() {
 		return o_price;
 	}
@@ -104,11 +96,18 @@ public class OrderVO {
 		this.o_price = o_price;
 	}
 
+	public List<OrderProdVO> getOpvo() {
+		return opvo;
+	}
+
+	public void setOpvo(List<OrderProdVO> opvo) {
+		this.opvo = opvo;
+	}
+
 	@Override
 	public String toString() {
 		return "OrderVO [o_id=" + o_id + ", u_email=" + u_email + ", o_price=" + o_price + ", o_rfname=" + o_rfname
 				+ ", o_rlname=" + o_rlname + ", o_phone=" + o_phone + ", o_postcode=" + o_postcode + ", o_addr="
-				+ o_addr + ", o_state=" + o_state + ", o_date=" + o_date + ", opvo=" + Arrays.toString(opvo) + "]";
+				+ o_addr + ", o_state=" + o_state + ", o_date=" + o_date + ", opvo=" + opvo + "]";
 	}
-
 }

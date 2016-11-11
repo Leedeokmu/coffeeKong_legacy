@@ -13,6 +13,8 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.spring.domain.CartVO;
+import org.spring.domain.PageMaker;
+import org.spring.domain.SearchCriteria;
 import org.spring.domain.UserVO;
 import org.spring.service.OrderService;
 import org.spring.service.UserService;
@@ -21,6 +23,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -98,12 +102,26 @@ public class UserController {
 		return "/index";
 	}
 
-	@RequestMapping(value = "/order", method = RequestMethod.GET)
-	public String orderGET(HttpSession session, Model model) throws Exception {
+	@RequestMapping(value = "/order/list", method = RequestMethod.GET)
+	public String orderList(@ModelAttribute("cri") SearchCriteria cri, HttpSession session, Model model) throws Exception {
+		logger.info("User Order############################ session name: "
+				+ ((UserVO) session.getAttribute("login")).getU_email());
+		model.addAttribute("list", oservice.listByEmail(cri));
+		PageMaker pmk = new PageMaker();
+		pmk.setCri(cri);
+		pmk.setTotalCount(oservice.listCountByEmail(cri));
+		model.addAttribute("pmk",pmk);
+		
+		model.addAttribute("content", "uolist");
+		return "/index";
+	}
+	
+	@RequestMapping(value = "/order/detail/{pid}", method = RequestMethod.GET)
+	public String orderGET(@PathVariable int pid, HttpSession session, Model model) throws Exception {
 		logger.info("User Order############################ session name: "
 				+ ((UserVO) session.getAttribute("login")).getU_email());
 
-		model.addAttribute("content", "uolist");
+		model.addAttribute("content", "uodetail");
 		return "/index";
 	}
 

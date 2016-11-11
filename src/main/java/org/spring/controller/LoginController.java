@@ -43,18 +43,18 @@ public class LoginController {
 	
 	@ResponseBody
 	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public ResponseEntity<Object> loginPOST (@Valid @RequestBody LoginDTO dto, BindingResult error, HttpSession session ){ 
+	public ResponseEntity<String> loginPOST (@Valid @RequestBody LoginDTO dto, BindingResult error, HttpSession session ){ 
 		logger.info("login ########################### dto : " + dto.toString());
 		
-		ResponseEntity<Object> entity = null;
+		ResponseEntity<String> entity = null;
 		
 		if(error.hasErrors()){
-            entity = new ResponseEntity<Object>("Fail", HttpStatus.OK);
+            entity = new ResponseEntity<String>("Fail", HttpStatus.OK);
 		}else{
 			try {
 				UserVO uvo = service.login(dto);
 				if(uvo == null){
-					entity = new ResponseEntity<Object>("Fail", HttpStatus.OK);
+					entity = new ResponseEntity<String>("Fail", HttpStatus.OK);
 				}else{
 					session.setAttribute("login", uvo);
 					if(dto.isUseCookie()){
@@ -62,7 +62,8 @@ public class LoginController {
 						Date limit = new Date(System.currentTimeMillis() + (duration * 1000));
 						service.rmbLogin(uvo.getU_email(), session.getId(), limit);
 					}
-					entity = new ResponseEntity<Object>(session.getAttribute("dest"), HttpStatus.OK);
+					logger.info("dest #############: "+(String)session.getAttribute("dest"));
+					entity = new ResponseEntity<String>((String)session.getAttribute("dest"), HttpStatus.OK);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

@@ -66,7 +66,7 @@
 										<ul class="dropdown-menu" role="menu">
 											<li><a href="/user/update">EDIT MY
 													PROFILE</a></li>
-											<li><a href="/user/order">MY ORDER</a></li>
+											<li><a href="/user/order/list">MY ORDER</a></li>
 											<li><a href="/user/resign">RESIGN FROM
 													WEBSITE</a></li>
 											<li><a href="/logout">LOGOUT</a></li>
