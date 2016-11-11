@@ -7,6 +7,7 @@ import org.spring.domain.OrderVO;
 
 public interface OrderDAO {
 	public void insOrd(OrderVO vo) throws Exception;
+	public int getNextVal() throws Exception;
 	
 }
 

@@ -22,7 +22,8 @@ public class OrderDAOImpl implements OrderDAO{
 	public void insOrd(OrderVO vo) throws Exception {
 		sql.insert(namespace+".insOrd", vo);
 	}
-
-	
-	
+	@Override
+	public int getNextVal() throws Exception {
+		return sql.selectOne(namespace+".getNextVal");
+	}
 }

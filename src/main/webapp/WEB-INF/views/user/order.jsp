@@ -22,8 +22,8 @@
 			</div>
 			<c:forEach var="cvo" items="${cart}" varStatus="index" step="1">
 				<div class="hor_center u_article" style="margin-top: 1em">
-					<div class="row " style="width: 40em">
-						<div class="col-md-4 hor_center">
+					<div class="row hor_center" style="width: 40em">
+						<div class="col-md-4">
 							<img src="${cvo.p_img }" width="150" height="150" alt="product" />
 						</div>
 						<div class="col-md-8 text-center">

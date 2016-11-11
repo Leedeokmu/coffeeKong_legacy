@@ -103,6 +103,16 @@
 			'waiting payment', sysdate
 		)
 	</insert>
+	<select id="getNextVal" resultType="int">
+		<![CDATA[
+		SELECT 
+			last_number
+		FROM
+			user_sequences 
+		WHERE
+			sequence_name='SEQ_OID'
+		]]>
+	</select>
 <!-- 	<update id="updateOrder" parameterType="com.service.OrderVO"> -->
 <!-- 		UPDATE  -->
 <!-- 			tbl_order -->

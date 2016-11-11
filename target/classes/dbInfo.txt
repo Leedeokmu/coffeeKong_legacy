@@ -101,11 +101,10 @@ CREATE TABLE tbl_order(
 	o_state varchar2(100 byte) not null,
 	o_date date default sysdate,
 	CONSTRAINT pk_oid PRIMARY KEY(o_id),
-	CONSTRAINT fk_o_pid FOREIGN KEY(p_id) 
-	REFERENCES tbl_prod(p_id),
 	CONSTRAINT fk_o_uid FOREIGN KEY(u_email) 
 	REFERENCES tbl_user(u_email)
 );
+
 /*
 CREATE TABLE tbl_order(
 	o_id number(5) not null,
@@ -129,6 +128,11 @@ CREATE TABLE tbl_order(
 	REFERENCES tbl_user(u_email) ON DELETE CASCADE
 );
 */
+DROP SEQUENCE seq_oid;
+	
+CREATE SEQUENCE seq_oid START WITH 1 INCREMENT BY 1 NOCACHE;
+
+DROP TABLE tbl_order_prod;
 
 CREATE TABLE tbl_order_prod(
 	o_id number(5) not null,
@@ -141,11 +145,8 @@ CREATE TABLE tbl_order_prod(
 	REFERENCES tbl_order(o_id),
 	CONSTRAINT fk_op_pid FOREIGN KEY(p_id) 
 	REFERENCES tbl_prod(p_id)
-)
+);
 
-DROP SEQUENCE seq_oid;
-	
-CREATE SEQUENCE seq_oid START WITH 1 INCREMENT BY 1 NOCACHE;
 
 commit;
 

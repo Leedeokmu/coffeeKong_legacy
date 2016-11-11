@@ -6,4 +6,5 @@ import org.spring.domain.OrderVO;
 
 public interface OrderService {
 	public void insOrder(OrderVO vo) throws Exception;
+	public int getNextVal() throws Exception;
 }

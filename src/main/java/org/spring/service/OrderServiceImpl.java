@@ -19,6 +19,11 @@ public class OrderServiceImpl implements OrderService{
 	public void insOrder(OrderVO vo) throws Exception {
 		dao.insOrd(vo);
 	}
+
+	@Override
+	public int getNextVal() throws Exception {
+		return dao.getNextVal();
+	}
 	
 	
 }

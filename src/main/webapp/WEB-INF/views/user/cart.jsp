@@ -22,7 +22,7 @@
 				<input type="hidden" name="qty" />
 				
 				<div class="hor_center">
-					<div class="row" style="width:40em">
+					<div class="row hor_center" style="width:40em">
 						<div class="col-md-5" style="padding:0px">
 							<img src="${cvo.p_img }" alt="img" style="width:150px;height:150px"/>
 						</div>
@@ -35,8 +35,8 @@
 								<c:when test="${cvo.p_category eq 'SingleOrigins' || cvo.p_category eq 'Blends' ||cvo.p_category eq 'Decafs' ||cvo.p_category eq 'Light' ||cvo.p_category eq 'Medium' ||cvo.p_category eq 'Dark' ||cvo.p_category eq 'ColdBrew'}">
 								<div class="row">
 									<span class="col-md-6">TYPE</span>
-									<span class="col-md-6">
-										<select name="type" id="type<c:out value="${index.count }"/>">
+									<span class="col-md-6 form-group-sm ver_center">
+										<select name="type" class="form-control" id="type<c:out value="${index.count }"/>">
 											<option value="Whole bean" <c:out value="${cvo.type eq 'Whole bean'? 'selected' : ''}"/>>Whole bean</option>
 											<option value="Drip" <c:out value="${cvo.type eq 'Drip'? 'selected' : ''}"/>>Drip</option>
 											<option value="Espresso" <c:out value="${cvo.type eq 'Espresso'? 'selected' : ''}"/>>Espresso</option>
@@ -45,8 +45,8 @@
 								</div>
 								<div class="row">
 									<span class="col-md-6">SIZE</span>
-									<span class="col-md-6">
-										<select name="sz" onChange="defSz(this)" id="sz<c:out value="${index.count }"/>">
+									<span class="col-md-6 form-group-sm ver_center">
+										<select name="sz" class="form-control" onChange="defSz(this)" id="sz<c:out value="${index.count }"/>">
 											<option value="0.5kg" <c:out value="${cvo.sz eq '0.5kg'? 'selected' : ''}"/>>0.5kg</option>
 											<option value="1kg" <c:out value="${cvo.sz eq '1kg'? 'selected' : ''}"/>>1kg</option>
 											<option value="1.5kg" <c:out value="${cvo.sz eq '1.5kg'? 'selected' : ''}"/>>1.5kg</option>
@@ -57,7 +57,7 @@
 								</c:when>
 							</c:choose>
 							<div class="row">
-								<span class="col-sm-6">QUNETYTY</span>
+								<span class="col-sm-6">QUNETITY</span>
 								<span class="col-sm-6"><button type="button" id="minus" class="btn btn-default btn-xs" onClick="decrease(this)">-</button>
 									&nbsp;<span id="qty<c:out value="${index.count }"/>">${cvo.qty}</span>&nbsp;
 								<button type="button" class="btn btn-default btn-xs" id="plus" onClick="increase(this)">+</button></span>
@@ -70,11 +70,9 @@
 								<span class="col-md-6">SUB PRICE</span>
 								<span class="col-md-6">$<strong class="subprice" id="subprice<c:out value="${index.count }"/>">${cvo.sub_price }</strong></span>
 							</div>
-							<div class="row hor_center">
-								<div class="col-md-6"></div>
-								<input type="submit" value="UPDATE CART" class="btn btn-default btn-sm col-md-6" id="btn<c:out value="${index.count }"/>"/>
+							<div class="row hor_center" style="margin-top:2em">
+								<input type="submit" value="UPDATE CART" class="btn btn-default btn-sm col-md-6 tocart" id="btn<c:out value="${index.count }"/>"/>
 							</div>
-							
 						</div>
 					</div>
 				</div>
@@ -157,13 +155,11 @@
 	    calPrice($(selectObj).attr("id"));
 	}
 	
-	$('input[type="submit"]').on("click", function(event){
+	$('input.tocart').on("click", function(event){
 		event.preventDefault();
 		
 		var num = $(this).attr("id").substr($(this).attr("id").length-1);
-		console.log(num);
 		var form = $('form[name="tocart'+num+'"]');
-		console.log(form);
 		
 		var qty = form.find('#qty'+num).text();
 		var subprice = form.find('#subprice'+num).text();
@@ -186,7 +182,7 @@
     			if(result == "Success"){
     				window.location.reload()
     			}else if(result == "Fail"){
-    				
+    				alert("same product exists");
     			}
     		}
     		,
@@ -196,12 +192,9 @@
     	});
 	});	
 	
-	$('form[role="form"]').on("submit", function(event){
-			event.preventDefault();
-			
-			
-			
-	})
+// 	$('form[role="form"]').on("submit", function(event){
+// 			event.preventDefault();
+// 	})
 	</script>
 </body>
 </html>

@@ -175,6 +175,12 @@ public class UserController {
 				for (ListIterator<CartVO> it = list.listIterator(); it.hasNext();) {
 					
 					CartVO vo = list.get(it.nextIndex());
+					
+					if(vo.getP_id() == cvo.getP_id() && vo.getType().equals(cvo.getType()) && vo.getSz().equals(cvo.getSz())){
+						entity = new ResponseEntity<String>("Fail", HttpStatus.OK);
+						return entity;
+					}
+					
 					if (vo.getC_num().equals(cvo.getC_num())) {
 						list.get(it.nextIndex()).setQty(cvo.getQty());
 						list.get(it.nextIndex()).setType(cvo.getType());

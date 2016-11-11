@@ -94,16 +94,23 @@
 <!-- 				o.o_id = #{oid} -->
 <!-- 		]]> -->
 <!-- 	</select> -->
-	<insert id="insOrdProd" parameterType="com.service.OrderVO">
+	<insert id="insOrdProd" parameterType="hashmap">
 		INSERT INTO
-			tbl_order
+			tbl_order_prod
 		VALUES(
-			seq_oid.nextval,#{u_email},#{p_id},#{o_qty}, #{o_sz}, #{o_type}, #{o_price}, #{o_rfname}, #{o_rlname}, #{o_phone}, #{o_postcode}, #{o_addr},'ready to delivery', sysdate
+			#{oid},#{vo.p_id},#{vo.qty}, #{vo.sz}, #{vo.type}, #{vo.sub_price}
+		)
+	</insert>
+	<insert id="insOrdProdTool" parameterType="hashmap">
+		INSERT INTO
+			tbl_order_prod(o_id, p_id, op_qty, op_price)
+		VALUES(
+			#{oid},#{vo.p_id},#{vo.qty}, #{vo.sub_price}
 		)
 	</insert>
 <!-- 	<update id="updateOrder" parameterType="com.service.OrderVO"> -->
-<!-- 		UPDATE  -->
 <!-- 			tbl_order -->
+<!-- 		UPDATE  -->
 <!-- 		SET -->
 <!-- 			o_rfname=#{o_rfname}, o_rlname=#{o_rlname}, o_phone=#{o_phone}, o_postcode=#{o_postcode}, o_addr=#{o_addr} -->
 <!-- 		WHERE -->
