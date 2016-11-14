@@ -27,4 +27,5 @@ public class SearchCriteria extends Criteria{
 				+ "[searchType=" + searchType
 				+", keyword=" + keyword + "]";
 	}
+	
 }

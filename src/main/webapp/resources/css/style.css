@@ -57,6 +57,11 @@
 	display:flex;
 	justify-content: center;
 }
+.all_center{
+	display:flex;
+	align-items: center;
+	justify-content: center;
+}
 .hor_right{
 	display:flex;
 	justify-content: flex-end;

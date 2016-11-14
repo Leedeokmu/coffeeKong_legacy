@@ -19,7 +19,7 @@
 				</div>
 				<c:if test="${mgr != null}">
 					<script>
-						window.location.replace('/manage');
+						self.location.replace('/manage');
 					</script>
 				</c:if>
 				<div class="modal-body">

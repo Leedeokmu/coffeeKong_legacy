@@ -67,7 +67,7 @@ public class ManageController {
 			try {
 				MgrVO mvo = service.login(dto);
 				if(mvo == null){
-					rttr.addAttribute("errmsg", "EMAIL & PASSWORD NOT MATCHED");
+					rttr.addFlashAttribute("errmsg", "EMAIL & PASSWORD NOT MATCHED");
 					return "redirect:/manage/login";
 				}else{
 					session.setMaxInactiveInterval(60*60*24);

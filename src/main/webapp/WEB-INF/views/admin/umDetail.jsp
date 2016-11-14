@@ -4,11 +4,10 @@
 <!doctype html>
 <html>
 <head>
-<c:set var="basePath" value="${pageContext.request.contextPath }"/>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Insert title here</title>
+<title>COFFEE KONG.</title>
 </head>
 
 <body>
@@ -17,25 +16,25 @@
 		<div>
 			<div class="row">
 				<span class="col-md-3">EMAIL</span>
-				<span class="col-md-9">${userVo.u_email }</span>
+				<span class="col-md-9">${uvo.u_email }</span>
 			</div><hr />
 			<div class="row">
 				<span class="col-md-3">FIRST NAME</span>
-				<span class="col-md-9">${userVo.u_fname }</span>
+				<span class="col-md-9">${uvo.u_fname }</span>
 			</div><hr />
 			<div class="row">
 				<span class="col-md-3">LAST NAME</span>
-				<span class="col-md-9">${userVo.u_lname }</span>
+				<span class="col-md-9">${uvo.u_lname }</span>
 			</div><hr />
 			<div class="row">
 				<span class="col-md-3">POINT</span>
-				<span class="col-md-9">${userVo.u_point }</span>
+				<span class="col-md-9">${uvo.u_point }</span>
 			</div>
 		</div><br />
 		<div>
 			<div class="hor_center">
 				<div class="btn-group">
-					<a href="${basePath }/umUpdateCtrl?email=${userVo.u_email }" class="btn btn-default">UPDATE</a>
+					<input type="button" class="btn btn-default uuBtn" value="UPDATE"/>
 					<a href="#umdModal" data-toggle="modal" class="btn btn-default">DELETE</a>
 				</div>
 				<div id="umdModal" class="modal fade" role="dialog">
@@ -49,46 +48,42 @@
 							<h3>DELETE THIS USER? CHECK ONCE MORE.</h3><br />
 						</div>
 						<div class="modal-footer">
-							<div class="btn-group">
-								<a href="${basePath }/umDeleteCtrl?email=${userVo.u_email}" class="btn btn-default">ACCEPT</a>
+							<div >
+								<input type="button" class="btn btn-default udBtn" value="ACCEPT"/>
 								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 							</div>
-        				
       					</div>
 					</div>
 				</div>
 			</div>
 			</div>
 		</div>
-		
-		
-<!-- 		<br /><br /> -->
-<!-- 		<div> -->
-<!-- 			<div> -->
-<!-- 				<span>ORDER ID</span> -->
-<%-- 				<span>${userVo.u_email }</span> --%>
-<!-- 			</div> -->
-<!-- 			<div> -->
-<!-- 				<span>PRODUCT NAME</span> -->
-<%-- 				<span>${userVo.u_email }</span> --%>
-<!-- 			</div> -->
-<!-- 			<div> -->
-<!-- 				<span>ORDER ID</span> -->
-<%-- 				<span>${userVo.u_email }</span> --%>
-<!-- 			</div> -->
-<!-- 			<div> -->
-<!-- 				<span>ORDER ID</span> -->
-<%-- 				<span>${userVo.u_email }</span> --%>
-<!-- 			</div> -->
-<!-- 			<div> -->
-<!-- 				<span>ORDER ID</span> -->
-<%-- 				<span>${userVo.u_email }</span> --%>
-<!-- 			</div> -->
-<!-- 			<div> -->
-<!-- 				<span>ORDER ID</span> -->
-<%-- 				<span>${userVo.u_email }</span> --%>
-<!-- 			</div> -->
-<!-- 		</div> -->
 	</div>
+	<form name="updateDelete">
+		<input type='hidden' name='email' value="${uvo.u_email}"> 
+		<input type='hidden' name='page' value="${cri.page}"> 
+		<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
+		<input type='hidden' name='searchType' value="${cri.searchType}">
+		<input type='hidden' name='keyword' value="${cri.keyword}">
+	</form>
+	<script>
+		$(".uuBtn").on("click",function(e){
+			e.preventDefault();
+			var form = $('form[name="updateDelete"]');
+			form.find('input[name="email"]').attr("value", encodeURI(form.find('input[name="email"]').attr("value")));
+			form.attr("method", "get");
+			form.attr("action", "/manage/user/update");
+			form.submit();
+		});
+		
+		$(".udBtn").on("click",function(e){
+			e.preventDefault();
+			var form = $('form[name="updateDelete"]');
+			form.find('input[name="email"]').attr("value", encodeURI(form.find('input[name="email"]').attr("value")));
+			form.attr("method", "post");
+			form.attr("action", "/manage/user/delete");
+			form.submit();
+		});
+	</script>
 </body>
 </html>

@@ -4,18 +4,10 @@
 <!doctype html>
 <html>
 <head>
-<c:set var="basePath" value="${pageContext.request.contextPath }"/>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title></title>
-<script type="text/javascript">
-	function goPage(pageNum){
-		umpForm.curPageNum.value = pageNum;
-		umpForm.action = "${basePath}/umListCtrl";
-		umpForm.submit();
-	}
-</script>
 </head>
 <body>
 	<div class="a_title text-center"><h2><span>USER LIST</span></h2></div><br /><br />
@@ -27,15 +19,64 @@
 			<div class="col-md-3"><span>POINT</span></div>
 		</div>
 		<hr>
-		<c:forEach var="vo" items="${userList }">
+		<c:forEach var="uvo" items="${list }">
 			<div class="row text-center">
-				<div class="col-md-3"><a href="${basePath }/umDetailCtrl?email=${vo.u_email }" class="btn btn-default">${vo.u_email }</a></div>
-				<div class="col-md-3">${vo.u_fname }</div>
-				<div class="col-md-3">${vo.u_lname }</div>
-				<div class="col-md-3">${vo.u_point }</div>
+				<div class="col-md-3 h_nav"><a href="/manage/user/detail${pmk.makeSearch(pmk.cri.page) }" class="udBtn">${uvo.u_email }</a></div>
+				<div class="col-md-3">${uvo.u_fname }</div>
+				<div class="col-md-3">${uvo.u_lname }</div>
+				<div class="col-md-3">${uvo.u_point }</div>
 			</div>
 			<hr />
 		</c:forEach>
+		<div class="row text-center">
+			<ul class="pagination">
+				<c:if test ="${pmk.prev }">
+					<li><a href="/manage/user/list${pmk.makeSearch(pmk.startPage - 1) }">&laquo;</a></li>
+				</c:if>
+				<c:forEach begin="${pmk.startPage }" end="${pmk.endPage }" var="idx">
+					<li <c:out value="${pmk.cri.page == idx? 'class=active' : '' }"/>>
+						<a href="/manage/user/list${pmk.makeSearch(idx)}">${idx }</a>
+					</li>
+				</c:forEach>
+				<c:if test ="${pmk.next && pmk.endPage > 0}">
+					<li><a href="/manage/user/list${pmk.makeSearch(pmk.endPage + 1) }">&raquo;</a></li>
+				</c:if>
+			</ul>
+		</div>
+		<div class="row hor_center form-inline">
+			<select name="searchType" class="form-control">
+				<option value="nothing" <c:out value="${cri.searchType == null ? 'selnected' : '' }"/>>--------------</option>
+				<option value="email" <c:out value="${cri.searchType  eq 'email' ? 'selected' : '' }"/>>Email</option>
+			</select>
+			<input type="search" class="form-control" name="keyword" value="${cri.keyword }">
+			<button id="searchBtn" class="btn btn-default">Search</button>
+		</div>
+		<form name="umdetail"></form>
 	</div>
+	<script>
+		$(document).ready(function(){
+			function search(){
+				self.location = "/manage/user/list" +'${pmk.makeQuery(1)}'
+				+"&searchType=" +$("select option:selected").val()
+				+"&keyword="+$('input[name="keyword"]').val().toLowerCase();
+			}
+			
+			$('#searchBtn').on("click", function(event){
+				search();
+			});
+			$('input[name="keyword"]').on("keyup", function(event) {
+    			if (event.keyCode == 13) {
+    				search();
+    			}
+			});
+			$('.udBtn').on("click",function(e){
+				e.preventDefault();
+				
+				var url = $(this).attr('href');
+				url += "&email=" + encodeURI($(this).text());
+				self.location.href = url;
+			})
+		});
+	</script>
 </body>
 </html>

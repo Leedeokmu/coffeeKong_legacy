@@ -30,7 +30,7 @@ public class ProductController {
 		return "/product/product";
 	}
 	
-	@RequestMapping(value = "/detail", method = RequestMethod.POST)
+	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String deatil(int pid,  Model model) throws Exception {
 		logger.info("product detail############################ pid: " + pid);
 		

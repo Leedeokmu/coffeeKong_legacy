@@ -1,11 +1,13 @@
 package org.spring.service;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.spring.domain.SearchCriteria;
 import org.spring.domain.UserVO;
 import org.spring.dto.LoginDTO;
 import org.spring.persistence.UserDAO;
@@ -58,6 +60,21 @@ public class UserServiceImpl implements UserService {
 	public void deleteUser(String email) throws Exception {
 		dao.delete(email);
 		
+	}
+
+	@Override
+	public List<UserVO> list(SearchCriteria cri) throws Exception {
+		return dao.list(cri);
+	}
+
+	@Override
+	public int listCount(SearchCriteria cri) throws Exception {
+		return dao.listCount(cri);
+	}
+
+	@Override
+	public UserVO detail(String email) throws Exception {
+		return dao.detail(email);
 	}
 
 }

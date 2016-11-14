@@ -12,56 +12,147 @@
 <!-- 		<result column="p_rdate" property="p_rdate"/> -->
 <!-- 		<result column="p_img" property="p_img"/> -->
 <!-- 	</resultMap> -->
-	
-	<resultMap type="org.spring.domain.OrderVO" id="Order">
-		<id column="o_id" property="o_id"/>
-		<result column="u_email" property="u_email"/>
-		<result column="o_price" property="o_price"/>
-		<result column="o_rfname" property="o_rfname"/>
-		<result column="o_rlname" property="o_rlname"/>
-		<result column="o_phone" property="o_phone"/>
-		<result column="o_postcode" property="o_postcode"/>	
-		<result column="o_addr" property="o_addr"/>
-		<result column="o_state" property="o_state"/>
-		<result column="o_date" property="o_date"/>
-		<collection column="o_id" property="opvo" javaType="java.util.ArrayList" ofType="org.spring.domain.OrderProdVO" select=""/>
+	<resultMap type="org.spring.domain.OrderProdVO" id="OrderProd">
+		<result property="o_id" column="o_id"/>
+		<result property="p_id" column="p_id"/>
+		<result property="p_name" column="p_name"/>
+		<result property="p_category" column="p_category"/>
+		<result property="p_img" column="p_img"/>
+		<result property="op_qty" column="op_qty"/>
+		<result property="op_sz" column="op_sz"/>
+		<result property="op_type" column="op_type"/>
+		<result property="op_price" column="op_price"/>
 	</resultMap>
+	<resultMap type="org.spring.domain.OrderVO" id="Order">
+		<id property="o_id" column="o_id"/>
+		<result property="u_email" column="u_email"/>
+		<result property="o_price" column="o_price"/>
+		<result property="o_rfname" column="o_rfname"/>
+		<result property="o_rlname" column="o_rlname"/>
+		<result property="o_phone" column="o_phone"/>
+		<result property="o_postcode" column="o_postcode"/>	
+		<result property="o_addr" column="o_addr"/>
+		<result property="o_state" column="o_state"/>
+		<result property="o_date" column="o_date"/>
+		<collection property="opvo" resultMap="OrderProd" ofType="org.spring.domain.OrderProdVO"/>
+	</resultMap>
+	
+	<sql id="searchByEmail">
+		<if test="cri.searchType != null">
+			<if test="cri.searchType == 'prodNm'.toString()">
+				AND lower(p.p_name) like '%' || #{cri.keyword} || '%'
+			</if>
+		</if>
+	</sql>
 	
 	<sql id="search">
 		<if test="searchType != null">
 			<if test="searchType == 'prodNm'.toString()">
-				and title like '%' || #{keyword} || '%'
+				WHERE lower(p.p_name) like '%' || #{keyword} || '%'
+			</if>
+			<if test="searchType == 'email'.toString()">
+				WHERE lower(o.u_email) like '%' || #{keyword} || '%'
 			</if>
 		</if>
 	</sql>
 
-	<select id="getOrderList" parameterType="org.spring.domain.SearchCriteria" resultMap="org.spring.domain.OrderVO">
+	<select id="listByEmail" parameterType="hashmap" resultMap="Order">
 		<![CDATA[
 			SELECT 
 				* 
 			FROM (
 			SELECT 
-				ROWNUM RNUM,o_id,o_qty,o_sz,o_type,o_price,o_rfname,o_rlname,o_phone,o_postcode,o_addr,o_state
+				ROWNUM RNUM, o_id,p_name,p_category,p_img,p_id,op_qty,op_sz,op_type,op_price, 
+				o_price,o_rfname,o_rlname,o_phone,o_postcode,o_addr,o_state,o_date
 			FROM (
 			SELECT 
-				o.o_id,o.o_qty,o.o_sz,o.o_type,o.o_price,o.o_rfname,o.o_rlname,o.o_phone,o.o_postcode,o.o_addr, o.o_state
+				o.o_id, p.p_name,p.p_category,p.p_img, op.p_id,op.op_qty,op.op_sz,op.op_type,op.op_price, 
+				o.o_price,o.o_rfname,o.o_rlname,o.o_phone,o.o_postcode,o.o_addr,o.o_state,o.o_date
 			FROM 
-				tbl_order o INNER JOIN tbl_prod p
+				tbl_order o LEFT OUTER JOIN 
+				(
+					tbl_order_prod op INNER JOIN tbl_prod p
+					ON op.p_id=p.p_id
+				)
 			ON
-				o.p_id = p.p_id 
+				o.o_id = op.o_id 
 			WHERE 
 				o.u_email = #{email}
+		]]>
+			<include refid="searchByEmail"></include>
+		<![CDATA[		
+			ORDER BY 
+				o.o_id))
+			WHERE 
+				RNUM > (#{cri.page} -1) * #{cri.perPageNum} and RNUM <= #{cri.page} * #{cri.perPageNum}
+ 		]]>
+	</select>
+	<select id="listCountByEmail" parameterType="hashmap" resultType="int">
+		SELECT count(*)
+		FROM tbl_order o INNER JOIN 
+			(
+				tbl_order_prod op INNER JOIN tbl_prod p
+				ON op.p_id=p.p_id
+			)
+		ON o.o_id=op.o_id
+		WHERE o.u_email=#{email} 
+		<include refid="searchByEmail"></include>
+	</select>
+	<select id="list" parameterType="org.spring.domain.SearchCriteria" resultMap="Order">
+		<![CDATA[
+			SELECT 
+				* 
+			FROM (
+			SELECT 
+				ROWNUM RNUM, o_id,u_email,p_name,p_category,p_img,p_id,op_qty,op_sz,op_type,op_price, 
+				o_price,o_rfname,o_rlname,o_phone,o_postcode,o_addr,o_state,o_date
+			FROM (
+			SELECT 
+				o.o_id, o.u_email,p.p_name,p.p_category,p.p_img, op.p_id,op.op_qty,op.op_sz,op.op_type,op.op_price, 
+				o.o_price,o.o_rfname,o.o_rlname,o.o_phone,o.o_postcode,o.o_addr,o.o_state,o.o_date
+			FROM 
+				tbl_order o LEFT OUTER JOIN 
+				(
+					tbl_order_prod op INNER JOIN tbl_prod p
+					ON op.p_id=p.p_id
+				)
+			ON
+				o.o_id = op.o_id 
+		]]>
+			<include refid="search"></include>
+		<![CDATA[		
 			ORDER BY 
 				o.o_id))
 			WHERE 
 				RNUM > (#{page} -1) * #{perPageNum} and RNUM <= #{page} * #{perPageNum}
  		]]>
 	</select>
-	<select id="getOrderTotalCnt" parameterType="String" resultType="Int">
+	<select id="listCount" parameterType="org.spring.domain.SearchCriteria" resultType="int">
 		SELECT count(*)
-		FROM tbl_order
-		WHERE u_email=#{email}
+		FROM tbl_order o INNER JOIN 
+			(
+				tbl_order_prod op INNER JOIN tbl_prod p
+				ON op.p_id=p.p_id
+			)
+		ON o.o_id=op.o_id
+		<include refid="search"></include>
 	</select>
+	<select id="getByOid" parameterType="int" resultMap="Order">
+		SELECT 
+			o.o_id, o.u_email,p.p_name,p.p_category,p.p_img, op.p_id,op.op_qty,op.op_sz,op.op_type,op.op_price, 
+			o.o_price,o.o_rfname,o.o_rlname,o.o_phone,o.o_postcode,o.o_addr,o.o_state,o.o_date
+		FROM 
+			tbl_order o LEFT OUTER JOIN 
+			(
+				tbl_order_prod op INNER JOIN tbl_prod p
+				ON op.p_id=p.p_id
+			)
+		ON
+			o.o_id = op.o_id 
+		WHERE 
+			o.o_id = #{oid}
+	</select>
+	
 	
 <!-- 	<select id="getAllOrderList" parameterType="com.common.Paging" resultMap="Order"> -->
 <!-- 		<![CDATA[ -->
@@ -87,18 +178,6 @@
 <!-- 		SELECT count(*) -->
 <!-- 		FROM tbl_order -->
 <!-- 	</select> -->
-<!-- 	<select id="getOrderDetail" parameterType="Int" resultMap="Order"> -->
-<!-- 		<![CDATA[ -->
-<!-- 			SELECT  -->
-<!-- 				o.o_id,o.p_id,p.p_name,p.p_category,p.p_img,o.o_qty,o.o_sz,o.o_type,o.o_price,o.o_rfname,o.o_rlname,o.o_phone,o.o_postcode,o.o_addr,o.o_state -->
-<!-- 			FROM  -->
-<!-- 				tbl_order o INNER JOIN tbl_prod p  -->
-<!-- 			ON  -->
-<!-- 				o.p_id = p.p_id -->
-<!-- 			WHERE -->
-<!-- 				o.o_id = #{oid} -->
-<!-- 		]]> -->
-<!-- 	</select> -->
 	<insert id="insOrd" parameterType="org.spring.domain.OrderVO">
 		INSERT INTO
 			tbl_order
@@ -112,30 +191,44 @@
 		INSERT INTO
 			tbl_order_prod
 		VALUES(
-			seq_oid.currval,#{vo.p_id},#{vo.qty}, #{vo.sz}, #{vo.type}, #{vo.sub_price}
+			seq_opid.nextval,seq_oid.currval,#{p_id},#{qty}, #{sz}, #{type}, #{sub_price}
 		)
 	</insert>
 	<insert id="insOrdProdTool" parameterType="org.spring.domain.CartVO">
 		INSERT INTO
 			tbl_order_prod(o_id, p_id, op_qty, op_price)
 		VALUES(
-			seq_oid.currval,#{vo.p_id},#{vo.qty}, #{vo.sub_price}
+			seq_opid.nextval,seq_oid.currval,#{vo.p_id},#{vo.qty}, #{vo.sub_price}
 		)
 	</insert>
 	
-<!-- 	<update id="updateOrder" parameterType="com.service.OrderVO"> -->
-<!-- 		UPDATE  -->
-<!-- 			tbl_order -->
-<!-- 		SET -->
-<!-- 			o_rfname=#{o_rfname}, o_rlname=#{o_rlname}, o_phone=#{o_phone}, o_postcode=#{o_postcode}, o_addr=#{o_addr} -->
-<!-- 		WHERE -->
-<!-- 			o_id=#{o_id} -->
-<!-- 	</update> -->
-<!-- 	<delete id="deleteOrder" parameterType="Int"> -->
-<!-- 		Delete FROM -->
-<!-- 			tbl_order -->
-<!-- 		WHERE -->
-<!-- 			o_id=#{oid} -->
-<!-- 	</delete> -->
+	<update id="update" parameterType="org.spring.domain.OrderVO">
+		UPDATE 
+			tbl_order
+		SET
+			o_price=#{o_price},o_rfname=#{o_rfname}, o_rlname=#{o_rlname}, o_phone=#{o_phone}, o_postcode=#{o_postcode}, o_addr=#{o_addr}
+		WHERE
+			o_id=#{o_id}
+	</update>
+	<delete id="deleteOrd" parameterType="int">
+		Delete FROM
+			tbl_order
+		WHERE
+			o_id=#{oid}
+	</delete>
+	<delete id="deleteOrdProd" parameterType="int">
+		Delete FROM
+			tbl_order_prod
+		WHERE
+			o_id=#{oid}
+	</delete>
+	<update id="updateState" parameterType="hashmap">
+		UPDATE
+			tbl_order
+		SET
+			o_state=#{state}
+		WHERE
+			o_id=#{oid}
+	</update>
 	
 </mapper>

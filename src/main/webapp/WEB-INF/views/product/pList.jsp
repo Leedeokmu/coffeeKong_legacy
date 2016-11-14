@@ -28,7 +28,7 @@
     	</div>
 	</c:forEach>
 	<form id="plistForm">
-		<input type="hidden" name="pid" value=""/>
+		<input type="hidden" name="pid"/>
 	</form>
 	<script>
 		$('.imageWrapper').on("click", 'a',function(event){
@@ -38,7 +38,7 @@
 			var plistForm = $("#plistForm");
 			plistForm.find("[name='pid']").val(target);
 			plistForm.attr("action","/product/detail");
-			plistForm.attr("method", "POST");
+			plistForm.attr("method", "GET");
 			plistForm.submit();
 		})
 	</script>

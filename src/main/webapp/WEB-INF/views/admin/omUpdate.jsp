@@ -4,65 +4,76 @@
 <!doctype html>
 <html>
 <head>
-<c:set var="basePath" value="${pageContext.request.contextPath }"/>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Insert title here</title>
+<title>COFFEE KONG</title>
 </head>
-<c:set var="oVo" value="${orderVo }"/>
-<c:set var="pVo" value="${orderVo.pvo }"/>
 <body>
 	<div class="a_title text-center"><h3>MODIFY ORDER INFORMATION</h3></div><br />
-	<form action="${basePath }/omuSaveCtrl" method="POST" class="form-horizontal">
-	<input type="hidden" name="oid" value="${oVo.o_id}"/>
+	<form action="/manage/order/update/save" method="POST" class="form-horizontal" name="omupdate">
+	<input type="hidden" name="oid" value="${ovo.o_id}"/>
+	<input type='hidden' name='page' value="${cri.page}"> 
+	<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
+	<input type='hidden' name='searchType' value="${cri.searchType}">
+	<input type='hidden' name='keyword' value="${cri.keyword}">
 	<div class="container a_article">
 		<div>
 			<div class="form-group ver_center">
-				<label for="pname" class="control-label col-md-3">PRODUCT NAME</label>
-				<div class="col-md-9"><input type="text" class="form-control" name="pname" id="pname" value="${pVo.p_name }"/></div>
+				<label for="state" class="control-label col-md-3">ORDER ID</label>
+				<div class="col-md-9"><input type="text" class="form-control" name="o_id" value="${ovo.o_id}" readonly/></div>
 			</div>
 			<div class="form-group ver_center">
 				<label for="state" class="control-label col-md-3">STATE</label>
-				<div class="col-md-9"><input type="text" class="form-control" name="state" id="state" value="${oVo.o_state}" readonly="readonly"/></div>
+				<div class="col-md-9"><input type="text" class="form-control" name="o_state" value="${ovo.o_state}" readonly/></div>
 			</div>
 			<div class="form-group ver_center">
 				<label for="price" class="control-label col-md-3">PRICE</label>
-				<div class="col-md-9"><input type="text" class="form-control" name="price" id="price" value="$${oVo.o_price}"/></div>
-			</div>
-		</div>
-		<div>
-			<div class="text-center">
-				<span><h3>DELIVERY INFORMATION</h3></span>
+				<div class="col-md-9"><input type="text" class="form-control" name="o_price" value="${ovo.o_price}"/></div>
 			</div>
 			<div class="form-group">
 				<label for="omu_rfname" class="control-label col-md-3">FIRST NAME</label>
-				<div class="col-md-9"><input type="text" class="form-control"name="rfname" id="omu_rfname" value="${oVo.o_rfname }"/></div>
+				<div class="col-md-9"><input type="text" class="form-control"name="o_rfname" value="${ovo.o_rfname }"/></div>
 			</div>
 			<div class="form-group">
 				<label for="omu_lfname" class="control-label col-md-3">LAST NAME</label>
-				<div class="col-md-9"><input type="text" class="form-control"name="rlname" id="omu_lfname" value="${oVo.o_rlname }"/></div>
+				<div class="col-md-9"><input type="text" class="form-control"name="o_rlname" value="${ovo.o_rlname }"/></div>
 			</div>
 			<div class="form-group">
 				<label for="omu_phone" class="control-label col-md-3">PHONE</label>
-				<div class="col-md-9"><input type="text" class="form-control" name="phone" id="omu_phone" value="${oVo.o_phone }"/></div>
+				<div class="col-md-9"><input type="text" class="form-control" name="o_phone" value="${ovo.o_phone }"/></div>
 			</div>
 			<div class="form-group">
 				<label for="omu_postcode" class="control-label col-md-3">POST CODE</label>
-				<div class="col-md-9"><input type="text" class="form-control"name="postcode" id="omu_postcode" value="${oVo.o_postcode }"/></div>
+				<div class="col-md-9"><input type="text" class="form-control"name="o_postcode" value="${ovo.o_postcode }"/></div>
 			</div>
 			<div class="form-group">
 				<label for="omu_addr" class="control-label col-md-3">ADDRESS</label>
-				<div class="col-md-9"><textarea name="addr" class="form-control" id="" cols="30" rows="2" id="omu_addr">${oVo.o_addr }</textarea></div>
+				<div class="col-md-9"><textarea name="o_addr" class="form-control" cols="30" rows="2">${ovo.o_addr }</textarea></div>
 			</div>
 		</div>
 		<div class="hor_center">
 			<div class="btn-group">
 				<input type="submit" class="btn btn-default" value="ACCEPT"/>
-				<a href="${basePath }/omDetailCtrl?oid=${oVo.o_id}" class="btn btn-default">BACK</a>
+				<a href="/manage/order/list" class="btn btn-default omlBtn">BACK TO LIST</a>
 			</div>
 		</div>
 	</div>
 	</form>
+	<form role="form">
+		<input type='hidden' name='page' value="${cri.page}"> 
+		<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
+		<input type='hidden' name='searchType' value="${cri.searchType}">
+		<input type='hidden' name='keyword' value="${cri.keyword}">
+	</form>
+	<script>
+		$(".omlBtn").on("click",function(e){
+			e.preventDefault();
+			var form = $('form[role="form"]');
+			form.attr("method", "get");
+			form.attr("action", "/user/order/list");
+			form.submit();
+		});
+	</script>
 </body>
 </html>

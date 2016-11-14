@@ -104,23 +104,43 @@ public class UserController {
 
 	@RequestMapping(value = "/order/list", method = RequestMethod.GET)
 	public String orderList(@ModelAttribute("cri") SearchCriteria cri, HttpSession session, Model model) throws Exception {
-		logger.info("User Order############################ session name: "
-				+ ((UserVO) session.getAttribute("login")).getU_email());
-		model.addAttribute("list", oservice.listByEmail(cri));
-		PageMaker pmk = new PageMaker();
-		pmk.setCri(cri);
-		pmk.setTotalCount(oservice.listCountByEmail(cri));
-		model.addAttribute("pmk",pmk);
+		logger.info("User Order############################ cri: " + cri.toString());
 		
+		if(session.getAttribute("login") != null){
+			String email = ((UserVO)session.getAttribute("login")).getU_email();
+			model.addAttribute("list", oservice.listByEmail(cri, email));
+			PageMaker pmk = new PageMaker();
+			pmk.setCri(cri);
+			pmk.setTotalCount(oservice.listCountByEmail(cri,email));
+			model.addAttribute("pmk",pmk);
+		}else{
+			model.addAttribute("content", "");
+			return "/index";
+		}
+		
+		if(cri.getKeyword() == null || cri.getKeyword() == ""){
+			model.addAttribute("search", "off");
+		}else{
+			model.addAttribute("search", "on");
+		}
+		
+		logger.info("search ######################## : " + cri.getKeyword());
 		model.addAttribute("content", "uolist");
 		return "/index";
 	}
 	
-	@RequestMapping(value = "/order/detail/{pid}", method = RequestMethod.GET)
-	public String orderGET(@PathVariable int pid, HttpSession session, Model model) throws Exception {
+	@RequestMapping(value = "/order/detail/{oid}", method = RequestMethod.GET)
+	public String orderDetail(@ModelAttribute("cri") SearchCriteria cri, @PathVariable int oid, HttpSession session, Model model) throws Exception {
 		logger.info("User Order############################ session name: "
 				+ ((UserVO) session.getAttribute("login")).getU_email());
-
+		
+		if(session.getAttribute("login") != null){
+			model.addAttribute("ovo", oservice.getByOid(oid));
+		}else{
+			model.addAttribute("content", "");
+			return "/index";
+		}
+		
 		model.addAttribute("content", "uodetail");
 		return "/index";
 	}

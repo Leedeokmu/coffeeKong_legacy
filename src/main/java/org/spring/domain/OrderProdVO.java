@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class OrderProdVO {
+	private int op_id;
 	private int o_id;
 	private int p_id;
 	private String p_name; 		// from product
@@ -13,6 +14,14 @@ public class OrderProdVO {
 	private String op_sz;
 	private String op_type;
 	private double op_price;
+
+	public int getOp_id() {
+		return op_id;
+	}
+
+	public void setOp_id(int op_id) {
+		this.op_id = op_id;
+	}
 
 	public int getO_id() {
 		return o_id;

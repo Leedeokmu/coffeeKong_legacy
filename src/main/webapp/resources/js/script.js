@@ -159,6 +159,67 @@ $(document).ready(function(){
 	    }
 	});
 	
+	$('form[name="umupdate"]').validate({
+	    rules: {
+	        u_fname: { required: true },
+	        u_lname: { required: true },
+	        u_pwd: { required: true, minlength:4}
+	    },
+	    messages: {
+	        u_fname:{ required:"REQUIRED" },
+	        u_lname:{ required:"REQUIRED" },
+	        u_pwd: { required: "Check Your Password" }
+	    },
+	    submitHandler: function (form) {
+	    	form.submit();
+	    }
+	});
+	
+	$('form[name="omupdate"]').validate({
+	    rules: {
+	        o_price: { required: true },
+	        o_rfname: { required: true },
+	        o_rlname: { required: true },
+	        o_phone: { required: true },
+	        o_postcode: { required: true },
+	        o_addr: { required: true }
+	    },
+	    messages: {
+	    	o_price: { required: "REQUIRED" },
+	        o_rfname: { required: "REQUIRED" },
+	        o_rlname: { required: "REQUIRED" },
+	        o_phone: { required: "REQUIRED" },
+	        o_postcode: { required: "REQUIRED" },
+	        o_addr: { required: "REQUIRED" }
+	    },
+	    submitHandler: function (form) {
+	    	form.submit();
+	    }
+	});
+
+	$('form[name="pmupdate"]').validate({
+	    rules: {
+	        o_price: { required: true },
+	        o_rfname: { required: true },
+	        o_rlname: { required: true },
+	        o_phone: { required: true },
+	        o_postcode: { required: true },
+	        o_addr: { required: true }
+	    },
+	    messages: {
+	    	o_price: { required: "REQUIRED" },
+	        o_rfname: { required: "REQUIRED" },
+	        o_rlname: { required: "REQUIRED" },
+	        o_phone: { required: "REQUIRED" },
+	        o_postcode: { required: "REQUIRED" },
+	        o_addr: { required: "REQUIRED" }
+	    },
+	    submitHandler: function (form) {
+	    	form.submit();
+	    }
+	});
+	
+	
 	jQuery.validator.addMethod("phone", function(phone_number, element) {
 	    phone_number = phone_number.replace(/\s+/g, "");
 	    return this.optional(element) || phone_number.length > 9 && 

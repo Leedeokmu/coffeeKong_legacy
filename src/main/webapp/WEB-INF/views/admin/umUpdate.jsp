@@ -4,53 +4,62 @@
 <!doctype html>
 <html>
 <head>
-<c:set var="basePath" value="${pageContext.request.contextPath }" />
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Insert title here</title>
+<title>COFFEE KONG.</title>
 </head>
 <body>
 	<div class="a_title text-center"><h2><span>MODIFY USER INFORMATION</span></h2></div><br />
 	<div class="container">
-		<form action="${basePath }/umuSaveCtrl" class="form-horizontal" method="POST" name="umuForm">
-			<input type="hidden" name="email" value="${userVo.u_email}"/>
+		<form action="/manage/user/update/save" class="form-horizontal" method="POST" name="umupdate">
+			<input type='hidden' name='u_email' value="${uvo.u_email}"> 
+			<input type='hidden' name='page' value="${cri.page}"> 
+			<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
+			<input type='hidden' name='searchType' value="${cri.searchType}">
+			<input type='hidden' name='keyword' value="${cri.keyword}">
 			<div>
 				<div class="form-group ver_center">
 					<label for="email" class="control-label col-md-3">EMAIL</label>
-					<div class="col-md-9"><span>${userVo.u_email }</span></div>
+					<div class="col-md-9"><span>${uvo.u_email }</span></div>
 				</div>
 				<div class="form-group ver_center">
 					<label for="fname" class="control-label col-md-3">FIRST NAME</label>&nbsp;
-					<div class="col-md-9"><input type="text" name="fname" class="form-control" value="${userVo.u_fname }" /></div>
+					<div class="col-md-9"><input type="text" name="u_fname" class="form-control" value="${uvo.u_fname }" /></div>
 				</div>
 				<div class="form-group ver_center">
 					<label for="lname" class="control-label col-md-3">LAST NAME</label>&nbsp;
-					<div class="col-md-9"><input type="text" name="lname" class="form-control" value="${userVo.u_lname }" /></div>
+					<div class="col-md-9"><input type="text" name="u_lname" class="form-control" value="${uvo.u_lname }" /></div>
 				</div>
 				<div class="form-group ver_center">
 					<label for="pw" class="control-label col-md-3">PASSWORD</label>&nbsp;
-					<div class="col-md-9"><input type="password" class="form-control" name="pw" /></div>
+					<div class="col-md-9"><input type="password" class="form-control" name="u_pwd" /></div>
 				</div>
 				<div class="hor_center">	
 					<div class="btn-group">
-						<input type="button" class="btn btn-default" value="ACCEPT" id="umu_submit"/>&nbsp;
-						<a href="${basePath }/umDetailCtrl?email=${userVo.u_email}" class="btn btn-default" >BACK</a>
+						<input type="submit" class="btn btn-default" value="ACCEPT" />&nbsp;
+						<a href="/manage/user/list" class="btn btn-default ulBtn" >TO LIST</a>
 					</div>
 				</div>
 			</div>
-			<script>
-				$('#umu_submit').on('click', function(){
-					if($('input[name=fname]').val() == "" || $('input[name=lname]').val() == "" || $('input[name=pw]').val() == ""){
-						alert("FNAME / LNAME / PW IS EMPTY.");
-						return;
-					}else{
-						umuForm.submit();
-					}
-				});
-			</script>
-			
 		</form>
 	</div>
+	<form name="ulist">
+		<input type='hidden' name='email' value="${uvo.u_email}"> 
+		<input type='hidden' name='page' value="${cri.page}"> 
+		<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
+		<input type='hidden' name='searchType' value="${cri.searchType}">
+		<input type='hidden' name='keyword' value="${cri.keyword}">
+	</form>
+	<script>
+	$(".ulBtn").on("click",function(e){
+		e.preventDefault();
+		var form = $('form[name="ulist"]');
+		form.find('input[name="email"]').attr("value", encodeURI(form.find('input[name="email"]').attr("value")));
+		form.attr("method", "get");
+		form.attr("action", "/manage/user/list");
+		form.submit();
+	});
+	</script>
 </body>
 </html>
