@@ -39,6 +39,57 @@
 			</div>
 			<hr />
 		</c:forEach>
+		<div class="row text-center">
+			<ul class="pagination">
+				<c:if test ="${pmk.prev }">
+					<li><a href="/manage/order/list${pmk.makeSearch(pmk.startPage - 1) }">&laquo;</a></li>
+				</c:if>
+				<c:forEach begin="${pmk.startPage }" end="${pmk.endPage }" var="idx">
+					<li <c:out value="${pmk.cri.page == idx? 'class=active' : '' }"/>>
+						<a href="/manage/order/list${pmk.makeSearch(idx)}">${idx }</a>
+					</li>
+				</c:forEach>
+				<c:if test ="${pmk.next && pmk.endPage > 0}">
+					<li><a href="/manage/order/list${pmk.makeSearch(pmk.endPage + 1) }">&raquo;</a></li>
+				</c:if>
+			</ul>
+		</div>
+		<div class="row hor_center form-inline">
+			<select name="searchType" class="form-control">
+				<option value="nothing" <c:out value="${cri.searchType == null ? 'selnected' : '' }"/>>--------------</option>
+				<option value="prodNm" <c:out value="${cri.searchType  eq 'prodNm' ? 'selected' : '' }"/>>Product Name</option>
+				<option value="email" <c:out value="${cri.searchType  eq 'email' ? 'selected' : '' }"/>>Email</option>
+			</select>
+			<input type="search" class="form-control" name="keyword" value="${cri.keyword }">
+			<button id="searchBtn" class="btn btn-default">Search</button>
+		</div>
 	</div>
+	
+	<script>
+		$(document).ready(function(){
+			function search(){
+				self.location = "/manage/order/list" +'${pmk.makeQuery(1)}'
+				+"&searchType=" +$('select[name="searchType"]').val()
+				+"&keyword="+$('input[type="search"]').val().toLowerCase();
+			}
+			
+			$('#searchBtn').on("click", function(event){
+				search();
+			});
+			$('input[name="keyword"]').on("keyup", function(event) {
+    			if (event.keyCode == 13) {
+    				search();
+    			}
+			});
+			$('.omsBtn').on("click",function(e){
+				var delim = $(this).attr('id').substr($(this).attr('id').length-1);
+				var state = $('#state'+delim).val();
+				var form = $('form[name="stateForm'+delim+'"]');
+				
+				form.find('input[name="state"]').attr("value", state);
+				form.submit();
+			});
+		});
+	</script>
 </body>
 </html>
