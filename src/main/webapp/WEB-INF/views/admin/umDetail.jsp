@@ -11,8 +11,8 @@
 </head>
 
 <body>
-	<div class="a_title text-center"><h2><span>USER INFORMATION</span></h2></div><br />
 	<div class="container">
+		<div class="a_title text-center"><h2><span>USER INFORMATION</span></h2></div><br />
 		<div>
 			<div class="row">
 				<span class="col-md-3">EMAIL</span>
@@ -34,7 +34,7 @@
 		<div>
 			<div class="hor_center">
 				<div class="btn-group">
-					<input type="button" class="btn btn-default uuBtn" value="UPDATE"/>
+					<input type="button" class="btn btn-default uuBtn" value="EDIT"/>
 					<a href="#umdModal" data-toggle="modal" class="btn btn-default">DELETE</a>
 				</div>
 				<div id="umdModal" class="modal fade" role="dialog">
@@ -42,7 +42,7 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
-							<h3 class="modal-title text-center">COMFIRM DELETING</h3>
+							<h3 class="modal-title text-center">DELTE</h3>
 						</div>
 						<div class="modal-body text-center">
 							<h3>DELETE THIS USER? CHECK ONCE MORE.</h3><br />
@@ -59,7 +59,7 @@
 			</div>
 		</div>
 	</div>
-	<form name="updateDelete">
+	<form role="form">
 		<input type='hidden' name='email' value="${uvo.u_email}"> 
 		<input type='hidden' name='page' value="${cri.page}"> 
 		<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
@@ -69,7 +69,7 @@
 	<script>
 		$(".uuBtn").on("click",function(e){
 			e.preventDefault();
-			var form = $('form[name="updateDelete"]');
+			var form = $('form[role="form"]');
 			form.find('input[name="email"]').attr("value", encodeURI(form.find('input[name="email"]').attr("value")));
 			form.attr("method", "get");
 			form.attr("action", "/manage/user/update");
@@ -78,7 +78,7 @@
 		
 		$(".udBtn").on("click",function(e){
 			e.preventDefault();
-			var form = $('form[name="updateDelete"]');
+			var form = $('form[role="form"]');
 			form.find('input[name="email"]').attr("value", encodeURI(form.find('input[name="email"]').attr("value")));
 			form.attr("method", "post");
 			form.attr("action", "/manage/user/delete");

@@ -55,12 +55,13 @@
 		<div class="hor_center">
 			<div class="btn-group">
 				<input type="submit" class="btn btn-default" value="ACCEPT"/>
-				<a href="/manage/order/list" class="btn btn-default omlBtn">BACK TO LIST</a>
+				<a href="#" class="btn btn-default omlBtn">BACK</a>
 			</div>
 		</div>
 	</div>
 	</form>
 	<form role="form">
+		<input type='hidden' name='oid' value="${ovo.o_id}">
 		<input type='hidden' name='page' value="${cri.page}"> 
 		<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
 		<input type='hidden' name='searchType' value="${cri.searchType}">
@@ -71,7 +72,7 @@
 			e.preventDefault();
 			var form = $('form[role="form"]');
 			form.attr("method", "get");
-			form.attr("action", "/user/order/list");
+			form.attr("action", "/user/order/detail");
 			form.submit();
 		});
 	</script>

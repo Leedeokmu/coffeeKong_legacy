@@ -25,7 +25,7 @@ public class ProductController {
 	public String list(@PathVariable String category,  Model model) throws Exception {
 		logger.info("product list############################ category: " + category);
 		
-		model.addAttribute("list", service.getProdList(category));
+		model.addAttribute("list", service.listByCategory(category));
 		model.addAttribute("content", "list");
 		return "/product/product";
 	}
@@ -34,7 +34,7 @@ public class ProductController {
 	public String deatil(int pid,  Model model) throws Exception {
 		logger.info("product detail############################ pid: " + pid);
 		
-		model.addAttribute("pvo", service.getProdDetail(pid));
+		model.addAttribute("pvo", service.getByPid(pid));
 		model.addAttribute("content", "detail");
 		return "/product/product";
 	}

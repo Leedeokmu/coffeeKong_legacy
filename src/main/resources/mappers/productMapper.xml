@@ -1,55 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.spring.mapper.ProductMapper">
-<!-- <insert id="insertProd" parameterType="com.service.ProductVO"> -->
-<!-- 	INSERT INTO -->
-<!-- 		tbl_prod -->
-<!-- 	VALUES( -->
-<!-- 		seq_pid.nextval,#{p_category},#{p_name},#{p_content}, #{p_price}, #{p_mdate}, sysdate, #{p_img} -->
-<!-- 	) -->
-<!-- </insert> -->
-<!-- <select id="getProducts" parameterType="com.common.Paging" resultType="com.service.ProductVO"> -->
-<!-- 	<![CDATA[ -->
-<!-- 		SELECT * FROM ( -->
-<!-- 		SELECT ROWNUM RNUM,p_id,p_category,p_name,p_content,p_price,p_mdate,p_rdate,p_img FROM( -->
-<!-- 		SELECT p_id,p_category,p_name,p_content,p_price,p_mdate,p_rdate,p_img FROM tbl_prod order by p_rdate desc) ) -->
-<!-- 		WHERE RNUM >= #{startRow} and RNUM <= #{endRow} -->
-<!-- 	]]> -->
-<!-- </select> -->
-<select id="getProdList" parameterType="String" resultType="org.spring.domain.ProductVO">
-	SELECT
-		*
-	FROM
-		tbl_prod
-	WHERE
-		p_category=#{category}
-</select>
-<select id="getProdDetail" parameterType="int" resultType="org.spring.domain.ProductVO">
-	SELECT
-		*
-	FROM
-		tbl_prod
-	WHERE
-		p_id=#{pid}
-</select>
-<!-- <select id="deleteProduct" parameterType="String"> -->
-<!-- 	delete from -->
-<!-- 		tbl_prod -->
-<!-- 	where -->
-<!-- 	 	p_id=#{pId} -->
-<!-- </select> -->
-<!-- <select id="updateProduct" parameterType="com.service.ProductVO"> -->
-<!-- 	update -->
-<!-- 		tbl_prod  -->
-<!-- 	set -->
-<!-- 		p_category=#{p_category}, p_name=#{p_name},p_content=#{p_content}, p_price=#{p_price}, p_mdate=#{p_mdate}, p_img=#{p_img} -->
-<!-- 	where -->
-<!-- 		p_id=#{p_id} -->
-<!-- </select> -->
-<!-- <select id="getProdTotalCnt" resultType="int"> -->
-<!-- 		SELECT  -->
-<!-- 			count(*) -->
-<!-- 		FROM -->
-<!-- 			tbl_prod -->
-<!-- 	</select> -->
+	
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 'prodNm'.toString()">
+				WHERE lower(p_name) like '%' || #{keyword} || '%'
+			</if>
+			<if test="searchType == 'category'.toString()">
+				WHERE lower(p_category) like '%' || #{keyword} || '%'
+			</if>
+		</if>
+	</sql>
+
+	<insert id="insert" parameterType="org.spring.domain.ProductVO">
+		INSERT INTO
+			tbl_prod
+		VALUES(
+			seq_pid.nextval,#{p_category},#{p_name},#{p_content}, #{p_price}, #{p_mdate}, sysdate, #{p_img}
+		)
+	</insert>
+	
+	<select id="list" parameterType="org.spring.domain.SearchCriteria" resultType="org.spring.domain.ProductVO">
+		<![CDATA[
+			SELECT 
+				* 
+			FROM (
+				SELECT 
+					ROWNUM RNUM,p_id,p_category,p_name,p_content,p_price,p_mdate,p_rdate,p_img 
+				FROM (
+					SELECT 
+						p_id,p_category,p_name,p_content,p_price,p_mdate,p_rdate,p_img 
+					FROM 
+						tbl_prod
+		]]>
+			<include refid="search"></include>
+		<![CDATA[				 
+					ORDER BY
+						p_rdate desc
+				)
+			)
+			WHERE
+				RNUM > (#{page} -1) * #{perPageNum} and RNUM <= #{page} * #{perPageNum}
+	 	]]>
+	</select>
+	
+	<select id="listCount" parameterType="org.spring.domain.SearchCriteria" resultType="int">
+		SELECT 
+			count(*)
+		FROM
+			tbl_prod
+		<include refid="search"></include>
+	</select>
+	
+	<select id="listByCategory" parameterType="String" resultType="org.spring.domain.ProductVO">
+		SELECT
+			*
+		FROM
+			tbl_prod
+		WHERE
+			p_category=#{category}
+	</select>
+	<select id="getByPid" parameterType="int" resultType="org.spring.domain.ProductVO">
+		SELECT
+			*
+		FROM
+			tbl_prod
+		WHERE
+			p_id=#{pid}
+	</select>
+	<select id="delete" parameterType="int">
+		delete from
+			tbl_prod
+		where
+		 	p_id=#{pId}
+	</select>
+	<select id="update" parameterType="org.spring.domain.ProductVO">
+		update
+			tbl_prod 
+		set
+			p_category=#{p_category}, p_name=#{p_name},p_content=#{p_content}, p_price=#{p_price}, p_mdate=#{p_mdate}, p_img=#{p_img}
+		where
+			p_id=#{p_id}
+	</select>
+	
 </mapper>

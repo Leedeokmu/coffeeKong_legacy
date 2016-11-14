@@ -9,78 +9,79 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Insert title here</title>
+<title>COFFEE KONG</title>
 <script type="text/javascript">
-	/* 카테고리와 사이즈에 selected 추가 */
 </script>
 </head>
-<c:set var="basePath" value="${pageContext.request.contextPath }"/>
 <body>
-<div class="container">
-	<div style="text-align:center;">
-		<hr>
-			<h3>Insert A Product</h3>
-		<hr>
+	<div class="container">
+		<div class="row text-center">
+			<hr>
+				<h3>Add New Product</h3>
+			<hr>
+		</div>
+		<form method="post" name="pminsert" action="/manage/product/insert" enctype="multipart/form-data">
+		<input type='hidden' name='page' value="${cri.page}"> 
+		<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
+		<input type='hidden' name='searchType' value="${cri.searchType}">
+		<input type='hidden' name='keyword' value="${cri.keyword}">
+		<div class="row">
+			<div class="col-md-6 all_center" id="imageDiv">
+				<img src="/resources/dist/product/sample.jpg" style="width:20em"/>
+			</div>
+			
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="pmiCategory">Category</label> 
+					<select name="p_category" class="form-control" id="pmiCategory">
+						<optgroup label="COFFEE">
+					    	<option value="SingleOrigins">Single Origins</option>
+					    	<option value="Blends">Blends</option>
+					    	<option value="Decafs">Decafs</option>
+						    <option value="Light">Light</option>
+						    <option value="Medium">Medium</option>
+						    <option value="Dark">Dark</option>
+						    <option value="ColdBrew">Cold Brew</option>
+					  	</optgroup>
+					  	<optgroup label="TOOLS">
+						    <option value="Grinder">Grinder</option>
+						    <option value="HomeBrewing">Home brewing</option>
+						    <option value="Cups">Cups</option>
+						</optgroup>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="pmiName">Name</label>
+					<input type="text" name="p_name" id="pmiName" class="form-control" 
+					placeholder="Enter Product Name" /> 
+				</div>
+				
+				<div class="form-group">
+					<label for="pmiPrice">Price</label>
+					<input type="text" name="p_price" id="pmiPrice" class="form-control" 
+					placeholder="Enter Price" /> 
+				</div>
+				<div class="form-group">
+					<label for="pmiMdate">Manufactured</label>
+					<input type="date" name="p_mdate" id="pmiMdate" class="form-control"/> 
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="pmiContent">Content</label>
+			<textarea name="p_content" id="pmiContent" class="form-control"  
+			cols="30" rows="3"></textarea> 
+		</div>
+		<hr />
+		<div class="row">
+			<input type="submit" class="btn btn-success" value="ACCEPT">
+			<input type="reset" class="btn btn-default" value="RESET">
+			<a href="javascript:history.go(-1);">BACK</a>
+		</div>
+		</form>
 	</div>
-	<form method="POST" action="${basePath}/pmiSaveCtrl" enctype="multipart/form-data">
-	<div style="margin-left:300px;">
-	<table>
-		<tr>
-			<td>Category</td>
-			<td>
-			<select name="iCate">
-			  <optgroup label="COFFEE">
-			    <option value="SingleOrigins">Single Origins</option>
-			    <option value="Blends">Blends</option>
-			    <option value="Decafs">Decafs</option>
-			    <option value="Light">Light</option>
-			    <option value="Medium">Medium</option>
-			    <option value="Dark">Dark</option>
-			    <option value="ColdBrew">Cold Brew</option>
-			  </optgroup>
-			  <optgroup label="TOOLS">
-			    <option value="Grinder">Grinder</option>
-			    <option value="HomeBrewing">Home brewing</option>
-			    <option value="Cups">Cups</option>
-			  </optgroup>
-			</select>
-			</td>
-		</tr>
-		<tr>
-			<td>name</td>
-			<td><input type="text" name="iName" maxlength="10" size="10"/></td>
-		</tr>
-		<tr>
-			<td>Content</td>
-			<td><textarea name="iContent" cols="50" rows="25"></textarea></td>
-		</tr>
-		<tr>
-			<td>price</td>
-			<td><input type="number" name="iPrice" /></td>
-		</tr>
-		<tr>
-			<td>mdate</td>
-			<td><input type="date" name="iMdate"></td>
-		</tr>
-		<tr>
-			<td>img</td>
-			<td><input type="file" name="iFile"/></td>
-		</tr>
-		<tr>		
-<!-- 		<td style="align:right;">
-			<input type="submit" value="Submit">&nbsp;&nbsp;
-			<input type="reset" value="Reset">&nbsp;&nbsp;
-			<a href="javascript:history.go(-1)">[back]</a>
-		</td></tr> -->
-	</table>
-	<br>
-	<div style="margin-left:250px;">
-		<input type="submit" value="Submit">&nbsp;&nbsp;
-		<input type="reset" value="Reset">&nbsp;&nbsp;
-		<a href="javascript:history.go(-1)">[back]</a>
-	</div>
-	<br>
-	</div></form>
-</div>
+	<script>
+	
+	</script>
 </body>
 </html>

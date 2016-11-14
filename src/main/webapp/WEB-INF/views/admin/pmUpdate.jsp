@@ -4,16 +4,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<c:set var="basePath" value="${pageContext.request.contextPath }"/>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
 </head>
-<c:set var="vo" value="${aProduct}" />
 <body>
 	<form method="POST" action="pmuSaveCtrl" name="eForm" enctype="multipart/form-data">
-	<input type="hidden" name="pId" value="${vo.p_id}"/>
+	<input type="hidden" name="p_id" value="${pvo.p_id}"/>
 	<div class="container">
 	<div style="text-align:center;">
 		<hr>
@@ -46,35 +44,28 @@
 			<tr>
 				<td>name</td>
 				<td><input type="text" name="iName" maxlength="10" size="10"
-					value="${vo.p_name }" /></td>
+					value="${pvo.p_name }" /></td>
 			</tr>
 			<tr>
 				<td>Content</td>
-				<td><textarea name="iContent" cols="50" rows="25">${vo.p_content }</textarea></td>
+				<td><textarea name="iContent" cols="50" rows="25">${pvo.p_content }</textarea></td>
 			</tr>
 			<tr>
 				<td>price</td>
-				<td><input type="number" name="iPrice" /></td>
+				<td><input type="text" name="iPrice" /></td>
 			</tr>
 			<tr>
 				<td>mdate</td>
-				<td><input type="date" name="iMdate" value="${vo.p_mdate}"></td>
+				<td><input type="date" name="iMdate" value="${pvo.p_mdate}"></td>
 			</tr>
 			<tr>
 				<td>rdate</td>
-				<td><input type="date" name="iMdate" value="${vo.p_rdate}"></td>
+				<td><input type="date" name="iMdate" value="${pvo.p_rdate}"></td>
 			</tr>
 			<tr>
 				<td>img</td>
 				<td><input type="file" name="iFile" id="iFile" /></td>
 			</tr>
-<!-- 			<tr>
-				<td>
-					<input type="submit" value="Submit">&nbsp;&nbsp; 
-					<input type="reset" value="Reset">&nbsp;&nbsp;
-					<a href="javascript:history.go(-1)">[back]</a>
-				</td>
-			</tr> -->
 		</table>
 		<br>
 			<div style="margin-left:250px;">

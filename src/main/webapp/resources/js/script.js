@@ -199,20 +199,34 @@ $(document).ready(function(){
 
 	$('form[name="pmupdate"]').validate({
 	    rules: {
-	        o_price: { required: true },
-	        o_rfname: { required: true },
-	        o_rlname: { required: true },
-	        o_phone: { required: true },
-	        o_postcode: { required: true },
-	        o_addr: { required: true }
+	        p_name: { required: true },
+	        p_category: { required: true },
+	        p_price: { required: true },
+	        p_content: { required: true }
 	    },
 	    messages: {
-	    	o_price: { required: "REQUIRED" },
-	        o_rfname: { required: "REQUIRED" },
-	        o_rlname: { required: "REQUIRED" },
-	        o_phone: { required: "REQUIRED" },
-	        o_postcode: { required: "REQUIRED" },
-	        o_addr: { required: "REQUIRED" }
+	    	p_name: { required: "REQUIRED" },
+	        p_category: { required: "REQUIRED" },
+	        p_price: { required: "REQUIRED" },
+	        p_content: { required: "REQUIRED" }
+	    },
+	    submitHandler: function (form) {
+	    	form.submit();
+	    }
+	});
+	
+	$('form[name="pminsert"]').validate({
+		rules: {
+	        p_name: { required: true },
+	        p_category: { required: true },
+	        p_price: { required: true },
+	        p_content: { required: true }
+	    },
+	    messages: {
+	    	p_name: { required: "REQUIRED" },
+	        p_category: { required: "REQUIRED" },
+	        p_price: { required: "REQUIRED" },
+	        p_content: { required: "REQUIRED" }
 	    },
 	    submitHandler: function (form) {
 	    	form.submit();

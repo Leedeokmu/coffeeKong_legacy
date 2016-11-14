@@ -82,7 +82,7 @@
 			<a href="/user/order/list" class="btn btn-default uolBtn">BACK</a>
 		</div>
 	</div>
-		<form role="form">
+	<form role="form">
 		<input type='hidden' name='page' value="${cri.page}"> 
 		<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
 		<input type='hidden' name='searchType' value="${cri.searchType}">

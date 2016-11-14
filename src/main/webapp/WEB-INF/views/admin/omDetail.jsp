@@ -89,7 +89,7 @@
 	<div>
 		<div class="hor_center">
 			<div class="btn-group">
-				<input type="button" class="btn btn-default omuBtn" value="UPDATE" />
+				<input type="button" class="btn btn-default omuBtn" value="EDIT" />
 				<a href="#omdModal" data-toggle="modal" class="btn btn-default">DELETE</a>
 				<a href="/user/order/list" class="btn btn-default omlBtn">BACK</a>
 			</div>
@@ -98,10 +98,10 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
-							<h3 class="modal-title text-center">COMFIRM DELETING</h3>
+							<h3 class="modal-title text-center">DELTE</h3>
 						</div>
 						<div class="modal-body text-center">
-							<h3>DELETE THIS USER? CHECK ONCE MORE.</h3>
+							<h3>DELETE THIS ORDER? CHECK ONCE MORE.</h3>
 							<br />
 						</div>
 						<div class="modal-footer">
