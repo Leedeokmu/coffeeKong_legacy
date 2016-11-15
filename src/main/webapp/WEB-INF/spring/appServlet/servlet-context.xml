@@ -40,6 +40,7 @@
 <!-- 	Interceptor	 -->
 	<beans:bean id="loginInterceptor" class="org.spring.interceptor.LoginInterceptor"></beans:bean>
 	<beans:bean id="authInterceptor" class="org.spring.interceptor.AuthInterceptor"></beans:bean>
+	<beans:bean id="authMgrInterceptor" class="org.spring.interceptor.AuthMgrInterceptor"></beans:bean>
 
 	<interceptors>
 		<interceptor>
@@ -48,8 +49,15 @@
 		</interceptor>
 		<interceptor>
 			<mapping path="/order"/>
+			
 			<beans:ref bean="authInterceptor"/>
 		</interceptor>
+<!-- 		<interceptor> -->
+<!-- 			<mapping path="/manage/product/*"/> -->
+<!-- 			<mapping path="/manage/user/*"/> -->
+<!-- 			<mapping path="/manage/order/*"/> -->
+<!-- 			<beans:ref bean="authMgrInterceptor"/> -->
+<!-- 		</interceptor> -->
 	</interceptors>
 	
 </beans:beans>

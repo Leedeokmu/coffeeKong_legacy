@@ -17,6 +17,7 @@
 			<div class="col-md-2 text-center"><span>ORDER NO</span></div>
 			<div class="col-md-2 text-center"><span>USER</span></div>
 			<div class="col-md-6 text-center"><span>PRODUCT INFORMATION</span></div>
+			<div class="col-md-2 text-center"><span>STATE</span></div>
 		</div>
 		<hr >
 		<c:choose>
@@ -47,7 +48,9 @@
 									<option value="delivered" <c:out value="${ovo.o_state eq 'delivered'? 'selected' : ''}"/>>delivered</option>
 								</select>
 							</span>
-							<input type="button" class="btn btn-default btn-sm omsBtn" id="stateBtn<c:out value="${index.count }"/>" value="Change"/>
+							<div class="hor_center" style="margin-top:1em">
+								<input type="button" class="row btn btn-default btn-sm omsBtn" id="stateBtn<c:out value="${index.count }"/>" value="Change"/>
+							</div>
 							<form action="/manage/order/update/state" method="post" name="stateForm<c:out value="${index.count }"/>">
 								<input type="hidden" name="state" value=""/>
 								<input type="hidden" name="oid" value="${ovo.o_id }"/>

@@ -12,48 +12,50 @@
 
 <body>
 	<div class="container">
-		<div style="clear: both; text-align: center;">
+		<div class="row text-center">
 			<hr>
-			<h2>Detail Info</h2>
+				<h3>Product Information</h3>
 			<hr>
 		</div>
-		<div style="margin: 2px; float: left;">
-			<div style="margin: 10px; float: left;">
-				<img src="${pvo.p_img }" width="400" height="400" alt="productIcon" />
+		<div class="row">
+			<div class="col-md-6 all_center" id="imageDiv">
+				<img src="${pvo.p_img }" id="imgsrc" style="width:20em;height:20em"/>
+			</div>
+			
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="pmiCategory">Category</label> 
+					<div>${pvo.p_category }</div>
+				</div>
+				<div class="form-group">
+					<label for="pmiName">Name</label>
+					<div>${pvo.p_name }</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="pmiPrice">Price</label>
+					<div>$${pvo.p_price}</div>
+				</div>
+				<div class="form-group">
+					<label for="pmiMdate">Manufactured</label>
+					<div>${pvo.p_mdate}</div> 
+				</div>
+				<div class="form-group">
+					<label for="pmirdate">Registered</label>
+					<div>${pvo.p_rdate}</div> 
+				</div>
 			</div>
 		</div>
-		<div
-			style="margin: 10px; float: left; margin-left: 150px; margin-top: 55px">
-			<div>
-				<h3>ID: ${pvo.p_id }</h3>
-			</div>
-			<div>
-				<h3>Category: ${pvo.p_category }</h3>
-			</div>
-			<div>
-				<h3>Name: ${pvo.p_name}</h3>
-			</div>
-			<div>
-				<h3>Price: $${pvo.p_price }</h3>
-			</div>
-			<div>
-				<h3>Manufactured: ${pvo.p_mdate }</h3>
-			</div>
-			<div>
-				<h3>Registerd: ${pvo.p_rdate }</h3>
-			</div>
-		</div>
-		<div style="clear: both; text-align: center;">
-			<hr>
-			<h3>Content</h3>
-			<hr>
-			<p>${pvo.p_content}</p>
+		<div class="form-group text-center">
+			<label for="pmiContent">Content</label>
+			<div>${pvo.p_content }</div>
 		</div>
 		<div>
 			<div class="hor_center">
 				<div class="btn-group">
 					<a href="/manage/product/update" class="btn btn-default pmuBtn">EDIT</a>
-					<a href="#umdModal" data-toggle="modal" class="btn btn-default">DELETE</a>
+					<a href="#pmdModal" data-toggle="modal" class="btn btn-default">DELETE</a>
+					<a href="javascript:history.go(-1)" class="btn btn-default">BACK</a>
 				</div>
 				<div id="pmdModal" class="modal fade" role="dialog">
 					<div class="modal-dialog">
@@ -80,21 +82,22 @@
 		</div>
 	</div>
 	<form role="form">
-		<input type='hidden' name='pid' value="${pvo.p_id}"> <input
-			type='hidden' name='page' value="${cri.page}"> <input
-			type='hidden' name='perPageNum' value="${cri.perPageNum}"> <input
-			type='hidden' name='searchType' value="${cri.searchType}"> <input
-			type='hidden' name='keyword' value="${cri.keyword}">
+		<input type='hidden' name='pid' value="${pvo.p_id}"> 
+		<input type='hidden' name='page' value="${cri.page}"> 
+		<input type='hidden' name='perPageNum' value="${cri.perPageNum}"> 
+		<input type='hidden' name='searchType' value="${cri.searchType}"> 
+		<input type='hidden' name='keyword' value="${cri.keyword}">
 	</form>
 	<script>
 		$(".pmuBtn, .pmdBtn").on("click", function(e) {
 			e.preventDefault();
 			var form = $('form[role="form"]');
 			form.attr("action", $(this).attr("href"));
-			if ($(this).attr("class") == "pmuBtn") {
-				form.attr("method", "post");
-			} else if ($(this).attr("class") == "pmdBtn") {
+			if ($(this).attr("class").indexOf("pmuBtn") > 0) {
 				form.attr("method", "get");
+			} else if ($(this).attr("class").indexOf("pmdBtn") > 0) {
+				form.append('<input type="hidden" name="p_img" value="${pvo.p_img}"/>');
+				form.attr("method", "post");
 			}
 
 			form.submit();

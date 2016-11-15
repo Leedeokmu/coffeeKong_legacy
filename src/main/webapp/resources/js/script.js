@@ -197,24 +197,6 @@ $(document).ready(function(){
 	    }
 	});
 
-	$('form[name="pmupdate"]').validate({
-	    rules: {
-	        p_name: { required: true },
-	        p_category: { required: true },
-	        p_price: { required: true },
-	        p_content: { required: true }
-	    },
-	    messages: {
-	    	p_name: { required: "REQUIRED" },
-	        p_category: { required: "REQUIRED" },
-	        p_price: { required: "REQUIRED" },
-	        p_content: { required: "REQUIRED" }
-	    },
-	    submitHandler: function (form) {
-	    	form.submit();
-	    }
-	});
-	
 	$('form[name="pminsert"]').validate({
 		rules: {
 	        p_name: { required: true },
@@ -228,11 +210,68 @@ $(document).ready(function(){
 	        p_price: { required: "REQUIRED" },
 	        p_content: { required: "REQUIRED" }
 	    },
-	    submitHandler: function (form) {
-	    	form.submit();
+	    submitHandler: function (form,event) {
+	    	event.preventDefault();
+	    	
+	    	var formData = new FormData(form);
+	    	formData.append("file", uploadfile);
+	    	
+	    	$.ajax({
+	    		url: '/manage/product/insert',
+	    		data: formData,
+	    		dataType:'text',
+	    		processData: false,
+	    		contentType: false,
+	    		type: 'POST',
+	    		success: function(result){
+	    			if(result == "Success"){
+	    				$('form[name="afterPmi"]').submit();
+	    			}
+	    		},
+		    	error: function(request,status,error){
+	    	        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	    	    }
+	    	});	
 	    }
 	});
 	
+	$('form[name="pmupdate"]').validate({
+		rules: {
+	        p_name: { required: true },
+	        p_category: { required: true },
+	        p_price: { required: true },
+	        p_content: { required: true }
+	    },
+	    messages: {
+	    	p_name: { required: "REQUIRED" },
+	        p_category: { required: "REQUIRED" },
+	        p_price: { required: "REQUIRED" },
+	        p_content: { required: "REQUIRED" }
+	    },
+	    submitHandler: function (form, e) {
+	    	e.preventDefault();
+	    	
+	    	var formData = new FormData(form);
+	    	formData.append("file", uploadfile);
+	    	
+	    	$.ajax({
+	    		url: '/manage/product/update/save',
+	    		data: formData,
+	    		dataType:'text',
+	    		processData: false,
+	    		contentType: false,
+	    		type: 'POST',
+	    		success: function(result){
+	    			if(result == "Success"){
+	    				$('form[name="afterPmu"]').submit();
+	    			}
+	    		},
+		    	error: function(request,status,error){
+	    	        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	    	    }
+	    	});	
+	    }
+	});
 	
 	jQuery.validator.addMethod("phone", function(phone_number, element) {
 	    phone_number = phone_number.replace(/\s+/g, "");

@@ -83,8 +83,8 @@
 				</div>
 			</div>
 			<hr />
-			<div class="row text-center">
-				<h3>Receiver Information</h3>
+			<div class="row u_title text-center">
+				<h3>Receiver Information</h3><br />
 			</div>
 			<div class="row form-horizontal">
 				<label class="control-label col-md-2">receiver</label>

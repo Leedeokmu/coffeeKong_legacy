@@ -10,6 +10,7 @@
 .h_nav a,.h_nav a:focus{
 	text-decoration:none;
 	color:#6b6b6b;
+	transition: color 0.7s ease;
 }
 .h_nav a:hover{
 	text-decoration:none;
@@ -62,6 +63,10 @@
 	align-items: center;
 	justify-content: center;
 }
+.hor_left{
+	display:flex;
+	justify-content: flex-start;
+}
 .hor_right{
 	display:flex;
 	justify-content: flex-end;
@@ -71,6 +76,7 @@
 }
 .l_article,.a_article,.u_article{
 	color:#8b8b8b;
+	font-family:Roboto;
 }
  .carousel-inner > .item > img,
  .carousel-inner > .item > a > img {
@@ -78,3 +84,4 @@
      min-width: 100%;
      height: 400px !important;
  }
+ 

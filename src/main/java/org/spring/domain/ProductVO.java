@@ -76,4 +76,11 @@ public class ProductVO {
 		this.p_img = p_img;
 	}
 
+	@Override
+	public String toString() {
+		return "ProductVO [p_id=" + p_id + ", p_category=" + p_category + ", p_name=" + p_name + ", p_content="
+				+ p_content + ", p_price=" + p_price + ", p_mdate=" + p_mdate + ", p_rdate=" + p_rdate + ", p_img="
+				+ p_img + "]";
+	}
+
 }

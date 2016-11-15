@@ -1,13 +1,17 @@
 package org.spring.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.spring.domain.Criteria;
 import org.spring.domain.ProductVO;
+import org.spring.domain.ReviewVO;
 import org.spring.domain.SearchCriteria;
 import org.springframework.stereotype.Repository;
 
@@ -50,5 +54,34 @@ public class ProductDAOImpl implements ProductDAO {
 	public void update(ProductVO pvo) throws Exception {
 		sql.update(namespace+".update", pvo);
 	}
+
+	@Override
+	public void insert(ProductVO pvo) throws Exception {
+		sql.insert(namespace+".insert", pvo);
+	}
+
+	@Override
+	public List<ReviewVO> listReview(int pid, Criteria cri) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("pid", pid);
+		map.put("cri", cri);
+		return sql.selectList(namespace+".listReview", map);
+		
+	}
+
+	@Override
+	public int listReviewCount(int pid) throws Exception {
+		return sql.selectOne(namespace+".listReviewCount", pid);
+	}
+	@Override
+	public void addReview(ReviewVO rvo) throws Exception {
+		sql.insert(namespace+".addReview", rvo);
+	}
+
+	@Override
+	public void deleteReview(int rid) throws Exception {
+		sql.delete(namespace+".deleteReview", rid);
+	}
+
 	
 }

@@ -1,16 +1,27 @@
 package org.spring.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.spring.domain.Criteria;
+import org.spring.domain.PageMaker;
+import org.spring.domain.ReviewVO;
 import org.spring.service.ProductService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -37,5 +48,64 @@ public class ProductController {
 		model.addAttribute("pvo", service.getByPid(pid));
 		model.addAttribute("content", "detail");
 		return "/product/product";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/review/post", method = RequestMethod.POST)
+	public ResponseEntity<String> postReview(@RequestBody ReviewVO rvo){
+		ResponseEntity<String> entity = null;
+		try {
+			service.addReview(rvo);
+	        entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+	    }
+		return entity;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/review/list/{pid}/{page}", method = RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> listReview(@PathVariable int pid, @PathVariable int page){
+		ResponseEntity<Map<String, Object>> entity = null;
+		try {
+		      Criteria cri = new Criteria();
+		      cri.setPage(page);
+		      cri.setPerPageNum(5);
+		      PageMaker pageMaker = new PageMaker();
+		      pageMaker.setCri(cri);
+
+		      Map<String, Object> map = new HashMap<String, Object>();
+		      List<ReviewVO> list = service.listReview(pid, cri);
+
+		      map.put("list", list);
+
+		      int replyCount = service.listReviewCount(pid);
+		      pageMaker.setTotalCount(replyCount);
+
+		      map.put("pageMaker", pageMaker);
+
+		      entity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+	    } catch (Exception e) {
+	      e.printStackTrace();
+	      entity = new ResponseEntity<Map<String, Object>>(HttpStatus.BAD_REQUEST);
+	    }
+		return entity;	
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/review/delete/{rid}", method = RequestMethod.DELETE)
+	public ResponseEntity<String> deleteReview(@PathVariable int pid){
+		ResponseEntity<String> entity = null;
+		
+		try {
+		      service.deleteReview(pid);
+		      entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+	    } catch (Exception e) {
+		      e.printStackTrace();
+		      entity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+	    }
+		return entity;
 	}
 }

@@ -9,9 +9,6 @@ public class ReviewVO {
 	private String r_grade;
 	private String r_content;
 	private Date r_date;
-	private String r_img1;
-	private String r_img2;
-	private String r_img3;
 
 	public String getR_grade() {
 		return r_grade;
@@ -19,30 +16,6 @@ public class ReviewVO {
 
 	public void setR_grade(String d) {
 		this.r_grade = d;
-	}
-
-	public String getR_img1() {
-		return r_img1;
-	}
-
-	public void setR_img1(String r_img1) {
-		this.r_img1 = r_img1;
-	}
-
-	public String getR_img2() {
-		return r_img2;
-	}
-
-	public void setR_img2(String r_img2) {
-		this.r_img2 = r_img2;
-	}
-
-	public String getR_img3() {
-		return r_img3;
-	}
-
-	public void setR_img3(String r_img3) {
-		this.r_img3 = r_img3;
 	}
 
 	public int getR_id() {

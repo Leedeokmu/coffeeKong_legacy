@@ -83,5 +83,50 @@
 		where
 			p_id=#{p_id}
 	</select>
+	<select id="listReview" parameterType="hashmap" resultType="org.spring.domain.ReviewVO">
+		<![CDATA[
+		SELECT
+			*
+		FROM (
+			SELECT 
+				ROWNUM RNUM, r_id, p_id,u_email, r_grade, r_content, r_date
+			FROM (
+				SELECT
+					r_id, p_id,u_email, r_grade, r_content, r_date
+				FROM
+					tbl_review
+				WHERE
+					p_id=#{p_id}
+				ORDER BY
+					r_id DESC
+			)
+		) 
+		WHERE
+			RNUM > (#{page} -1) * #{perPageNum} and RNUM <= #{page} * #{perPageNum}
+		]]>
+	</select>
+	<select id="listReviewCount" parameterType="int" resultType="int">
+		SELECT
+			count(r_id)
+		FROM
+			tbl_review
+		WHERE
+			p_id=#{p_id}
+	</select>
+	<insert id="addReview" parameterType="org.spring.domain.ReviewVO">
+		INSERT INTO
+			tbl_review
+		VALUES
+			(seq_rid.nextval, #{p_id},#{u_email},#{r_grade},#{r_content},sysdate) 
+	</insert>
+	<delete id="deleteReview">
+		DELETE	FROM
+			tbl_review
+		WHERE
+			r_id=#{rid}
+	</delete>
+		
+	
+	
 	
 </mapper>

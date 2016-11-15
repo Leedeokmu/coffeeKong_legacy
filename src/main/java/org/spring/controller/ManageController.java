@@ -91,6 +91,6 @@ public class ManageController {
 		}
 		
 		rttr.addAttribute("content", "");
-		return "redirect:/index";
+		return "redirect:/manage";
 	}
 }

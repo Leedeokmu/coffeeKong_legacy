@@ -15,13 +15,14 @@
 <div class="container bg-3 text-center">
 <div class="row">
 	<c:forEach var="vo" items="${list}" varStatus="status">
-		<div class="col-sm-1"></div>
-		<div class="col-sm-3">
+		<div class="col-sm-4 all_center" style="margin-bottom:5em">
 		    <div class="imageWrapper">
-		    	<a href="${vo.p_id}">
-		    		<img src="${vo.p_img }" class="img-responsive thumbnail" style="width:300px;height:300px" alt="Image">
-		    	</a>
-		    	<a href="${vo.p_id}" class="cornerLink">$${vo.p_price }</a>
+			    <div>
+			    	<a href="${vo.p_id}">
+			    		<img src="${vo.p_img }" class="img-responsive thumbnail" style="width:20em;height:20em" alt="Image">
+			    	</a>
+			    	<a href="${vo.p_id}" class="cornerLink">$${vo.p_price }</a>
+		    	</div>
 		    	<div class="h_nav" style="font-size:125%"><a href="${vo.p_id}">${vo.p_name}</a></div>
 		    </div>
 		    <br><br><br><br>

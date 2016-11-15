@@ -56,6 +56,12 @@ public class LoginController {
 				if(uvo == null){
 					entity = new ResponseEntity<String>("Fail", HttpStatus.OK);
 				}else{
+					if (session.getAttribute("login") != null) {
+						
+						logger.info("clear login session attr #######################");
+						session.removeAttribute("login");
+					}
+					
 					session.setAttribute("login", uvo);
 					if(dto.isUseCookie()){
 						int duration = 60 * 60 * 24 * 7;

@@ -11,7 +11,7 @@
 </head>
 <body>
 	<div class="container-fluid a_article" style="margin-left:30px;margin-right:30px;">
-		<div class="a_title text-center"><h2>PRODUCT LIST</h2></div><br /><br />
+		<div class="a_title "><h2>PRODUCT LIST</h2></div><br /><br />
 		
 		<div class="row text-center">
 			<div class="col-md-1"><span>ID</span></div>
@@ -33,9 +33,10 @@
 			</div>
 			<hr />
 		</c:forEach>
-		<div class="row hor_right h_nav" style="margin-right:5em">
-			<h4><a href="/manage/product/insert${pmk.makeSearch(pmk.cri.page) }" class="btn btn-default btn-lg">INSERT PRODUCT</a></h4>
+		<div class="row hor_right h_nav" >
+			<h3><a href="/manage/product/insert${pmk.makeSearch(pmk.cri.page) }" class="">INSERT PRODUCT</a></h3>
 		</div>
+		<hr />
 		<div class="row text-center">
 			<ul class="pagination">
 				<c:if test ="${pmk.prev }">

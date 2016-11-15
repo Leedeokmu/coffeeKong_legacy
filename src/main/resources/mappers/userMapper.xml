@@ -2,14 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.spring.mapper.UserMapper">
 
-<!-- 	<resultMap id="UserVO" type="com.service.UserVO"> -->
-<!-- 		<id property="u_email" column="u_email" /> -->
-<!-- 		<result property="u_fname" column="u_fname"/> -->
-<!-- 		<result property="u_lname" column="u_lname"/> -->
-<!-- 		<result property="u_pwd" column="u_pwd"/> -->
-<!-- 		<result property="u_point" column="u_point"/> -->
-<!-- 	</resultMap> -->
-	
 	<sql id="search">
 		<if test="searchType != null">
 			<if test="searchType == 'email'.toString()">

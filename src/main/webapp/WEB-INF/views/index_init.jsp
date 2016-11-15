@@ -56,7 +56,7 @@
 			
 		</div>
 	</div>
-	<c:if test="${content eq 'login' }">
+	<c:if test="${content eq 'login' && login == null}">
 		<script>$('#loginModal').modal();</script>
 	</c:if>
 	

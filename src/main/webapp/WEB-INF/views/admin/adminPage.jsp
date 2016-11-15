@@ -8,10 +8,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>WELCOME MANAGER</title>
+<title>WELCOME, MANAGER</title>
+<link href="/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/resources/css/header.css" />
 <link rel="stylesheet" href="/resources/css/style.css" />
 <link rel="stylesheet" href="/resources/css/image.css" />
-<link href="/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 <script src="http://code.jquery.com/jquery-3.1.1.js"
 	integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
@@ -22,6 +23,7 @@
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/additional-methods.min.js"></script>
 <script src="/resources/js/script.js"></script>
 </head>
+
 <c:choose>
 	<c:when test="${content == null || content == ''}">
 		<c:set var="content" value="./content.jsp" />
@@ -61,31 +63,43 @@
 	</c:when>
 </c:choose>
 <body>
+<!-- header start -->
+	<div id="header">
 	<!-- header start-->
+	<nav class="navbar navbar-default">
 	<div class="container">
-		<div class="row ver_center header">
-			<div class="col-md-4 h_title">
-				<span class="h3"><strong><a href="/manage">COFFEE KONG</a></strong></span>
-			</div>
-			<div class="col-md-8 h_nav">
-				<c:catch>
-					<c:choose>
-						<c:when test="${mgr != null}">
-							<ul class="list-inline">
-								<li>${mgr.m_email }</li>
-								<li><a href="/manage/user/list">MANAGE USER</a></li>
-								<li><a href="/manage/product/list">MANAGE PRODUCT</a></li>
-								<li><a href="/manage/order/list">MANAGE ORDER</a></li>
-								<li><a href="/logout">LOGOUT</a></li>
-							</ul>
-						</c:when>
-						<c:otherwise>
-							<h1>LOGIN PLEASE.</h1>
-						</c:otherwise>
-					</c:choose>
-				</c:catch>
-			</div>
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" 
+			data-target="#mgrHeaderNav" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="/manage"><h3 style="margin:0px">COFFEE KONG</h3></a>
 		</div>
+		<div class="collapse navbar-collapse" id="mgrHeaderNav">
+			<c:catch>
+				<c:choose>
+					<c:when test="${mgr != null}">
+						<ul class="nav navbar-nav navbar-right">
+							<li class="navbar-text">${mgr.m_email }</li>
+							<li><a href="/manage/user/list">MANAGE USER</a></li>
+							<li><a href="/manage/product/list">MANAGE PRODUCT</a></li>
+							<li><a href="/manage/order/list">MANAGE ORDER</a></li>
+							<li><a href="/manage/logout">LOGOUT</a></li>
+						</ul>
+					</c:when>
+					<c:otherwise>
+						<ul class="nav navbar-nav navbar-right">
+							<li class="navbar-text"><h3 style="margin:0">NOT LOGGED IN</h3></li>
+						</ul>
+					</c:otherwise>
+				</c:choose>
+			</c:catch>
+		</div>
+	</div>
+	</nav>
 	</div>
 	<!-- header end-->
 	

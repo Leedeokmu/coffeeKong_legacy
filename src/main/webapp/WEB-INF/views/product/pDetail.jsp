@@ -10,11 +10,15 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>COFFEE KONG.</title>
-<title>Insert title here</title>
 </head>
-<c:set var="list" value="${reviews }" />
+<style>
+	.jumbotron{
+		background-color: white;
+	}
+</style>
 <body>
-	<form method="POST" action="/user/tocart" name="tocart">
+	<div class="container">
+		<form method="POST" action="/user/tocart" name="tocart">
 		<input type="hidden" name="p_id" value="${pvo.p_id}">
 		<input type="hidden" name="p_name" value="${pvo.p_name }">
 		<input type="hidden" name="p_category" value="${pvo.p_category}">
@@ -22,121 +26,136 @@
 		<input type="hidden" name="p_price" value="${pvo.p_price }">
 		<input type="hidden" name="qty" id="pQty">
 		<input type="hidden" name="sub_price">
-		
-		<div class="container">
-			<br>
-			<div style="margin:2px;float:left;">
-				<img src="${pvo.p_img }" width="400" height="400" alt="productIcon"/>	
+		<div class="row  u_article">
+			<div class="col-md-6 all_center">
+				<img src="${pvo.p_img }"style="width:25em;height:25em"/>
 			</div>
-			<div style="margin:10px;float:left;margin-left:150px">
-				<div>
-					<h3>Name: ${pvo.p_name }</h3>
+			
+			<div class="col-md-6">
+				<div class="row">
+					<span class="col-md-6 h3">NAME</span>
+					<span class="col-md-6 h3">${pvo.p_name }</span>
 				</div>
-				<div>
-					<h3>Unit Price: <b id="price">${pvo.p_price}</b></h3>	
+				<div class="row">
+					<span class="col-md-6 h3">PRICE</span>
+					<span class="col-md-6 h3">$${pvo.p_price}</span>
 				</div>
-				<div>
-					<h3>Quantity:<button type="button" id="minus" onClick="decrease()">-</button> <b class="qty">1</b> <button type="button" id="plus" onClick="increase()">+</button></h3>
+				<div class="row">
+					<span class="col-md-6 h3">QUANTITY</span>
+					<span class="col-md-6 h3">
+						<button type="button" id="minus" class="btn btn-default btn-sm" onClick="decrease()">-</button>
+							<b class="qty">1</b>
+						<button type="button" id="plus" class="btn btn-default btn-sm" onClick="increase()">+</button>
+					</span>	
 				</div>
-				<div>
-					<h3>TOTAL PRICE :<b id="total"></b></h3>
+				<div class="row">
+					<span class="col-md-6 h3">TOTAL PRICE</span>
+					<span class="col-md-6 h3">$<b id="total"></b></span>
 				</div>
 				<c:choose>
-					<c:when test="${pvo.p_category eq 'SingleOrigins' || pvo.p_category eq 'Blends' ||pvo.p_category eq 'Decafs' ||pvo.p_category eq 'Light' ||pvo.p_category eq 'Medium' ||pvo.p_category eq 'Dark' ||pvo.p_category eq 'ColdBrew'}">	
-						<div>
-							<div>
-							Size:
-							</div>
-							<select name="sz" onChange="selectEvent(this)">
+				<c:when test="${pvo.p_category eq 'SingleOrigins' || pvo.p_category eq 'Blends' ||pvo.p_category eq 'Decafs' ||pvo.p_category eq 'Light' ||pvo.p_category eq 'Medium' ||pvo.p_category eq 'Dark' ||pvo.p_category eq 'ColdBrew'}">	
+					<div class="row">
+						<span class="col-md-6 h3">SIZE</span>
+						<div class="col-md-6">
+							<select name="sz" class="form-control" onChange="selectEvent(this)">
 							  <option value="0.5kg" selected>0.5kg</option>
 							  <option value="1kg">1kg</option>
 							  <option value="1.5kg">1.5kg</option>
 							  <option value="2kg">2kg</option>
 							</select>
 						</div>
-						<div>
-							<div>
-							Type:
-							</div>
-							<select name="type">
+					</div>
+					<div class="row">
+						<span class="col-md-6 h3">TYPE</span>
+						<div class="col-md-6">
+							<select name="type" class="form-control">
 							  <option value="Whole bean">Whole bean</option>
 							  <option value="Drip">Drip</option>
 							  <option value="Espresso">Espresso</option>
 							</select>
 						</div>
-					</c:when>
+					</div>
+				</c:when>
 				</c:choose>
-				<div>
-					<br />
-					<input type="button" id="buy" class="btn btn-success btn-lg" value="TO CART"/>
+				<br />
+				<div class="row hor_center h_nav">
+					<a href="#" id="buy"><h3>TO CART</h3></a>
 				</div>
 			</div>
-			<div style="clear:both;text-align:center;">
-				<hr>
-					<h3>Product Info</h3>
-				<hr>
-				<p>${pvo.p_content}</p>
-			</div>
-			
+		</div>
+		</form>			
+		<div class="row">
+			<hr>
+				<p style="padding:2em">${pvo.p_content}</p>
+			<hr>
+		</div>
 <!-- 			review section			 -->
-			<div style="clear:both;text-align:center;">
-				<hr>
-					<h3>Review</h3><div style="margin-left:400px;margin-top:-31px"><a href="reviewCtrl?pId=${pvo.p_id}">[WRITE]</a></div>
-				<hr>
-				<div>in the recent order<hr></div>
-				<div>
-					<c:forEach var="rvo" items="${list}">
-						<div>
-							<div>${rvo.u_email }</div>
-							<div><span class='star-rating'><span id="${rvo.r_grade }"></span></span></div>
-							<div>${rvo.r_date }&nbsp;&nbsp;&nbsp;${pvo.p_name }</div>
-							<div><br>${rvo.r_content }</div>
-							<div>
-								<c:choose>
-									<c:when test="${rvo.r_img1 eq 'null'}"></c:when>
-									<c:otherwise>
-										<img src="${rvo.r_img1 }" width="100" height="100" alt="reviewIcon"/>	
-									</c:otherwise>
-								</c:choose>
-								<c:choose>
-									<c:when test="${rvo.r_img2 eq 'null'}"></c:when>
-									<c:otherwise>
-										<img src="${rvo.r_img2 }" width="100" height="100" alt="reviewIcon"/>	
-									</c:otherwise>
-								</c:choose>
-								<c:choose>
-									<c:when test="${rvo.r_img3 eq 'null'}"></c:when>
-									<c:otherwise>
-										<img src="${rvo.r_img3 }" width="100" height="100" alt="reviewIcon"/>	
-									</c:otherwise>
-								</c:choose>
-							</div>
-							<div><a href="#">reply</a></div>
-							<hr>
-						</div>
-					</c:forEach>
+		<div class="row u_title" style="margin-left:2em"><h3>Customer Review</h3></div>
+		<div class="u_article">
+		<c:choose>
+		<c:when test="${login == null }">
+			<div class="row h_nav">
+				<span>Please <a href="#loginModal" data-toggle="modal">login</a> to review this product.</span>
+			</div>
+		</c:when>
+		<c:otherwise>
+			<div class="row jumbotron">
+				<form action="/product/review" method="post">
+					<div class="">
+						<h4><span><b>POST REVIEW</b></span></h4>
+					</div>
+					<div class="form-group">
+						<label for="reviewContent" class="control-label">CONTENT</label>
+						<textarea name="r_content" id="reviewContent" class="form-control" cols="30" rows="3"></textarea>
+					</div>
+					<div class="star-input">
+						<span class="input">
+					    	<input type="radio" name="r_grade" id="p1" value="one"><label for="p1">0.5</label>
+						    <input type="radio" name="r_grade" id="p2" value="two"><label for="p2">1</label>
+						    <input type="radio" name="r_grade" id="p3" value="three"><label for="p3">1.5</label>
+						    <input type="radio" name="r_grade" id="p4" value="four"><label for="p4">2</label>
+						    <input type="radio" name="r_grade" id="p5" value="five"><label for="p5">2.5</label>
+						    <input type="radio" name="r_grade" id="p6" value="six"><label for="p6">3</label>
+						    <input type="radio" name="r_grade" id="p7" value="seven"><label for="p7">3.5</label>
+						    <input type="radio" name="r_grade" id="p8" value="eight"><label for="p8">4</label>
+						    <input type="radio" name="r_grade" id="p9" value="nine"><label for="p9">4.5</label>
+						    <input type="radio" name="r_grade" id="p10" value="ten"><label for="p10">5</label>
+						</span>
+						<output for="star-input" style="margin-top:-8px;"></output>
+					</div>
+					<div class="hor_center">
+						<input type="submit" class="btn btn-default" value="POST"/>
+					</div>
+<!-- 					<div class='star-rating'><span id="p1"></span></div> -->
+				</form>
+			</div>
+		</c:otherwise>
+		</c:choose>
+		<hr>
+		<div class="reviewDiv"></div>
+		<div class='text-center'>
+			<ul id="pagination" class="pagination pagination-sm no-margin "></ul>
+		</div>
+	</div>
+	<div id="isCartModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h3 class="modal-title text-center">CART</h3>
+				</div>
+				<div class="modal-body">
+					<div class="hor_center" style="margin:5em">
+						<div><h4>WANT TO SEE PRODUCTS IN CART?</h4></div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<div><a href="/user/cart" class="btn btn-default btn-lg">GO</a></div>
 				</div>
 			</div>
 		</div>
-		<div id="isCartModal" class="modal fade" role="dialog">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h3 class="modal-title">CART</h3>
-					</div>
-					<div class="modal-body">
-						<div class="hor_center">
-							<div><h3>GO CART?</h3></div>
-						</div>
-						<div class="hor_center">
-							<div><a href="/user/cart" class="btn btn-default btn-lg">CART</a></div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</form>
+	</div>
+	</div>
 	<div><span class="cart"></span></div>
 </body>
 <script type="text/javascript">
@@ -147,7 +166,7 @@
 	
 	function calPrice(){
 		total = p_price*qty*type;
-		$('#total').text(p_price*qty*type);
+		$('#total').text(total.toFixed(2));
 	}
 	function increase(){
 		if(qty>100){
@@ -178,7 +197,7 @@
 	}
 	
 	$('#buy').on("click", function(event){
-		
+		event.preventDefault();
 		$('input[name="qty"]').attr("value",qty);
 		$('input[name="sub_price"]').attr("value",total);
 		
@@ -211,6 +230,11 @@
 	$(document).ready(function(){
 		calPrice();
 	})
+	
+	
+	
+	
+	
 	</script>
 
 </html>

@@ -4,11 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<c:set var="basePath" value="${pageContext.request.contextPath }"/>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <title>COFFEE KONG</title>
 <script type="text/javascript">
 </script>
@@ -27,7 +25,7 @@
 		<input type='hidden' name='keyword' value="${cri.keyword}">
 		<div class="row">
 			<div class="col-md-6 all_center" id="imageDiv">
-				<img src="/resources/dist/product/sample.jpg" style="width:20em"/>
+				<img src="/resources/dist/product/sample.jpg" id="imgsrc" style="width:20em;height:20em"/>
 			</div>
 			
 			<div class="col-md-6">
@@ -73,15 +71,56 @@
 			cols="30" rows="3"></textarea> 
 		</div>
 		<hr />
-		<div class="row">
-			<input type="submit" class="btn btn-success" value="ACCEPT">
-			<input type="reset" class="btn btn-default" value="RESET">
-			<a href="javascript:history.go(-1);">BACK</a>
+		<div class="hor_center">
+			<div class="btn-group">
+				<input type="submit" class="btn btn-success" value="ACCEPT">
+				<input type="reset" class="btn btn-default" value="RESET">
+				<a href="javascript:history.go(-1);" class="btn btn-default">BACK</a>
+			</div>
 		</div>
 		</form>
 	</div>
+	<form name="afterPmi" action="/manage/product/list">
+		<input type='hidden' name='page' value="${cri.page}"> 
+		<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
+		<input type='hidden' name='searchType' value="${cri.searchType}">
+		<input type='hidden' name='keyword' value="${cri.keyword}">
+	</form>
 	<script>
+	$(document).ready(function(){
+		uploadfile = null;
+		
+		function checkImageType(fileName){
+			var pattern = /jpg|gif|png|jpeg|bmp/i;
+			return fileName.match(pattern);
+		}
 	
+		$('#imageDiv').on("dragenter dragover", function(event){
+			event.preventDefault();
+		})
+		$('#imageDiv').on("drop",function(event){
+			event.preventDefault();
+			var files = event.originalEvent.dataTransfer.files;
+			
+			if (files && files[0]) {
+				if(!checkImageType(files[0].name)){
+					alert("Provide Only Image Files!(eg. .jpg/jpeg, .gif, .png, .bmp)");
+					return;
+				}else if(files[0].fileSize > 1024 * 500){
+					alert("FileSize Over 500KB!");
+					return;
+				}
+				uploadfile = files[0];
+	            var reader = new FileReader();
+				
+	            reader.onload = function (e) {
+	                $('#imgsrc').attr('src', e.target.result);
+	            };
+				
+	        	reader.readAsDataURL(files[0]);
+	    	}
+		})
+	});
 	</script>
 </body>
 </html>

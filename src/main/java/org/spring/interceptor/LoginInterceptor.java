@@ -45,11 +45,21 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		HttpSession session = request.getSession();
-		if (session.getAttribute("login") != null) {
-			logger.info("clear login session attr #######################");
-			session.removeAttribute("login");
-		}
+		saveDest(request);
 		return true;
+	}
+	
+	private void saveDest(HttpServletRequest req) {
+		String uri = req.getRequestURI();
+		String query = req.getQueryString();
+		if (query == null || query.equals("null")) {
+			query = "";
+		} else {
+			query = "?" + query;
+		}
+		if (req.getMethod().equals("GET")) {
+			logger.info("destination ##################" + (uri + query));
+			req.getSession().setAttribute("dest", uri + query);
+		}
 	}
 }

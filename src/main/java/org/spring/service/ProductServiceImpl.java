@@ -6,10 +6,13 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.spring.domain.Criteria;
 import org.spring.domain.ProductVO;
+import org.spring.domain.ReviewVO;
 import org.spring.domain.SearchCriteria;
 import org.spring.persistence.ProductDAO;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -34,6 +37,8 @@ public class ProductServiceImpl implements ProductService {
 	public int listCount(SearchCriteria cri) throws Exception {
 		return dao.listCount(cri);
 	}
+	
+	@Transactional
 	@Override
 	public void delete(int pid) throws Exception {
 		dao.delete(pid);
@@ -41,6 +46,26 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void update(ProductVO pvo) throws Exception {
 		dao.update(pvo);
+	}
+	@Override
+	public void insert(ProductVO pvo) throws Exception {
+		dao.insert(pvo);
+	}
+	@Override
+	public List<ReviewVO> listReview(int pid, Criteria cri) throws Exception {
+		return dao.listReview(pid, cri);
+	}
+	@Override
+	public int listReviewCount(int pid) throws Exception {
+		return dao.listReviewCount(pid);
+	}
+	@Override
+	public void addReview(ReviewVO rvo) throws Exception {
+		dao.addReview(rvo);
+	}
+	@Override
+	public void deleteReview(int rid) throws Exception {
+		dao.deleteReview(rid);
 	}
 	
 }
