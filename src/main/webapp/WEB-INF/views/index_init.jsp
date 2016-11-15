@@ -51,11 +51,11 @@
 			</a>
 		</div>
 		<hr />
-		<div class="row text-center" style="opacity:0.7">
+		<div class="row text-center" style="opacity:0.7;margin-top:4em;">
 			<span><i class="h1">" </i><i class="h2">high quality coffee bean seller</i><i class="h1">" </i></span>
 		</div>
 		<div class="row text-right" style="opacity:0.7">
-			<span><i class="h2">- freeefly</i></span><br />
+			<span><i class="h2">- freeefly</i></span><br /><br /><br /><br />
 		</div>
 		<div class="row text-center" style="opacity:0.7">
 			<span><i class="h3">We match you with coffees you'll love from over 30 of the country's best award-winning artisan coffee roasters. 
