@@ -18,7 +18,22 @@
 	<div class="container">
 	<c:choose>
 		<c:when test="${mgr != null }">
-			<div><h2>WELCOME MASTER.</h2></div>
+			<div class="row text-center u_title" style="margin:5em"><h2>WELCOME MASTER</h2></div>
+			
+			<div class="row hor_center h_nav text-center" style="margin-bottom:5em">
+				<div class="main_menu all_center" 
+				style="background: url('/resources/dist/img/user.jpg') no-repeat;">
+					<a href="/manage/user/list"><span class="h1">MANAGE USER</span></a>
+				</div>
+				<div class="main_menu all_center" 
+				style="background: url('/resources/dist/img/product.jpg') no-repeat center;">
+					<a href="/manage/product/list"><span class="h1">MANAGE PRODUCT</span></a>
+				</div>
+				<div class="main_menu all_center" 
+				style="background: url('/resources/dist/img/order.jpg') no-repeat center;">
+					<a href="/manage/order/list"><span class="h1">MANAGE ORDER</span></a>
+				</div>
+			</div>
 		</c:when>
 		<c:otherwise>
 			<div><h2>LOGIN PLEASE</h2></div>
@@ -26,5 +41,19 @@
 		</c:otherwise>
 	</c:choose>
 	</div>
+	<script>
+		$('.main_menu').on("mouseenter", function(event){
+			$(this).css('cursor','pointer');
+			$(this).find('a').addClass("hover");
+		});
+		$('.main_menu').on("mouseleave", function(event){
+			$(this).find('a').removeClass("hover");
+		});
+		
+		$('.main_menu').on("click", function(event){
+			var target = $(this).find('a').attr("href");
+			self.location.replace(target);
+		});
+	</script>
 </body>
 </html>

@@ -87,8 +87,8 @@
 		</div>
 		</c:when>
 		<c:otherwise>
-			<div class="text-center">
-				<h2>YOUR CART EMPTY</h2><br />
+			<div class="text-center h_nav">
+				<h2>YOUR CART IS EMPTY</h2><br />
 				click <a href="/product/list/Blends">here</a> to navigate products.
 			</div>
 		</c:otherwise>
@@ -191,10 +191,6 @@
     	    }
     	});
 	});	
-	
-// 	$('form[role="form"]').on("submit", function(event){
-// 			event.preventDefault();
-// 	})
 	</script>
 </body>
 </html>

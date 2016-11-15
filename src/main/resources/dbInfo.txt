@@ -60,6 +60,7 @@ CREATE TABLE tbl_review(
 	r_id number(5) not null,
 	p_id number(5) not null,
 	u_email varchar2(200 byte),
+	u_name varchar2(100 byte),
 	r_grade varchar2(200 byte),
 	r_content varchar2(2000 byte),
 	r_date date default sysdate,
@@ -88,7 +89,8 @@ DROP SEQUENCE seq_rid CASCADE CONSTRAINTS;
 
 CREATE SEQUENCE seq_rid START WITH 1 INCREMENT BY 1 NOCACHE;
 
-DROP TABLE tbl_order;
+DROP TABLE tbl_order CASCADE CONSTRAINTS;
+
 CREATE TABLE tbl_order(
 	o_id number(5) not null,
 	u_email varchar2(100byte) not null,

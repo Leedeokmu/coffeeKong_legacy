@@ -21,7 +21,7 @@
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
 <script src="http://malsup.github.io/min/jquery.form.min.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/additional-methods.min.js"></script>
-<script src="/resources/js/script.js"></script>
+<script src="/resources/js/validate.js"></script>
 </head>
 
 <c:choose>
@@ -76,14 +76,14 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/manage"><h3 style="margin:0px">COFFEE KONG</h3></a>
+			<a class="navbar-brand" href="/manage"><h3 style="margin:0px"><b>COFFEE KONG</b></h3></a>
 		</div>
 		<div class="collapse navbar-collapse" id="mgrHeaderNav">
 			<c:catch>
 				<c:choose>
 					<c:when test="${mgr != null}">
 						<ul class="nav navbar-nav navbar-right">
-							<li class="navbar-text">${mgr.m_email }</li>
+							<li><a href="#">${mgr.m_email }</a></li>
 							<li><a href="/manage/user/list">MANAGE USER</a></li>
 							<li><a href="/manage/product/list">MANAGE PRODUCT</a></li>
 							<li><a href="/manage/order/list">MANAGE ORDER</a></li>
@@ -92,7 +92,7 @@
 					</c:when>
 					<c:otherwise>
 						<ul class="nav navbar-nav navbar-right">
-							<li class="navbar-text"><h3 style="margin:0">NOT LOGGED IN</h3></li>
+							<li class="navbar-text"><h3 style="margin:0"><span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;NOT LOGGED IN</h3></li>
 						</ul>
 					</c:otherwise>
 				</c:choose>

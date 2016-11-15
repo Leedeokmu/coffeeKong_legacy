@@ -6,9 +6,18 @@ public class ReviewVO {
 	private int r_id;
 	private int p_id;
 	private String u_email;
+	private String u_name;
 	private String r_grade;
 	private String r_content;
 	private Date r_date;
+
+	public String getU_name() {
+		return u_name;
+	}
+
+	public void setU_name(String u_name) {
+		this.u_name = u_name;
+	}
 
 	public String getR_grade() {
 		return r_grade;
@@ -56,6 +65,12 @@ public class ReviewVO {
 
 	public void setR_date(Date r_date) {
 		this.r_date = r_date;
+	}
+
+	@Override
+	public String toString() {
+		return "ReviewVO [r_id=" + r_id + ", p_id=" + p_id + ", u_email=" + u_email + ", u_name=" + u_name
+				+ ", r_grade=" + r_grade + ", r_content=" + r_content + ", r_date=" + r_date + "]";
 	}
 
 }

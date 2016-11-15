@@ -7,11 +7,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title></title>
+<title>COFFEE KONG</title>
 </head>
 <body>
-	<div class="a_title text-center"><h2><span>USER LIST</span></h2></div><br /><br />
 	<div class="container a_article">
+		<div class="a_title text-center"><h2><span>USER LIST</span></h2></div><br /><br />
 		<div class="row text-center">
 			<div class="col-md-3"><span>EMAIL</span></div>
 			<div class="col-md-3"><span>FIRST NAME</span></div>

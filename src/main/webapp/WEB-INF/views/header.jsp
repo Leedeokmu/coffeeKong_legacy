@@ -6,7 +6,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<c:set var="basePath" value="${pageContext.request.contextPath}" />
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,7 +26,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/index"><h3 style="margin:0px">COFFEE KONG</h3></a>
+			<a class="navbar-brand" href="/index"><h3 style="margin:0px"><b>COFFEE KONG</b></h3></a>
 		</div>
 		<div class="collapse navbar-collapse" id="headerNav">
 			<ul class="nav navbar-nav navbar-right">
@@ -44,7 +43,6 @@
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">SHOP<span
 						class="caret"> </span></a>
-
 					<ul class="dropdown-menu" role="menu">
 						<li class="dropdown-header"><h4>Coffee</h4></li>
 						<li><a href="/product/list/Blends">Blends</a></li>
@@ -191,7 +189,7 @@
 	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
 	<script src="http://malsup.github.io/min/jquery.form.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/additional-methods.min.js"></script>
-	<script src="/resources/js/script.js"></script>
+	<script src="/resources/js/validate.js"></script>
 	<script>
 	$(document).ready(function(){
 	    $(".dropdown").hover(            

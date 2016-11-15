@@ -89,20 +89,20 @@
 			*
 		FROM (
 			SELECT 
-				ROWNUM RNUM, r_id, p_id,u_email, r_grade, r_content, r_date
+				ROWNUM RNUM, r_id, p_id,u_email, u_name, r_grade, r_content, r_date
 			FROM (
 				SELECT
-					r_id, p_id,u_email, r_grade, r_content, r_date
+					r_id, p_id,u_email, u_name,r_grade, r_content, r_date
 				FROM
 					tbl_review
 				WHERE
-					p_id=#{p_id}
+					p_id=#{pid}
 				ORDER BY
 					r_id DESC
 			)
 		) 
 		WHERE
-			RNUM > (#{page} -1) * #{perPageNum} and RNUM <= #{page} * #{perPageNum}
+			RNUM > (#{cri.page} -1) * #{cri.perPageNum} and RNUM <= #{cri.page} * #{cri.perPageNum}
 		]]>
 	</select>
 	<select id="listReviewCount" parameterType="int" resultType="int">
@@ -117,7 +117,7 @@
 		INSERT INTO
 			tbl_review
 		VALUES
-			(seq_rid.nextval, #{p_id},#{u_email},#{r_grade},#{r_content},sysdate) 
+			(seq_rid.nextval, #{p_id},#{u_email},#{u_name},#{r_grade},#{r_content},sysdate) 
 	</insert>
 	<delete id="deleteReview">
 		DELETE	FROM

@@ -8,10 +8,8 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title></title>
+<title>COFFEE KONG.</title>
 </head>
-<c:set var="basePath" value="${pageContext.request.contextPath }" />
 <body>
 	<div class="container">
 	<div class="alert alert-warning">
@@ -32,5 +30,37 @@
 		</form>
 	</div>
 	</div>
+	<script>
+	$(document).ready(function(){
+		$('form[name="uresign"]').submit(function(event){
+			event.preventDefault();
+			
+			var form = $('form[name="uresign"]');
+	    	var data = form_to_json(this);
+	    	
+	    	$.ajax({
+	    		type:'POST',
+	    		url: '/user/resign',
+	    		headers : {
+	    			"Content-Type" : "application/json",
+	    			"X-HTTP-Method-Override" : "POST"
+	    		},
+	    		dateType: 'json',
+	    		data: JSON.stringify(data),
+	    		success : function(result){
+	    			if(result == "Success"){
+	    				window.location.replace('/user/urcompl');
+	    			}else if(result == "Fail"){
+	    				$('.errmsg').html('<span>PASSWORD IS INCORRECT.</span>').fadeIn('slow').fadeOut('slow');
+	    			}
+	    		}
+	    		,
+	    	 	error: function(request,status,error){
+	    	        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	    	    }
+	    	});
+		});
+	})
+	</script>
 </body>
 </html>

@@ -162,12 +162,22 @@
     background: #000000;
     text-decoration: none;
     text-align: center;
-    -webkit-transition: opacity 500ms;
-    -moz-transition: opacity 500ms;
-    -o-transition: opacity 500ms;
-    transition: opacity 500ms;
-
+    -webkit-transition: opacity 0.5s;
+    -moz-transition: opacity 0.5s;
+    -o-transition: opacity 0.5s;
+    transition: opacity 0.5s;
 }
 .imageWrapper:hover .cornerLink {
     opacity: 0.8;
+}
+.main_menu{
+	width:30em;
+	height:20em;
+	background: url('/resources/dist/img/coffees.jpg') no-repeat;
+	background-size:100% 100%;
+	margin:1em;
+	transition: opacity 0.5s;
+}
+.main_menu:hover{
+	opacity: 0.8;
 }

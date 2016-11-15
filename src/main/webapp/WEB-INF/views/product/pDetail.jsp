@@ -9,6 +9,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 <title>COFFEE KONG.</title>
 </head>
 <style>
@@ -100,8 +101,13 @@
 		</c:when>
 		<c:otherwise>
 			<div class="row jumbotron">
-				<form action="/product/review" method="post">
-					<div class="">
+				<c:set var="name" value="${login.u_lname} ${login.u_fname}"/>
+				<form action="/product/review/post" method="post" name="reviewPost">
+					<input type="hidden" name="p_id" value="${pvo.p_id }"/>
+					<input type="hidden" name="u_email" value="${login.u_email}"/>
+					<input type="hidden" name="u_name" value="${name}"/>
+					
+					<div>
 						<h4><span><b>POST REVIEW</b></span></h4>
 					</div>
 					<div class="form-group">
@@ -126,13 +132,15 @@
 					<div class="hor_center">
 						<input type="submit" class="btn btn-default" value="POST"/>
 					</div>
-<!-- 					<div class='star-rating'><span id="p1"></span></div> -->
+<!-- 					 -->
 				</form>
 			</div>
 		</c:otherwise>
 		</c:choose>
 		<hr>
-		<div class="reviewDiv"></div>
+		<div id="reviewDiv" style="margin:5em">
+		
+		</div>
 		<div class='text-center'>
 			<ul id="pagination" class="pagination pagination-sm no-margin "></ul>
 		</div>
@@ -158,6 +166,27 @@
 	</div>
 	<div><span class="cart"></span></div>
 </body>
+
+<script id="reviewTemplate" type="text/x-handlebars-template">
+		{{#each .}}
+	         <div class="row reviewLi">
+    			<div class="">
+    	    		<span>{{u_name}}</span>&nbsp;&nbsp;&nbsp;<div class='star-rating'><span id={{r_grade}}></span></div>
+    			</div>
+    			<div class="hor_right removeBtn" data-rid={{r_id}}>
+        			{{#eqReviewer u_email }}
+        			<a href="#" class="delReviewBtn"><span class="glyphicon glyphicon-remove"></span></a>
+        			{{/eqReviewer}}
+    			</div>
+    			<div class="">{{r_content}} </div>
+    			<div class="hor_right">
+        			<span>{{prettifyDate r_date}}</span>
+    			</div>
+				<hr />
+			</div>
+        {{/each}}
+</script>  
+
 <script type="text/javascript">
 	var p_price="${pvo.p_price}";
 	var qty=1;
@@ -229,12 +258,133 @@
 
 	$(document).ready(function(){
 		calPrice();
-	})
-	
-	
-	
-	
-	
-	</script>
+		
+		var pid = ${pvo.p_id};
+		var reviewPage = 1;
+		
+		Handlebars.registerHelper("eqReviewer", function(reviewer, block) {
+			var accum = '';
+			if (reviewer == '${login.u_email}') {
+				accum += block.fn();
+			}
+			return accum;
+		});
 
+		Handlebars.registerHelper("prettifyDate", function(timeValue) {
+			var dateObj = new Date(timeValue);
+			var year = dateObj.getFullYear();
+			var month = dateObj.getMonth() + 1;
+			var date = dateObj.getDate();
+			return year + "/" + month + "/" + date;
+		});
+		
+		var printData = function(reviewList, target, templateObject) {
+
+			var template = Handlebars.compile(templateObject.html());
+			var html = template(reviewList);
+			$(".reviewLi").remove();
+			target.append(html);
+		}
+
+		function printPaging(pageMaker, target) {
+
+			var str = "";
+			if (pageMaker.prev) {
+				str += "<li><a href='" + (pageMaker.startPage - 1)
+						+ "'> < </a></li>";
+			}
+
+			for (var i = pageMaker.startPage ; i <= pageMaker.endPage; i++) {
+				var strClass = pageMaker.cri.page == i ? 'class=active' : '';
+				str += "<li "+strClass+"><a href='"+i+"'>" + i + "</a></li>";
+			}
+
+			if (pageMaker.next) {
+				str += "<li><a href='" + (pageMaker.endPage + 1)
+						+ "'> > </a></li>";
+			}
+			target.html(str);
+		};
+
+		function getPage(url) {
+			$.getJSON(url, function(data) {
+				printData(data.list, $("#reviewDiv"), $('#reviewTemplate'));
+				printPaging(data.pmk, $(".pagination"));
+			});
+		}
+		
+		getPage("/product/review/list/" + pid + "/1");
+		
+		$(".pagination").on("click", "li a", function(event) {
+			event.preventDefault();
+			reviewPage = $(this).attr("href");
+			getPage("/product/review/list/" + pid + "/" + reviewPage);
+		});
+		
+		$('#reviewDiv').on('click', '.delReviewBtn',function(event) {
+			event.preventDefault();
+			
+			var rid = $(this).closest(".removeBtn").attr("data-rid");
+			
+			$.ajax({
+				type : 'delete',
+				url : '/product/review/delete/' + rid,
+				headers : {
+					"Content-Type" : "application/json",
+					"X-HTTP-Method-Override" : "DELETE"
+				},
+				dataType : 'text',
+				success : function(result) {
+					console.log("result: " + result);
+					if (result == 'Success') {
+						alert("삭제 되었습니다.");
+						getPage("/product/review/list/" + pid + "/" + reviewPage);
+					}
+				},
+				error: function(request,status,error){
+	    	        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	    	    }
+			});
+		});
+		
+		$('form[name="reviewPost"]').validate({
+		    rules: {
+		    	u_email: { required: true },
+		    	r_grade: { required: true },
+		    	r_content: { required: true}
+		    },
+		    messages: {
+		    	u_email:{ required:"note that you're not logged in." },
+		    	r_grade: { required: "validate this product" },
+		    	r_content: { required: "REQUIRED"}
+		    },
+		    submitHandler: function (form, event) {
+		    	event.preventDefault();
+		    	
+		    	var data = form_to_json(form);
+		    	
+				$.ajax({
+					type : 'post',
+					url : '/product/review/post',
+					headers : {
+						"Content-Type" : "application/json",
+						"X-HTTP-Method-Override" : "POST"
+					},
+					dataType : 'text',
+					data : JSON.stringify(data),
+					success : function(result) {
+						console.log("result: " + result);
+						if (result == 'Success') {
+							
+							getPage("/product/review/list/" + pid + "/" + reviewPage);
+						}
+					},
+					error: function(request,status,error){
+		    	        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		    	    }
+				});
+		    }
+		});
+	})
+	</script>
 </html>

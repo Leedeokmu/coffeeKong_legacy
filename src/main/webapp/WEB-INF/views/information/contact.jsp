@@ -15,7 +15,7 @@
 		<div class="u_title">
 			<h2>CONTACT US</h2>
 		</div>
-		<form action="${basePath }/mailCtrl"">
+		<form action="#">
 			<div>
 				<div><input type="text" name="name" class="form-control" placeholder="Input your name"/></div><br />
 				<div><input type="email" name="email" class="form-control" placeholder="Input your email"/></div><br />

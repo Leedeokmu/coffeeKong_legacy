@@ -11,8 +11,8 @@
 <title>COFFEE KONG</title>
 </head>
 <body>
-	<div class="container-fluid" style="margin-left:30px;margin-right:30px">
-	<div class="u_title hor_center"><h2>ORDER LIST</h2></div><br />
+	<div class="container-fluid">
+		<div class="a_title hor_center"><h2>ORDER LIST</h2></div><br />
 		<div class="row hor_center">
 			<div class="col-md-2 text-center"><span>ORDER NO</span></div>
 			<div class="col-md-2 text-center"><span>USER</span></div>

@@ -10,8 +10,8 @@
 <title>COFFEE KONG.</title>
 </head>
 <body>
-	<div class="container-fluid a_article" style="margin-left:30px;margin-right:30px;">
-		<div class="a_title "><h2>PRODUCT LIST</h2></div><br /><br />
+	<div class="container-fluid a_article">
+		<div class="a_title text-center"><h2>PRODUCT LIST</h2></div><br /><br />
 		
 		<div class="row text-center">
 			<div class="col-md-1"><span>ID</span></div>

@@ -19,20 +19,23 @@
 <body>
 	<div class="container">
 		<div class="intro_img">
-			<img src="/resources/dist/img/happy.jpg" class="img-responsive img-rounded" alt="happy" style="border:1px solid #aaaaaa;width:50%;height:50%"/>
+			<img src="/resources/dist/img/happy.jpg" class="img-responsive img-rounded" alt="happy" style="border:1px solid #aaaaaa;width:30%;height:30%"/>
 		</div>
 		<div class="text-center u_title">
-			<h2 class="text-center">WE ARE THE WORLD!</h2>
+			<h2>WE ARE THE WORLD!</h2>
 		</div>
-		<div class="u_article">
-			<p style="font-size:125%">
-	We are the world coffee publisher.
-	'You know coffee?'
-	My father asked me in my childhood days.
-	Always thinking 'what is coffee?'
-	I always respect these aspact of coffee.
-			</p>
-			<p style="font-size:150%">Welcome our fantasy.</p>
+		<div class="row u_article hor_center" >
+			<h4 class="col-md-12" style="font-size:125%;width:40em" >
+				We are the world coffee publisher.
+				'You know coffee?'
+				My father asked me in my childhood days.
+				Always thinking 'what is coffee?'
+				I always respect these aspact of coffee.
+			</h4>
+		</div>
+		<div class="row" style="margin:2em">
+				<p style="font-size:150%" class="text-center">Welcome Friend</p>
+			</div>
 		</div>
 	</div>
 </body>

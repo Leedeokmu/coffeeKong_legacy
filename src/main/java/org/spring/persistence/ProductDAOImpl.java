@@ -66,7 +66,6 @@ public class ProductDAOImpl implements ProductDAO {
 		map.put("pid", pid);
 		map.put("cri", cri);
 		return sql.selectList(namespace+".listReview", map);
-		
 	}
 
 	@Override

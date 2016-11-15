@@ -17,8 +17,8 @@ $(document).ready(function(){
 	            email: "Enter Right Email Form",
 	            remote: "Duplicated. Enter Another Email"
 	        },
-	        u_fname:{ required:"Check Your Fastname" },
-	        u_lname:{ required:"Check Your Lastname" },
+	        u_fname:{ required:"Check Your First Name" },
+	        u_lname:{ required:"Check Your Last Name" },
 	        u_pwd: { required: "Check Your Password" },
 	        pwdconfirm: { equalTo: "Password Not Matched" }
 	    },
@@ -26,7 +26,6 @@ $(document).ready(function(){
 	    	event.preventDefault();
 			
 	    	var form = $('form[name="register"]');
-	    	var data = form_to_json(form);
 	    	
 	    	$.ajax({
 	    		type:'POST',
@@ -70,7 +69,6 @@ $(document).ready(function(){
 	    	event.preventDefault();
 			
 	    	var form = $('form[name="login"]');
-	    	var data = form_to_json(form);
 	    	
 	    	$.ajax({
 	    		type:'POST',
@@ -298,38 +296,6 @@ $(document).ready(function(){
 	    	form.submit();
 	    }
 	});
-	
-	
-	$('form[name="uresign"]').submit(function(event){
-		event.preventDefault();
-		
-		var form = $('form[name="uresign"]');
-    	var data = form_to_json(this);
-    	
-    	$.ajax({
-    		type:'POST',
-    		url: '/user/resign',
-    		headers : {
-    			"Content-Type" : "application/json",
-    			"X-HTTP-Method-Override" : "POST"
-    		},
-    		dateType: 'json',
-    		data: JSON.stringify(data),
-    		success : function(result){
-    			if(result == "Success"){
-    				window.location.replace('/user/urcompl');
-    			}else if(result == "Fail"){
-    				$('.errmsg').html('<span>PASSWORD IS INCORRECT.</span>').fadeIn('slow').fadeOut('slow');
-    			}
-    		}
-    		,
-    	 	error: function(request,status,error){
-    	        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-    	    }
-    	});
-	});
-	
-	
 });
 
 
