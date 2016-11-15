@@ -56,7 +56,9 @@
 	<c:when test="${content.equals('urcompl')}">
 		<c:set var="content" value="./user/uResignComplete.jsp"/>
 	</c:when>
-	
+	<c:otherwise>
+		<c:set var="content" value="./content.jsp"/>
+	</c:otherwise>
 </c:choose>
 <body>
 	<div>

@@ -11,8 +11,12 @@
 <body>
 	<div>
 		<div class="text-center u_article alert alert-success">
-			<h3>WELCOME TO COFFEEKONG!</h3>
+			<h2>WELCOME TO COFFEEKONG!</h2>
 		</div>
+		<div class="text-center u_article h_nav">
+			<h3>Click <a href="/product/blends">HERE</a> to Browse Our Products.</h3>
+		</div>
+		
 	</div>
 </body>
 </html>

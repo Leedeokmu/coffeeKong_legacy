@@ -49,6 +49,9 @@
 			<beans:ref bean="loginInterceptor"/>
 		</interceptor>
 		<interceptor>
+			<mapping path="/user/resign"/>
+			<mapping path="/user/order/*"/>
+			<mapping path="/user/update"/>
 			<mapping path="/order"/>
 			<mapping path="/product/review/post"/>
 			<beans:ref bean="authInterceptor"/>

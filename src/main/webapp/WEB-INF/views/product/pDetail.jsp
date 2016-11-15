@@ -80,7 +80,7 @@
 				</c:choose>
 				<br />
 				<div class="row hor_center h_nav">
-					<a href="#" id="buy"><h3>TO CART</h3></a>
+					<a href="#" id="buy"><i class="h3">TO CART</i></a>
 				</div>
 			</div>
 		</div>
@@ -95,7 +95,7 @@
 		<div class="u_article">
 		<c:choose>
 		<c:when test="${login == null }">
-			<div class="row h_nav">
+			<div class="row h_nav" style="margin-left:2em">
 				<span>Please <a href="#loginModal" data-toggle="modal">login</a> to review this product.</span>
 			</div>
 		</c:when>

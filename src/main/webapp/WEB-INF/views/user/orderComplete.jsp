@@ -15,8 +15,8 @@
 		<div class="text-center">
 			<h2>ORDER COMPLETE</h2>
 			<div class="btn-group hor_center">
-				<a href="/uoListCtrl" class="btn btn-default">TO MY ORDER</a>
-				<a href="indexCtrl" class="btn btn-default">TO HOME</a>
+				<a href="/user/order/list" class="btn btn-default">TO MY ORDER</a>
+				<a href="/index" class="btn btn-default">TO HOME</a>
 			</div>
 		</div> 
 	</div>

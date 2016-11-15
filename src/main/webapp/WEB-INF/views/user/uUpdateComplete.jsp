@@ -14,7 +14,7 @@
 	<div id="container">
 		<div>
 			<div class="text-center u_article alert alert-success">
-				<p><h3>Update Completed!</h3></p>
+				<h3>Update Completed!</h3>
 			</div>
 		</div>
 	</div>
