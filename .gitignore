@@ -1,1 +1,13 @@
-/target/
+# eclipse
+/.settings
+.classpath
+.project
+.springBeans
+
+# build
+/target
+/out
+
+# intellij
+/.idea
+controller.iml
